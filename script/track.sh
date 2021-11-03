@@ -28,4 +28,4 @@ echo 'launching...'
 python src/tracking.py  --config experiments/siamrpn_alex_dwxcorr/config.yaml    --snapshot experiments/siamrpn_alex_dwxcorr/model.pth
 
 
-echo 'Demo terminated'
+echo 'Track terminated'
