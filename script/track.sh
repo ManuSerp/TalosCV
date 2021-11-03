@@ -8,7 +8,7 @@ echo 'Configuring python path...'
 
 #adding pysot to python path
 
-export PYTHONPATH=/home/manu/Documents/Projet/RECH/pysot:$PYTHONPATH
+export PYTHONPATH=/home/manu/Documents/Projet/RECH/TalosCV:$PYTHONPATH
 echo 'done'
 echo 'Loading models...'
 
