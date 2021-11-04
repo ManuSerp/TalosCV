@@ -10,10 +10,18 @@ import cv2
 import torch
 import numpy as np
 from glob import glob
+import importlib
 
 from pysot.core.config import cfg
 from pysot.models.model_builder import ModelBuilder
 from pysot.tracker.tracker_builder import build_tracker
+
+
+
+
+from cam.coordKCC import angleCenter
+
+
 
 torch.set_num_threads(1)
 
@@ -25,13 +33,6 @@ parser.add_argument('--video_name', default='', type=str,
 args = parser.parse_args()
 
 
-def center(bbox):
-    return [bbox[0]+bbox[2]//2,bbox[1]+bbox[3]//2]    
-
-
-def angleCenter(bbox,cam_angle=57,fen_size=640):
-    centre=center(bbox)
-    return (centre[0]*2*cam_angle/fen_size)-cam_angle
 
 
 def get_frames(video_name):
@@ -64,7 +65,7 @@ def get_frames(video_name):
             yield frame
 
 
-def main():
+def track():
     # load config
     cfg.merge_from_file(args.config)
     cfg.CUDA = torch.cuda.is_available() and cfg.CUDA
@@ -114,12 +115,20 @@ def main():
                               (bbox[0]+bbox[2], bbox[1]+bbox[3]),
                               (0, 255, 0), 3)
 
-                print(angleCenter(bbox))              
+                #### affichage des angles
+                angle=angleCenter(bbox)
+                font = cv2.FONT_HERSHEY_SIMPLEX  
+                cv2.putText(frame, 'HZ:' +str(int(angle[0]))+'deg VT:'+str(int(angle[1]))+'deg Dist: ??', (10, 40),  font, 1,    (0, 255, 0),                  
+                  2, 
+                 cv2.LINE_4)
+
+                 ### fin angles
+
             cv2.imshow(video_name, frame)
             cv2.waitKey(40)
 
 
 if __name__ == '__main__':
-    main()
+    track()
 
 

@@ -7,9 +7,20 @@ echo 'Launching tracking siamese network...'
 echo 'Configuring python path...'
 
 #adding pysot to python path
-
+echo ' adding pysot...'
 export PYTHONPATH=/home/manu/Documents/Projet/RECH/TalosCV:$PYTHONPATH
+
+
+
 echo 'done'
+
+echo 'adding cam...'
+
+export PYTHONPATH=/home/manu/Documents/Projet/RECH/TalosCV/src:$PYTHONPATH
+
+echo 'done'
+echo ' path done'
+
 echo 'Loading models...'
 
 
