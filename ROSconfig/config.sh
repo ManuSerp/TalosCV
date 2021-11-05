@@ -3,4 +3,7 @@ echo 'ENVIRONEMENT SETUP'
 echo 'Adding ROS to PATH var'
 source /opt/ros/noetic/setup.bash
 printenv | grep ROS
+echo 'init rosdep'
+rosdep init
+rosdep update
 echo '--------------------------'
