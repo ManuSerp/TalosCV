@@ -21,11 +21,10 @@ This document contains detailed instructions for installing dependencies for PyS
 * tqdm
 * OpenCV
 
-```
-
-
+### Build extensions
 ```
 python setup.py build_ext --inplace
+```
 
 
 
@@ -33,5 +32,7 @@ python setup.py build_ext --inplace
 
 
 ##Launch:
+```
 Start roscore
 Start openni2_launch
+```
