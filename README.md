@@ -26,6 +26,14 @@ This document contains detailed instructions for installing dependencies for PyS
 python setup.py build_ext --inplace
 ```
 
+### ROS
+
+#### Requirements
+
+ROS 1
+
+openni2
+
 
 
 
