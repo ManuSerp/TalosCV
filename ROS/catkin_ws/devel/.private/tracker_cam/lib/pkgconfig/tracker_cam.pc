@@ -1,0 +1,8 @@
+prefix=/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/.private/tracker_cam
+
+Name: tracker_cam
+Description: Description of tracker_cam
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
