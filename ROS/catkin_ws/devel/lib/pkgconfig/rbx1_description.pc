@@ -1,0 +1,1 @@
+/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/.private/rbx1_description/lib/pkgconfig/rbx1_description.pc

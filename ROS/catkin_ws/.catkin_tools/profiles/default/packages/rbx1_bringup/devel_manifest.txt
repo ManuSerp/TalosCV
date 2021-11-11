@@ -1,0 +1,5 @@
+rbx1/rbx1_bringup
+/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/.private/rbx1_bringup/cmake.lock /home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/./cmake.lock
+/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/.private/rbx1_bringup/share/rbx1_bringup/cmake/rbx1_bringupConfig.cmake /home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/share/rbx1_bringup/cmake/rbx1_bringupConfig.cmake
+/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/.private/rbx1_bringup/share/rbx1_bringup/cmake/rbx1_bringupConfig-version.cmake /home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/share/rbx1_bringup/cmake/rbx1_bringupConfig-version.cmake
+/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/.private/rbx1_bringup/lib/pkgconfig/rbx1_bringup.pc /home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/lib/pkgconfig/rbx1_bringup.pc

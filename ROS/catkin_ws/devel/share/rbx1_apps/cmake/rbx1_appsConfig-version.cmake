@@ -1,0 +1,1 @@
+/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/.private/rbx1_apps/share/rbx1_apps/cmake/rbx1_appsConfig-version.cmake
