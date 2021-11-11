@@ -214,3 +214,9 @@ catkin_install_python(PROGRAMS scripts/track.py
 catkin_install_python(PROGRAMS scripts/cvBridgeDemo.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
+
+
+catkin_install_python(PROGRAMS scripts/test.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
