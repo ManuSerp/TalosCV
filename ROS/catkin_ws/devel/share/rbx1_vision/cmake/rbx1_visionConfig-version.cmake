@@ -1,0 +1,1 @@
+/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/.private/rbx1_vision/share/rbx1_vision/cmake/rbx1_visionConfig-version.cmake

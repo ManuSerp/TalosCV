@@ -1,0 +1,5 @@
+rbx1/rbx1_speech
+/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/.private/rbx1_speech/cmake.lock /home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/./cmake.lock
+/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/.private/rbx1_speech/share/rbx1_speech/cmake/rbx1_speechConfig.cmake /home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/share/rbx1_speech/cmake/rbx1_speechConfig.cmake
+/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/.private/rbx1_speech/share/rbx1_speech/cmake/rbx1_speechConfig-version.cmake /home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/share/rbx1_speech/cmake/rbx1_speechConfig-version.cmake
+/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/.private/rbx1_speech/lib/pkgconfig/rbx1_speech.pc /home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/lib/pkgconfig/rbx1_speech.pc
