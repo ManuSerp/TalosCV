@@ -80,6 +80,7 @@ class image_converter:
       print(e)
 
 
+
     if self.first_frame:
             try:
                 init_rect = cv2.selectROI('xtion_feed', frame, False, False)
@@ -134,6 +135,6 @@ def main(args):
 
 
 if __name__ == '__main__':
-    main()
+    main(args)
 
 
