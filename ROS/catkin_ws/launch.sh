@@ -28,6 +28,16 @@ then
 
 fi    
 
+if [ $varname =  3 ] 
+then
+    
+    echo 'launching tracking xtion'
+    rosrun tracker_cam tracking_from_cam.py --config src/tracker_cam/experiments/siamrpn_alex_dwxcorr/config.yaml --snapshot src/tracker_cam/experiments/siamrpn_alex_dwxcorr/model.pth
+
+    
+
+fi  
+
 
 echo '--------------------------------------------------------------------------------'
 echo 'oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo'
