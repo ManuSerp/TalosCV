@@ -65,12 +65,11 @@ class image_converter:
     # build tracker
     self.tracker = build_tracker(self.model)
 
-
+    self.run=0
     self.first_frame=True 
     self.bridge = CvBridge()
     self.image_sub = rospy.Subscriber("/camera/rgb/image_raw",Image,self.callback)
 
-    cv2.namedWindow('xtion_feed', cv2.WND_PROP_FULLSCREEN)  
 
 
   def callback(self,data):
@@ -82,12 +81,22 @@ class image_converter:
 
 
     if self.first_frame:
-            try:
-                init_rect = cv2.selectROI('xtion_feed', frame, False, False)
-            except:
+            if self.run >3:
+
+              try:
+                print('first_frameeee')
+                init_rect = cv2.selectROI('xtion_feed_roi', frame, False, False)
+                cv2.destroyAllWindows()
+                self.first_frame = False
+              except:
                 exit()
-            self.tracker.init(frame, init_rect)
-            self.first_frame = False
+            
+              self.tracker.init(frame, init_rect)
+            else:
+              print(self.run)
+              self.run=self.run+1;  
+
+
     else:
             outputs = self.tracker.track(frame)
             if 'polygon' in outputs:
