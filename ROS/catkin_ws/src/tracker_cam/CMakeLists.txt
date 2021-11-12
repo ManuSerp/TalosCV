@@ -205,11 +205,9 @@ include_directories(
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
 
+catkin_python_setup()
 
 
-catkin_install_python(PROGRAMS scripts/track.py
-  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-)
 
 catkin_install_python(PROGRAMS scripts/cvBridgeDemo.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -219,4 +217,19 @@ catkin_install_python(PROGRAMS scripts/cvBridgeDemo.py
 catkin_install_python(PROGRAMS scripts/test.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
+
+catkin_install_python(PROGRAMS scripts/tracking_from_cam.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
+
+catkin_install_python(PROGRAMS scripts/tracking.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
+
+
+
+
+
 

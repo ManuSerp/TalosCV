@@ -11,5 +11,6 @@ export CMAKE_PREFIX_PATH="/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/
 export LD_LIBRARY_PATH="/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/.private/tracker_cam/lib:$LD_LIBRARY_PATH"
 export PKG_CONFIG_PATH="/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/.private/tracker_cam/lib/pkgconfig:$PKG_CONFIG_PATH"
 export PWD='/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/build/tracker_cam'
+export PYTHONPATH="/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/.private/tracker_cam/lib/python3/dist-packages:$PYTHONPATH"
 export ROSLISP_PACKAGE_DIRECTORIES="/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/.private/tracker_cam/share/common-lisp:$ROSLISP_PACKAGE_DIRECTORIES"
 export ROS_PACKAGE_PATH="/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/src/tracker_cam:$ROS_PACKAGE_PATH"
