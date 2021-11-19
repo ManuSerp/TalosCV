@@ -36,7 +36,7 @@ class image_converter:
     self.bridge = CvBridge()
     self.image_sub = message_filters.Subscriber("/camera/rgb/image_raw",Image)
     #self.dist_sub=message_filters.Subscriber("/camera/depth_registered/points",pc2.PointCloud2)
-    self.dist_sub=message_filters.Subscriber("/camera/depth_registered/image_raw",Image)
+    self.dist_sub=message_filters.Subscriber("/camera/depth/image",Image)
 
     
     self.ts = message_filters.ApproximateTimeSynchronizer([self.image_sub, self.dist_sub], 10, 0.1, allow_headerless=True)
@@ -47,7 +47,7 @@ class image_converter:
         cv_image = self.bridge.imgmsg_to_cv2(data1, "bgr8")
         
         depth_image = self.bridge.imgmsg_to_cv2(data2) #inspect the matrix
-        print(depth_image)
+        #print(depth_image)
         self.first=True
 
     except CvBridgeError as e:
