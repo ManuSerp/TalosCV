@@ -38,6 +38,16 @@ then
 
 fi  
 
+if [ $varname =  4 ] 
+then
+    
+    echo 'launching distance_printer'
+    rosrun tracker_cam distance_printer.py
+
+    
+
+fi  
+
 
 echo '--------------------------------------------------------------------------------'
 echo 'oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo'
