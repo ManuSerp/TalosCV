@@ -40,7 +40,7 @@ fi
 
 if [ $varname =  4 ] 
 then
-    
+    catkin build
     echo 'launching distance_printer'
     rosrun tracker_cam distance_printer.py
 
