@@ -31,7 +31,7 @@ def list_locater(x,y,L):
 class image_converter:
 
   def __init__(self):
-    self.first =True
+    self.first =False
 
     self.bridge = CvBridge()
     self.image_sub = message_filters.Subscriber("/camera/rgb/image_raw",Image)
@@ -45,12 +45,17 @@ class image_converter:
   def callback(self,data1,data2):  
     try:
         cv_image = self.bridge.imgmsg_to_cv2(data1, "bgr8")
-        depth_image = self.bridge.imgmsg_to_cv2(data2, "mono8")
+        
+        depth_image = self.bridge.imgmsg_to_cv2(data2) #inspect the matrix
+        print(depth_image)
+        self.first=True
 
     except CvBridgeError as e:
       print(e)
 
     (rows,cols,channels) = cv_image.shape
+    
+
     #gen = pc2.read_points_list(data2,skip_nans=True,field_names=("x", "y", "z")) 
     #print(list_locater(0,0,gen))
     
@@ -60,13 +65,11 @@ class image_converter:
     cv2.putText(cv_image, 'none', (10, 40),  font, 1,    (0, 255, 0),                  
                   2, 
                  cv2.LINE_4)
-    font = cv2.FONT_HERSHEY_SIMPLEX  
-    cv2.putText(depth_image, 'none', (10, 40),  font, 1,    (0, 255, 0),                  
-                  2, 
-                 cv2.LINE_4)             
+               
 
-    cv2.imshow("Image window", cv_image)
-    cv2.imshow("Image window", depth_image)
+    # cv2.imshow("Image window", cv_image)
+    if self.first==True:
+      cv2.imshow("Image window", depth_image)
 
     cv2.waitKey(3)
 
