@@ -86,6 +86,7 @@ class image_converter:
               try:
                 print('first_frameeee')
                 init_rect = cv2.selectROI('xtion_feed_roi', frame, False, False)
+                cv2.destroyAllWindows()
                 self.first_frame = False
               except:
                 exit()
