@@ -39,7 +39,7 @@ class image_converter:
     self.dist_sub=message_filters.Subscriber("/camera/depth/image",Image)
 
     
-    self.ts = message_filters.ApproximateTimeSynchronizer([self.image_sub, self.dist_sub], 10, 0.1, allow_headerless=True)
+    self.ts = message_filters.ApproximateTimeSynchronizer([self.image_sub, self.dist_sub], 1040, 0.5, allow_headerless=True)
     self.ts.registerCallback(self.callback)
 
   def callback(self,data1,data2):  
