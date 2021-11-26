@@ -5,6 +5,10 @@ echo 'ROS TRACKING SCRIPT LAUNCHER'
 echo '1 - Tracking webcam'
 echo '2 - Xtion feed'
 echo '3 - Tracking webcam'
+echo '4 - depth webcam'
+echo ' cmp for catkin'
+
+
 echo '$?'
 read varname
 
@@ -48,9 +52,17 @@ then
 
 fi  
 
+if [ $varname =  'cmp' ] 
+then
+    catkin build
+  
+    
+
+fi  
+
 
 echo '--------------------------------------------------------------------------------'
-echo 'oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo'
+echo '--------------------------------------------------------------------------------'
 echo '--------------------------------------------------------------------------------'
 
 
