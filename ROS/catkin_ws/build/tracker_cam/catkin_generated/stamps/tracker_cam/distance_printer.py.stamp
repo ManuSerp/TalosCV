@@ -31,6 +31,7 @@ def list_locater(x,y,L):
 class image_converter:
 
   def __init__(self):
+    print('ini')
     self.first =False
 
     self.bridge = CvBridge()
@@ -39,10 +40,11 @@ class image_converter:
     self.dist_sub=message_filters.Subscriber("/camera/depth/image",Image)
 
     
-    self.ts = message_filters.ApproximateTimeSynchronizer([self.image_sub, self.dist_sub], 100, 0.5, allow_headerless=True)
+    self.ts = message_filters.ApproximateTimeSynchronizer([self.image_sub, self.dist_sub], 10, 0.5, allow_headerless=True)
     self.ts.registerCallback(self.callback)
 
   def callback(self,data1,data2):  
+    print('callback')
     try:
         cv_image = self.bridge.imgmsg_to_cv2(data1, "bgr8")
         
@@ -70,6 +72,8 @@ class image_converter:
     # cv2.imshow("Image window", cv_image)
     if self.first==True:
       cv2.imshow("Image window", depth_image)
+      cv2.imshow("Image wazdazindow", cv_image)
+
 
     cv2.waitKey(3)
 
@@ -78,7 +82,9 @@ def main(args):
   rospy.init_node('image_converter', anonymous=True)
 
   ic = image_converter()
+  print('debug')
   try:
+    print('debug')
     rospy.spin()
   except KeyboardInterrupt:
     print("Shutting down")
