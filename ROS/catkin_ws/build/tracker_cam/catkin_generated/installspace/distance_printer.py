@@ -3,6 +3,8 @@ from __future__ import print_function
 
 import roslib
 roslib.load_manifest('tracker_cam')
+from tracker_cam.msg import center_Array
+
 import sys
 import rospy
 import message_filters
@@ -35,18 +37,16 @@ class image_converter:
     self.first =False
 
     self.bridge = CvBridge()
-    self.image_sub = message_filters.Subscriber("/camera/rgb/image_raw",Image)
-    #self.dist_sub=message_filters.Subscriber("/camera/depth_registered/points",pc2.PointCloud2)
+    self.center = message_filters.Subscriber("trcCenter",center_Array)
     self.dist_sub=message_filters.Subscriber("/camera/depth/image",Image)
 
     
-    self.ts = message_filters.ApproximateTimeSynchronizer([self.image_sub, self.dist_sub], 10, 0.5, allow_headerless=True)
+    self.ts = message_filters.ApproximateTimeSynchronizer([self.center, self.dist_sub], 10, 0.5, allow_headerless=True)
     self.ts.registerCallback(self.callback)
 
   def callback(self,data1,data2):  
     print('callback')
     try:
-        cv_image = self.bridge.imgmsg_to_cv2(data1, "bgr8")
         
         depth_image = self.bridge.imgmsg_to_cv2(data2) #inspect the matrix
         #print(depth_image)
@@ -55,7 +55,7 @@ class image_converter:
     except CvBridgeError as e:
       print(e)
 
-    (rows,cols,channels) = cv_image.shape
+  
     
 
     #gen = pc2.read_points_list(data2,skip_nans=True,field_names=("x", "y", "z")) 
@@ -63,16 +63,12 @@ class image_converter:
     
     
 
-    font = cv2.FONT_HERSHEY_SIMPLEX  
-    cv2.putText(cv_image, 'none', (10, 40),  font, 1,    (0, 255, 0),                  
-                  2, 
-                 cv2.LINE_4)
-               
+  
 
     # cv2.imshow("Image window", cv_image)
     if self.first==True:
       cv2.imshow("Image window", depth_image)
-      cv2.imshow("Image wazdazindow", cv_image)
+      print(data1)
 
 
     cv2.waitKey(3)

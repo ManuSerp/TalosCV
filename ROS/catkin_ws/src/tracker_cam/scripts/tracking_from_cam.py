@@ -9,6 +9,7 @@ from __future__ import print_function
 
 import roslib
 roslib.load_manifest('tracker_cam')
+from tracker_cam.msg import center_Array
 import sys
 import rospy
 import cv2
@@ -69,7 +70,7 @@ class image_converter:
     self.first_frame=True 
     self.bridge = CvBridge()
     self.image_sub = rospy.Subscriber("/camera/rgb/image_raw",Image,self.callback)
-    self.pub = rospy.Publisher("trcCenter",list,queue_size=10)
+    self.pub = rospy.Publisher("trcCenter",center_Array,queue_size=10)
 
 
 
@@ -119,6 +120,7 @@ class image_converter:
 
                 #### affichage des angles
                 angle=angleCenter(bbox)
+                print(angle[2])
                 self.pub.publish(angle[2])
                 font = cv2.FONT_HERSHEY_SIMPLEX  
                 cv2.putText(frame, 'HZ:' +str(int(angle[0]))+'deg VT:'+str(int(angle[1]))+'deg Dist: ??', (10, 40),  font, 1,    (0, 255, 0),                  
