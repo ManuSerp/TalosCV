@@ -4,4 +4,4 @@ def center(bbox):
 
 def angleCenter(bbox,cam_angle_hz=57,cam_angle_vt=57,fen_size=(640,480)):
     centre=center(bbox)
-    return [(centre[0]*2*cam_angle_hz/fen_size[0])-cam_angle_hz,-(centre[1]*2*cam_angle_vt/fen_size[1])+cam_angle_vt]
+    return [(centre[0]*2*cam_angle_hz/fen_size[0])-cam_angle_hz,-(centre[1]*2*cam_angle_vt/fen_size[1])+cam_angle_vt,center]

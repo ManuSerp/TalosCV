@@ -1,0 +1,13 @@
+[31m[1mCMake Error[0m at /home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/build/tracker_cam/cmake/tracker_cam-genmsg.cmake:3 (message):
+  Could not find messages which
+  '/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/src/tracker_cam/msg/center_Array.msg'
+  depends on.  Did you forget to specify generate_messages(DEPENDENCIES ...)?
+
+  Cannot locate message [unitn16] in package [tracker_cam] with paths
+  [['/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/src/tracker_cam/msg']]
+[36mCall Stack (most recent call first):[0m
+  /opt/ros/noetic/share/genmsg/cmake/genmsg-extras.cmake:307 (include)
+  CMakeLists.txt:72 (generate_messages)
+
+
+make: *** [Makefile:530: cmake_check_build_system] Error 1
