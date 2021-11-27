@@ -52,6 +52,16 @@ then
 
 fi  
 
+if [ $varname =  5 ] 
+then
+    catkin build
+    echo 't3'
+    rosrun tracker_cam test3.py
+
+    
+
+fi  
+
 if [ $varname =  'cmp' ] 
 then
     catkin build
