@@ -9,13 +9,11 @@ echo '4 - depth webcam'
 echo ' cmp for catkin'
 
 
-echo '$?'
-read varname
 
 
 
 
-if [ $varname = 1 ]
+if [ $1 = 1 ]
 then
     
     echo ' launching Tracking webcam'
@@ -23,7 +21,7 @@ then
     
 fi
 
-if [ $varname =  2 ] 
+if [ $1 =  2 ] 
 then
     
     echo 'launching Xtion feed'
@@ -32,7 +30,7 @@ then
 
 fi    
 
-if [ $varname =  3 ] 
+if [ $1 =  3 ] 
 then
     
     echo 'launching tracking xtion'
@@ -42,7 +40,7 @@ then
 
 fi  
 
-if [ $varname =  4 ] 
+if [ $1 =  4 ] 
 then
     catkin build
     echo 'launching distance_printer'
@@ -52,7 +50,7 @@ then
 
 fi  
 
-if [ $varname =  5 ] 
+if [ $1 =  5 ] 
 then
     catkin build
     echo 't3'
@@ -62,7 +60,7 @@ then
 
 fi  
 
-if [ $varname =  'cmp' ] 
+if [ $1 =  'cmp' ] 
 then
     catkin build
   
