@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 from __future__ import print_function
+from cam.coordKCC import mapper
+
 
 import roslib
 roslib.load_manifest('tracker_cam')
@@ -68,7 +70,13 @@ class image_converter:
     # cv2.imshow("Image window", cv_image)
     if self.first==True:
       cv2.imshow("Image window", depth_image)
-      print(data1)
+      
+
+      dst=depth_image[data1.data[1]][data1.data[0]]
+      print(dst)
+
+
+      
 
 
     cv2.waitKey(3)
