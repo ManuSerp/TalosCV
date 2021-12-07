@@ -45,6 +45,10 @@ Start roscore
 Start openni2_launch
 ```
 
+```
+docker start `docker ps -q -l` && docker attach `docker ps -q -l`
+```
+
 
 # tiago_controller
 
