@@ -1,0 +1,14 @@
+<launch>
+  <!-- Load joint controller configurations from YAML file to parameter server -->
+  <rosparam command="load" file="$(find tiago_controller)/config/tiago_control.yaml" />
+    <!-- <param name="robot_description" command="$(find xacro)/xacro '$(find tiago_description)/robots/tiago.xacro'" /> -->
+
+
+  <!-- unload existing controllers -->
+  <node name="controller_manager_stopper" pkg="controller_manager" type="unspawner" respawn="false"
+    output="screen" args="torso_controller head_controller arm_controller" />-->
+
+  <!-- load the controllers -->
+  <node name="joint_controller" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" args="tiago_controller" />
+</launch>

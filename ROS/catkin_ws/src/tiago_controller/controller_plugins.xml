@@ -1,0 +1,11 @@
+
+<library path="lib/libtiago_joint_controller">
+
+  <class name="tiago_controller/joint_controller" type="tiago_controller::JointController" base_class_type="controller_interface::ControllerBase">
+    <description>
+      Position controller instantiating behavior from inria_wbc
+    </description>
+  </class>
+  
+</library>
+
