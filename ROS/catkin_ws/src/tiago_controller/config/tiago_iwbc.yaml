@@ -1,0 +1,5 @@
+# will be reparsed when calling the restart service
+# path relative to base_directory
+iwbc_controller: etc/pos_tracker.yaml
+iwbc_behavior: etc/move.yaml
+init_duration: 2

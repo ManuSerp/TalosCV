@@ -1,0 +1,24 @@
+tiago_controller:
+  type: tiago_controller/joint_controller
+  yaml_inria_wbc: config/tiago_iwbc.yaml
+  base_directory: /home/pal/deployed_ws/src/tiago_controller/
+
+/gazebo_ros_control:   
+  pid_gains:
+    torso_lift_joint: {p: 10000.0, i: 0.01, d: 10.0}
+    arm_1_joint: {p: 10000.0, i: 0.01, d: 10.0}
+    arm_2_joint: {p: 10000.0, i: 0.01, d: 10.0}
+    arm_3_joint: {p: 10000.0, i: 0.01, d: 10.0}
+    arm_4_joint: {p: 10000.0, i: 0.01, d: 10.0}
+    arm_5_joint: {p: 10000.0, i: 0.01, d: 10.0}
+    arm_6_joint: {p: 10000.0, i: 0.01, d: 10.0}
+    arm_7_joint: {p: 10000.0, i: 0.01, d: 10.0}
+    gripper_left_finger_joint: {p: 10000.0, i: 0.01, d: 10.0}
+    gripper_right_finger_joint: {p: 10000.0, i: 0.01, d: 10.0}
+    head_1_joint: {p: 10000.0, i: 0.01, d: 10.0}
+    head_2_joint: {p: 10000.0, i: 0.01, d: 10.0}
+    wheel_left_joint: {p: 10000.0, i: 0.01, d: 10.0}
+    wheel_right_joint: {p: 10000.0, i: 0.01, d: 10.0}
+
+#namespace: /tiago
+
