@@ -12,6 +12,7 @@ roslib.load_manifest('tracker_cam')
 from tracker_cam.msg import center_Array
 import sys
 import rospy
+import time
 import cv2
 from std_msgs.msg import String
 from sensor_msgs.msg import Image
@@ -100,6 +101,7 @@ class image_converter:
 
 
     else:
+            s=time.time()
             outputs = self.tracker.track(frame)
             if 'polygon' in outputs:
 
@@ -128,7 +130,8 @@ class image_converter:
                  cv2.LINE_4)
 
                  ### fin angles
-
+            e=time.time()
+            print(e-s)
             cv2.imshow('xtion_feed', frame)
             cv2.waitKey(40)
 

@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 
 import os
 import argparse
-
+import time
 import cv2
 import torch
 import numpy as np
@@ -69,6 +69,7 @@ def track():
     # load config
     cfg.merge_from_file(args.config)
     cfg.CUDA = torch.cuda.is_available() and cfg.CUDA
+
     device = torch.device('cuda' if cfg.CUDA else 'cpu')
 
     # create model
@@ -89,6 +90,7 @@ def track():
         video_name = 'webcam'
     cv2.namedWindow(video_name, cv2.WND_PROP_FULLSCREEN)
     for frame in get_frames(args.video_name):
+        s=time.time()
         if first_frame:
             try:
                 init_rect = cv2.selectROI(video_name, frame, False, False)
@@ -123,7 +125,9 @@ def track():
                  cv2.LINE_4)
 
                  ### fin angles
-
+            e=time.time()
+            print(e-s)
+            print(cfg.CUDA)
             cv2.imshow(video_name, frame)
             cv2.waitKey(40)
 

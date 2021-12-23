@@ -1,0 +1,7 @@
+[31m[1mCMake Error[0m at /home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/src/tiago_controller/CMakeLists.txt:44 (add_library):
+  Target "tiago_joint_controller" links to target "inria_wbc::inria_wbc" but
+  the target was not found.  Perhaps a find_package() call is missing for an
+  IMPORTED target, or an ALIAS target is missing?
+
+
+CMake Generate step failed.  Build files cannot be regenerated correctly.

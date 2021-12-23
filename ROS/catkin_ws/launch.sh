@@ -4,7 +4,7 @@ source ./devel/setup.bash
 echo 'ROS TRACKING SCRIPT LAUNCHER'
 echo '1 - Tracking webcam'
 echo '2 - Xtion feed'
-echo '3 - Tracking webcam'
+echo '3 - Tracking xtion'
 echo '4 - depth webcam'
 echo ' cmp for catkin'
 
@@ -55,6 +55,16 @@ then
     catkin build
     echo 't3'
     rosrun tracker_cam test3.py
+
+    
+
+fi  
+
+if [ $1 =  6 ] 
+then
+    
+    echo 'launching tracking xtion'
+    rosrun tracker_cam tracking_from_cam.py --config src/tracker_cam/experiments/siamrpn_alex_dwxcorr_otb/config.yaml --snapshot src/tracker_cam/experiments/siamrpn_alex_dwxcorr_otb/model.pth
 
     
 

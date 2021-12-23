@@ -1,0 +1,20 @@
+Not searching for unused variables given on the command line.
+[31m[1mCMake Error[0m at /home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/src/tiago_controller/CMakeLists.txt:4 (find_package):
+  By not providing "Findinria_wbc.cmake" in CMAKE_MODULE_PATH this project
+  has asked CMake to find a package configuration file provided by
+  "inria_wbc", but CMake did not find one.
+
+  Could not find a package configuration file provided by "inria_wbc" with
+  any of the following names:
+
+    inria_wbcConfig.cmake
+    inria_wbc-config.cmake
+
+  Add the installation prefix of "inria_wbc" to CMAKE_PREFIX_PATH or set
+  "inria_wbc_DIR" to a directory containing one of the above files.  If
+  "inria_wbc" provides a separate development package or SDK, be sure it has
+  been installed.
+
+
+[36m--[0m Configuring incomplete, errors occurred!
+See also "/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/build/tiago_controller/CMakeFiles/CMakeOutput.log".
