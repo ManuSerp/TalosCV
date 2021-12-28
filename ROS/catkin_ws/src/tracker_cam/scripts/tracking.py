@@ -66,6 +66,8 @@ def get_frames(video_name):
 
 
 def track():
+    cptt=0
+    flt = 1
     # load config
     cfg.merge_from_file(args.config)
     cfg.CUDA = torch.cuda.is_available() and cfg.CUDA
@@ -90,47 +92,54 @@ def track():
         video_name = 'webcam'
     cv2.namedWindow(video_name, cv2.WND_PROP_FULLSCREEN)
     for frame in get_frames(args.video_name):
-        s=time.time()
-        if first_frame:
-            try:
-                init_rect = cv2.selectROI(video_name, frame, False, False)
-            except:
-                exit()
-            tracker.init(frame, init_rect)
-            first_frame = False
-        else:
-            outputs = tracker.track(frame)
-            if 'polygon' in outputs:
+        if flt==cptt :
 
-                polygon = np.array(outputs['polygon']).astype(np.int32)
-                
-                cv2.polylines(frame, [polygon.reshape((-1, 1, 2))],
-                              True, (0, 255, 0), 3)
-                mask = ((outputs['mask'] > cfg.TRACK.MASK_THERSHOLD) * 255)
-                mask = mask.astype(np.uint8)
-                mask = np.stack([mask, mask*255, mask]).transpose(1, 2, 0)
-                frame = cv2.addWeighted(frame, 0.77, mask, 0.23, -1)
+            s=time.time()
+            if first_frame:
+                try:
+                    init_rect = cv2.selectROI(video_name, frame, False, False)
+                except:
+                    exit()
+                tracker.init(frame, init_rect)
+                first_frame = False
             else:
-                bbox = list(map(int, outputs['bbox']))
+                outputs = tracker.track(frame)
+                if 'polygon' in outputs:
+
+                    polygon = np.array(outputs['polygon']).astype(np.int32)
                 
-                cv2.rectangle(frame, (bbox[0], bbox[1]),
-                              (bbox[0]+bbox[2], bbox[1]+bbox[3]),
-                              (0, 255, 0), 3)
+                    cv2.polylines(frame, [polygon.reshape((-1, 1, 2))],
+                              True, (0, 255, 0), 3)
+                    mask = ((outputs['mask'] > cfg.TRACK.MASK_THERSHOLD) * 255)
+                    mask = mask.astype(np.uint8)
+                    mask = np.stack([mask, mask*255, mask]).transpose(1, 2, 0)
+                    frame = cv2.addWeighted(frame, 0.77, mask, 0.23, -1)
+                else:
+                    bbox = list(map(int, outputs['bbox']))
+                
+                    cv2.rectangle(frame, (bbox[0], bbox[1]),
+                                  (bbox[0]+bbox[2], bbox[1]+bbox[3]),
+                                  (0, 255, 0), 3)
 
                 #### affichage des angles
-                angle=angleCenter(bbox)
-                font = cv2.FONT_HERSHEY_SIMPLEX  
-                cv2.putText(frame, 'HZ:' +str(int(angle[0]))+'deg VT:'+str(int(angle[1]))+'deg Dist: ??', (10, 40),  font, 1,    (0, 255, 0),                  
+                    angle=angleCenter(bbox)
+                    font = cv2.FONT_HERSHEY_SIMPLEX  
+                    cv2.putText(frame, 'HZ:' +str(int(angle[0]))+'deg VT:'+str(int(angle[1]))+'deg Dist: ??', (10, 40),  font, 1,    (0, 255, 0),                  
                   2, 
                  cv2.LINE_4)
 
                  ### fin angles
-            e=time.time()
-            print(e-s)
-            print(cfg.CUDA)
-            cv2.imshow(video_name, frame)
-            cv2.waitKey(40)
-
+                e=time.time()
+                print(e-s)
+                cv2.imshow(video_name, frame)
+                cv2.waitKey(40)
+                cptt=0
+                if flt ==1:
+                    flt=2
+                else:
+                    flt=1    
+        else:
+            cptt=cptt+1
 
 if __name__ == '__main__':
     track()
