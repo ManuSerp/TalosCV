@@ -82,8 +82,17 @@ class image_converter:
       print(e)
 
 
-
-    self.compute_frame(frame)
+    cpt=0
+    flt=1
+    if cpt == flt:
+      self.compute_frame(frame)
+      cpt =0
+      if flt == 1:
+        flt =2
+      else:
+        flt = 1
+    else:
+      cpt=cpt+1      
 
     
   def compute_frame(self,frame):
