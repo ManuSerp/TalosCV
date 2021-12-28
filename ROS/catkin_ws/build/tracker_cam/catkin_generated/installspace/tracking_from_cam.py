@@ -72,6 +72,8 @@ class image_converter:
     self.bridge = CvBridge()
     self.image_sub = rospy.Subscriber("/camera/rgb/image_raw",Image,self.callback)
     self.pub = rospy.Publisher("trcCenter",center_Array,queue_size=10)
+    self.cpt=0
+    self.flt=1
 
 
 
@@ -82,7 +84,19 @@ class image_converter:
       print(e)
 
 
+    
+    if self.cpt == self.flt:
+      self.compute_frame(frame)
+      self.cpt =0
+      if self.flt == 1:
+        self.flt =2
+      else:
+        self.flt = 1
+    else:
+      self.cpt=cpt+1      
 
+    
+  def compute_frame(self,frame):
     if self.first_frame:
             if self.run >3:
 
@@ -134,8 +148,6 @@ class image_converter:
             print(e-s)
             cv2.imshow('xtion_feed', frame)
             cv2.waitKey(40)
-
-    
 
     
 

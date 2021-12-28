@@ -72,6 +72,8 @@ class image_converter:
     self.bridge = CvBridge()
     self.image_sub = rospy.Subscriber("/camera/rgb/image_raw",Image,self.callback)
     self.pub = rospy.Publisher("trcCenter",center_Array,queue_size=10)
+    self.cpt=0
+    self.flt=4
 
 
 
@@ -82,17 +84,12 @@ class image_converter:
       print(e)
 
 
-    cpt=0
-    flt=1
-    if cpt == flt:
+    
+    if self.cpt == self.flt:
       self.compute_frame(frame)
-      cpt =0
-      if flt == 1:
-        flt =2
-      else:
-        flt = 1
+      self.cpt=0
     else:
-      cpt=cpt+1      
+      self.cpt=self.cpt+1    
 
     
   def compute_frame(self,frame):
