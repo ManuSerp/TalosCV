@@ -83,57 +83,7 @@ class image_converter:
 
 
 
-    if self.first_frame:
-            if self.run >3:
-
-              try:
-                print('first_frameeee')
-                init_rect = cv2.selectROI('xtion_feed_roi', frame, False, False)
-                cv2.destroyAllWindows()
-                self.first_frame = False
-              except:
-                exit()
-            
-              self.tracker.init(frame, init_rect)
-            else:
-              print(self.run)
-              self.run=self.run+1;  
-
-
-    else:
-            s=time.time()
-            outputs = self.tracker.track(frame)
-            if 'polygon' in outputs:
-
-                polygon = np.array(outputs['polygon']).astype(np.int32)
-                
-                cv2.polylines(frame, [polygon.reshape((-1, 1, 2))],
-                              True, (0, 255, 0), 3)
-                mask = ((outputs['mask'] >  cfg.TRACK.MASK_THERSHOLD * 255))
-                mask = mask.astype(np.uint8)
-                mask = np.stack([mask, mask*255, mask]).transpose(1, 2, 0)
-                frame = cv2.addWeighted(frame, 0.77, mask, 0.23, -1)
-            else:
-                bbox = list(map(int, outputs['bbox']))
-                
-                cv2.rectangle(frame, (bbox[0], bbox[1]),
-                              (bbox[0]+bbox[2], bbox[1]+bbox[3]),
-                              (0, 255, 0), 3)
-
-                #### affichage des angles
-                angle=angleCenter(bbox)
-                print(angle[2])
-                self.pub.publish(angle[2])
-                font = cv2.FONT_HERSHEY_SIMPLEX  
-                cv2.putText(frame, 'HZ:' +str(int(angle[0]))+'deg VT:'+str(int(angle[1]))+'deg Dist: ??', (10, 40),  font, 1,    (0, 255, 0),                  
-                  2, 
-                 cv2.LINE_4)
-
-                 ### fin angles
-            e=time.time()
-            print(e-s)
-            cv2.imshow('xtion_feed', frame)
-            cv2.waitKey(40)
+    self.compute_frame(frame)
 
     
   def compute_frame(self,frame):
