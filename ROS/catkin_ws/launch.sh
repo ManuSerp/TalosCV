@@ -12,7 +12,10 @@ then
     echo '2 - Xtion feed'
     echo '3 - Tracking xtion'
     echo '4 - depth webcam'
-    echo ' cmp for catkin'
+    echo ' cmp for catkin # available as an option for the previous programs'
+    echo ' to make depth works well, launch first depth printer and then tracking xtion'
+    echo '--------------------------------------------------------------------------------'
+    
     
 fi
 
