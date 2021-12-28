@@ -44,6 +44,13 @@ openni2
 Start roscore
 Start openni2_launch
 ```
+To launch the depth tracker first launch the depth printer and then the xtion tracker
+
+```
+./launch.sh 4 cmp
+./launch.sh 3
+```
+
 
 ```
 docker start `docker ps -q -l` && docker attach `docker ps -q -l`
