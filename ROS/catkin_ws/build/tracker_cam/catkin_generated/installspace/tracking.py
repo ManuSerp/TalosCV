@@ -134,6 +134,10 @@ def track():
                 cv2.imshow(video_name, frame)
                 cv2.waitKey(40)
                 cptt=0
+                if flt ==1:
+                    flt=2
+                else:
+                    flt=1    
         else:
             cptt=cptt+1
 

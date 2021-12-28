@@ -1,88 +1,97 @@
 #!/bin/bash
 echo '---------------------------------------------------------------------------------------'
 source ./devel/setup.bash
-echo 'ROS TRACKING SCRIPT LAUNCHER'
-echo '1 - Tracking webcam'
-echo '2 - Xtion feed'
-echo '3 - Tracking xtion'
-echo '4 - depth webcam'
-echo ' cmp for catkin'
 
 
 
+if [ $1 = 'man' ]
+then
+    
+    echo 'ROS TRACKING SCRIPT LAUNCHER'
+    echo '1 - Tracking webcam'
+    echo '2 - Xtion feed'
+    echo '3 - Tracking xtion'
+    echo '4 - depth webcam'
+    echo ' cmp for catkin'
+    
+fi
 
 
 
 if [ $1 = 1 ]
 then
-    
+    if [ $2 = 'cmp' ]
+    then
+        
+        catkin build tracker_cam
+        
+    fi
     echo ' launching Tracking webcam'
     rosrun tracker_cam tracking.py --config src/tracker_cam/experiments/siamrpn_alex_dwxcorr/config.yaml    --snapshot src/tracker_cam/experiments/siamrpn_alex_dwxcorr/model.pth
     
 fi
 
-if [ $1 =  2 ] 
+if [ $1 =  2 ]
 then
+    
+    if [ $2 = 'cmp' ]
+    then
+        
+        catkin build tracker_cam
+        
+    fi
     
     echo 'launching Xtion feed'
     rosrun tracker_cam test.py
     
+    
+fi
 
-fi    
-
-if [ $1 =  3 ] 
+if [ $1 =  3 ]
 then
+    if [ $2 = 'cmp' ]
+    then
+        
+        catkin build tracker_cam
+        
+    fi
     
     echo 'launching tracking xtion'
     rosrun tracker_cam tracking_from_cam.py --config src/tracker_cam/experiments/siamrpn_alex_dwxcorr/config.yaml --snapshot src/tracker_cam/experiments/siamrpn_alex_dwxcorr/model.pth
-
     
+    
+    
+fi
 
-fi  
-
-if [ $1 =  4 ] 
+if [ $1 =  4 ]
 then
-    catkin build
+    if [ $2 = 'cmp' ]
+    then
+        
+        catkin build tracker_cam
+        
+    fi
     echo 'launching distance_printer'
     rosrun tracker_cam distance_printer.py
-
     
+    
+    
+fi
 
-fi  
 
-if [ $1 =  5 ] 
+
+if [ $1 =  'cmp' ]
 then
     catkin build
-    echo 't3'
-    rosrun tracker_cam test3.py
-
     
-
-fi  
-
-if [ $1 =  6 ] 
-then
     
-    echo 'launching tracking xtion'
-    rosrun tracker_cam tracking_from_cam.py --config src/tracker_cam/experiments/siamrpn_alex_dwxcorr_otb/config.yaml --snapshot src/tracker_cam/experiments/siamrpn_alex_dwxcorr_otb/model.pth
-
     
+fi
 
-fi  
+echo 'ROS TRACKING SCRIPT LAUNCHER'
 
-if [ $1 =  'cmp' ] 
-then
-    catkin build
-  
-    
-
-fi  
-
-
+echo'use man to see the list of options
 echo '--------------------------------------------------------------------------------'
 echo '--------------------------------------------------------------------------------'
 echo '--------------------------------------------------------------------------------'
-
-
-
 
