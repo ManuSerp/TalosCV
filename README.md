@@ -50,7 +50,7 @@ To launch the depth tracker first launch the depth printer and then the xtion tr
 ./launch.sh 4 cmp
 ./launch.sh 3
 ```
-
+docker
 
 ```
 docker start `docker ps -q -l` && docker attach `docker ps -q -l`
