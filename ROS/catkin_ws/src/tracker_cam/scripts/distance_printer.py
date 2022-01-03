@@ -68,7 +68,7 @@ class image_converter:
       dst=depth_image[data1.data[1]][data1.data[0]]
       print(spatialization(data1.data,dst))
       print("move")
-      trc({position: {x: 0.5, y: 0.5, z: 1.2}},1,False,True,"ee")
+      trc({{0.5, 0.5, 1.2}},1,False,True,"ee")
 
 
       
