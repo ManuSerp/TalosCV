@@ -135,7 +135,7 @@ class image_converter:
                 print(angle[2])
                 self.pub.publish(angle[2])
                 font = cv2.FONT_HERSHEY_SIMPLEX  
-                cv2.putText(frame, 'HZ:' +str(int(angle[0]))+'deg VT:'+str(int(angle[1]))+'deg Dist: ??', (10, 40),  font, 1,    (0, 255, 0),                  
+                cv2.putText(frame, 'HZ:' +str(int(angle[0]))+'deg VT:'+str(int(angle[1]))+'deg', (10, 40),  font, 1,    (0, 255, 0),                  
                   2, 
                  cv2.LINE_4)
 

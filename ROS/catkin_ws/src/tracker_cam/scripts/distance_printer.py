@@ -5,6 +5,7 @@ from cam.coordKCC import spatialization
 import roslib
 roslib.load_manifest('tracker_cam')
 from tracker_cam.msg import center_Array
+from tiago_controller.srv import move
 
 import sys
 import rospy
@@ -66,18 +67,21 @@ class image_converter:
       
       dst=depth_image[data1.data[1]][data1.data[0]]
       print(spatialization(data1.data,dst))
+      print("move")
+      trc({position: {x: 0.5, y: 0.5, z: 1.2}},1,False,True,"ee")
 
 
       
 
 
     cv2.waitKey(3)
-def add_two_ints_client(x, y):
-  rospy.wait_for_service('add_two_ints')
+
+def trc(pose,duration,orientation,position,task):
+  rospy.wait_for_service('tiago_controller/move')
   try:
-    add_two_ints = rospy.ServiceProxy('add_two_ints', AddTwoInts)
-    resp1 = add_two_ints(x, y)
-    return resp1.sum
+    mv = rospy.ServiceProxy('tiago_controller/move', move)
+    move(pose,duration,orientation,position,task)
+    return 1
   except rospy.ServiceException as e:
       print("Service call failed: %s"%e)
     
