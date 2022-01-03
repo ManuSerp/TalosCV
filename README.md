@@ -59,6 +59,8 @@ docker start `docker ps -q -l` && docker attach `docker ps -q -l`
 
 # tiago_controller
 
+https://gitlab.inria.fr/locolearn/tiago_controller
+
 Tiago controller based on inria_wbc.
 
 ## References:
