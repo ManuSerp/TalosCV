@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 from __future__ import print_function
-from cam.coordKCC import mapper
-
+from cam.coordKCC import spatialization
 
 import roslib
 roslib.load_manifest('tracker_cam')
@@ -64,9 +63,9 @@ class image_converter:
     if self.first==True:
       cv2.imshow("Image window", depth_image)
       
-
+      
       dst=depth_image[data1.data[1]][data1.data[0]]
-      print(dst)
+      print(spatialization(data1.data,dst))
 
 
       
