@@ -72,7 +72,14 @@ class image_converter:
 
 
     cv2.waitKey(3)
-
+def add_two_ints_client(x, y):
+  rospy.wait_for_service('add_two_ints')
+  try:
+    add_two_ints = rospy.ServiceProxy('add_two_ints', AddTwoInts)
+    resp1 = add_two_ints(x, y)
+    return resp1.sum
+  except rospy.ServiceException as e:
+      print("Service call failed: %s"%e)
     
 def main(args):
   rospy.init_node('image_converter', anonymous=True)
