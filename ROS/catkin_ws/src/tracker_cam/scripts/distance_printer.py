@@ -60,14 +60,7 @@ class image_converter:
   
     
 
-    #gen = pc2.read_points_list(data2,skip_nans=True,field_names=("x", "y", "z")) 
-    #print(list_locater(0,0,gen))
     
-    
-
-  
-
-    # cv2.imshow("Image window", cv_image)
     if self.first==True:
       cv2.imshow("Image window", depth_image)
       

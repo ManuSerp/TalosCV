@@ -355,6 +355,9 @@ SETUPTOOLS_DEB_LAYOUT:BOOL=ON
 //Name of the computer/site where compile is being run
 SITE:STRING=GL553VDMS
 
+//Build only the messages
+TIAGO_MSGS_ONLY:BOOL=ON
+
 //LSB Distrib tag
 UBUNTU:BOOL=TRUE
 
@@ -459,7 +462,7 @@ hardware_interface_DIR:PATH=/opt/ros/noetic/share/hardware_interface/cmake
 inria_wbc_DIR:PATH=inria_wbc_DIR-NOTFOUND
 
 //Path to a library.
-lib:FILEPATH=/opt/ros/noetic/lib/librospack.so
+lib:FILEPATH=/opt/ros/noetic/lib/librostime.so
 
 //The directory containing a CMake configuration file for message_generation.
 message_generation_DIR:PATH=/opt/ros/noetic/share/message_generation/cmake
@@ -660,7 +663,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=1
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=4
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

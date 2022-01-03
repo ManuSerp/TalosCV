@@ -73,7 +73,7 @@ class image_converter:
     self.image_sub = rospy.Subscriber("/camera/rgb/image_raw",Image,self.callback)
     self.pub = rospy.Publisher("trcCenter",center_Array,queue_size=10)
     self.cpt=0
-    self.flt=1
+    self.flt=4
 
 
 
@@ -87,13 +87,9 @@ class image_converter:
     
     if self.cpt == self.flt:
       self.compute_frame(frame)
-      self.cpt =0
-      if self.flt == 1:
-        self.flt =2
-      else:
-        self.flt = 1
+      self.cpt=0
     else:
-      self.cpt=cpt+1      
+      self.cpt=self.cpt+1    
 
     
   def compute_frame(self,frame):

@@ -1,0 +1,18 @@
+[  0%] Built target std_msgs_generate_messages_py
+[  0%] Built target std_msgs_generate_messages_lisp
+[  0%] Built target std_msgs_generate_messages_nodejs
+[  0%] Built target std_msgs_generate_messages_cpp
+[  0%] Built target std_msgs_generate_messages_eus
+[  0%] Built target _tracker_cam_generate_messages_check_deps_center_Array
+[ 57%] [34m[1mGenerating C++ code from tracker_cam/center_Array.msg[0m
+[ 57%] [34m[1mGenerating Lisp code from tracker_cam/center_Array.msg[0m
+[ 57%] [34m[1mGenerating Python from MSG tracker_cam/center_Array[0m
+[ 57%] [34m[1mGenerating Javascript code from tracker_cam/center_Array.msg[0m
+[ 57%] Built target tracker_cam_generate_messages_nodejs
+[ 71%] [34m[1mGenerating EusLisp code from tracker_cam/center_Array.msg[0m
+[ 71%] Built target tracker_cam_generate_messages_lisp
+[ 85%] [34m[1mGenerating Python msg __init__.py for tracker_cam[0m
+[ 85%] Built target tracker_cam_generate_messages_cpp
+[100%] Built target tracker_cam_generate_messages_eus
+[100%] Built target tracker_cam_generate_messages_py
+[100%] Built target tracker_cam_generate_messages

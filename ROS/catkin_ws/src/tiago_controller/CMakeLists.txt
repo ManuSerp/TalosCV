@@ -1,6 +1,35 @@
 cmake_minimum_required(VERSION 3.13 FATAL_ERROR)
 project(tiago_controller)
 
+
+option(TIAGO_MSGS_ONLY "Build only the messages" ON)
+
+if (${TIAGO_MSGS_ONLY} STREQUAL "ON")
+
+message("tiago_controller: building only the messages") 
+
+find_package(catkin REQUIRED COMPONENTS
+  std_msgs
+  message_generation
+  std_srvs
+  geometry_msgs
+)
+
+add_service_files(
+  FILES
+  move.srv
+)
+
+
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+  geometry_msgs
+)
+
+else()
+
+
 find_package(inria_wbc REQUIRED)
 
 find_package(catkin REQUIRED COMPONENTS
@@ -83,4 +112,5 @@ install(DIRECTORY config/
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/config)
 
 
+endif()
 

@@ -19,7 +19,7 @@ add_custom_target(tiago_controller_generate_messages ALL)
 
 get_filename_component(_filename "/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/src/tiago_controller/srv/move.srv" NAME_WE)
 add_custom_target(_tiago_controller_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "tiago_controller" "/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/src/tiago_controller/srv/move.srv" "geometry_msgs/Pose:geometry_msgs/Point:geometry_msgs/Quaternion"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "tiago_controller" "/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/src/tiago_controller/srv/move.srv" "geometry_msgs/Quaternion:geometry_msgs/Pose:geometry_msgs/Point"
 )
 
 #
@@ -33,7 +33,7 @@ add_custom_target(_tiago_controller_generate_messages_check_deps_${_filename}
 _generate_srv_cpp(tiago_controller
   "/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/src/tiago_controller/srv/move.srv"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/tiago_controller
 )
 
@@ -66,7 +66,7 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS tiago_controller_generate_messages_
 _generate_srv_eus(tiago_controller
   "/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/src/tiago_controller/srv/move.srv"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/tiago_controller
 )
 
@@ -99,7 +99,7 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS tiago_controller_generate_messages_
 _generate_srv_lisp(tiago_controller
   "/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/src/tiago_controller/srv/move.srv"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/tiago_controller
 )
 
@@ -132,7 +132,7 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS tiago_controller_generate_messages_
 _generate_srv_nodejs(tiago_controller
   "/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/src/tiago_controller/srv/move.srv"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/tiago_controller
 )
 
@@ -165,7 +165,7 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS tiago_controller_generate_messages_
 _generate_srv_py(tiago_controller
   "/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/src/tiago_controller/srv/move.srv"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/tiago_controller
 )
 

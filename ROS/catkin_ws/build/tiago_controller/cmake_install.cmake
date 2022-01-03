@@ -160,41 +160,6 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python3/dist-packages" TYPE DIRECTORY FILES "/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/.private/tiago_controller/lib/python3/dist-packages/tiago_controller")
 endif()
 
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/build/tiago_controller/catkin_generated/installspace/tiago_controller.pc")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/tiago_controller/cmake" TYPE FILE FILES "/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/build/tiago_controller/catkin_generated/installspace/tiago_controller-msg-extras.cmake")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/tiago_controller/cmake" TYPE FILE FILES
-    "/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/build/tiago_controller/catkin_generated/installspace/tiago_controllerConfig.cmake"
-    "/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/build/tiago_controller/catkin_generated/installspace/tiago_controllerConfig-version.cmake"
-    )
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/tiago_controller" TYPE FILE FILES "/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/src/tiago_controller/package.xml")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/tiago_controller" TYPE FILE FILES "/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/src/tiago_controller/controller_plugins.xml")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/tiago_controller/include" TYPE DIRECTORY FILES "/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/src/tiago_controller/include/")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/tiago_controller/launch" TYPE DIRECTORY FILES "/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/src/tiago_controller/launch/")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/tiago_controller/config" TYPE DIRECTORY FILES "/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/src/tiago_controller/config/")
-endif()
-
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/build/tiago_controller/gtest/cmake_install.cmake")

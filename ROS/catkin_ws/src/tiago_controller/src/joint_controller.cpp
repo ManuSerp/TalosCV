@@ -233,7 +233,7 @@ namespace tiago_controller
       {
         // careful: no auto here!
         Eigen::VectorXd q = controller_->q(false).tail(wbc_joint_names_.size());
-        assert(rc_joint_.size() == q.size());
+        assert(rc_joints_.size() == q.size());
         for (size_t i = 0; i < wbc_joint_names_.size(); ++i)
           rc_joints_[i].setCommand(q[i]);
       } // we do nothing
