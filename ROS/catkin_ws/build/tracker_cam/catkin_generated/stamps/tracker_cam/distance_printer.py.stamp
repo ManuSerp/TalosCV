@@ -1,17 +1,18 @@
 #!/usr/bin/env python
 from __future__ import print_function
-from cam.coordKCC import mapper
-
+from cam.coordKCC import spatialization
 
 import roslib
 roslib.load_manifest('tracker_cam')
 from tracker_cam.msg import center_Array
+from tiago_controller.srv import move
 
 import sys
 import rospy
 import message_filters
 import cv2
 import sensor_msgs.point_cloud2 as pc2
+from geometry_msgs import Pose
 from std_msgs.msg import String
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
@@ -60,20 +61,15 @@ class image_converter:
   
     
 
-    #gen = pc2.read_points_list(data2,skip_nans=True,field_names=("x", "y", "z")) 
-    #print(list_locater(0,0,gen))
     
-    
-
-  
-
-    # cv2.imshow("Image window", cv_image)
     if self.first==True:
       cv2.imshow("Image window", depth_image)
       
-
+      
       dst=depth_image[data1.data[1]][data1.data[0]]
-      print(dst)
+      print(spatialization(data1.data,dst))
+      print("move")
+      self.trc([1,1,1],1,False,True,"ee")
 
 
       
@@ -81,6 +77,19 @@ class image_converter:
 
     cv2.waitKey(3)
 
+  def trc(self,pose,duration,orientation,position,task):
+    rospy.wait_for_service('tiago_controller/move')
+    try:
+      mv = rospy.ServiceProxy('tiago_controller/move', move)
+      mr=Pose()
+      mr.position.x=pose[0]
+      mr.position.y=pose[1]
+      mr.position.z=pose[2]
+
+      move(mr,duration,orientation,position,task)
+      return 1
+    except rospy.ServiceException as e:
+        print("Service call failed: %s"%e)
     
 def main(args):
   rospy.init_node('image_converter', anonymous=True)
