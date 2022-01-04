@@ -32,18 +32,18 @@ Il faut :
 
 - prendre un docker tiago
 - dans catkin_ws/src faire un clone de https://gitlab.inria.fr/locolearn/tiago_controller
-- cd catkin_ws
-- source devel/setup.bash
-- catkin_make
+- ``` cd catkin_ws ```
+- ``` source devel/setup.bash ```
+- ``` catkin_make ```
 
 Cela devrait compiler
 
 Pour lancer, suivre le README (le mieux est de “split” la fenêtre de terminator en 4 terminaux) :
 
-- faire le source de devel/setup.bash dans chaque terminal
+- faire le source de  ``` devel/setup.bash ``` dans chaque terminal
 - lancer Gazebo dans un terminal (roslaunch etc.)
 - laisser le robot commencer à bouger dans Gazebo
-- dans un autre terminal : roslaunch tiago_controller tiago_controller.launch
+- dans un autre terminal : ``` roslaunch tiago_controller tiago_controller.launch ```
 - le robot devrait se mettre en position et ensuite accepter les topics / services
 
 Il y a deux modes :
@@ -66,8 +66,8 @@ Pour accéder au docker de l’extérieur :
   ```
   - puis ``` ifconfig -a ``` et regarder le champ ‘inet’ de docker0
 - à l’extérieur du docker :
-  - ``` export ROS_MASTER_URI=http://172.17.0.1:11311 ```(changer l’IP)
-  - ``` export ROS_IP=172.17.0.1:11311 ```
+  - ``` export ROS_MASTER_URI=http://172.17.0.1:11311 ``` (changer l’IP)
+  - ``` export ROS_IP=172.17.0.1:11311 ``` 
     Normalement un rostopic list en dehors du docker devrait lister les topics (si tout tourne dans le docker bien sûr).
 
 Avec cela, cela devrait être possible de faire bouger le robot avec le contrôleur en simulation mais aussi en vrai (cela marche bien sur le vrai robot).
