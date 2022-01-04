@@ -67,9 +67,10 @@ class image_converter:
       
       
       dst=depth_image[data1.data[1]][data1.data[0]]
-      print(spatialization(data1.data,dst))
+      spz =spatialization(data1.data,dst)
+      print(spz)
       print("move")
-      self.trc([1,1,1],1,False,True,"ee")
+      self.trc(spz,1,False,True,"ee")
 
 
       
