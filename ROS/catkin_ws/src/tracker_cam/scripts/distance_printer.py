@@ -12,6 +12,7 @@ import rospy
 import message_filters
 import cv2
 import sensor_msgs.point_cloud2 as pc2
+from geometry_msgs.msg import Pose
 from std_msgs.msg import String
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
@@ -68,7 +69,7 @@ class image_converter:
       dst=depth_image[data1.data[1]][data1.data[0]]
       print(spatialization(data1.data,dst))
       print("move")
-      trc({{0.5, 0.5, 1.2}},1,False,True,"ee")
+      self.trc([1,1,1],1,False,True,"ee")
 
 
       
@@ -76,14 +77,19 @@ class image_converter:
 
     cv2.waitKey(3)
 
-def trc(pose,duration,orientation,position,task):
-  rospy.wait_for_service('tiago_controller/move')
-  try:
-    mv = rospy.ServiceProxy('tiago_controller/move', move)
-    move(pose,duration,orientation,position,task)
-    return 1
-  except rospy.ServiceException as e:
-      print("Service call failed: %s"%e)
+  def trc(self,pose,duration,orientation,position,task):
+    rospy.wait_for_service('tiago_controller/move')
+    try:
+      mv = rospy.ServiceProxy('tiago_controller/move', move)
+      mr=Pose()
+      mr.position.x=pose[0]
+      mr.position.y=pose[1]
+      mr.position.z=pose[2]
+
+      mv(mr,duration,orientation,position,task)
+      return 1
+    except rospy.ServiceException as e:
+        print("Service call failed: %s"%e)
     
 def main(args):
   rospy.init_node('image_converter', anonymous=True)
