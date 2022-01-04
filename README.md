@@ -70,7 +70,7 @@ Tiago controller based on inria_wbc.
 
 ## Usage (notes)
 
-`./run_docker.sh -it --name tiago registry.gitlab.inria.fr/locolearn/docker_talos/inria_wbc_pal:tiago -c terminator` 
+`./pal_docker.sh -it --name tiago registry.gitlab.inria.fr/locolearn/docker_talos/inria_wbc_pal:tiago -c terminator` 
 
 #### Simulation
 
