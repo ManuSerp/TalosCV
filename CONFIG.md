@@ -67,7 +67,7 @@ Pour accéder au docker de l’extérieur :
   - puis ``` ifconfig -a ``` et regarder le champ ‘inet’ de docker0
 - à l’extérieur du docker :
   - ``` export ROS_MASTER_URI=http://172.17.0.1:11311 ``` (changer l’IP)
-  - ``` export ROS_IP=172.17.0.1:11311 ``` 
+  - ``` export ROS_IP=172.17.0.1 ``` 
     Normalement un rostopic list en dehors du docker devrait lister les topics (si tout tourne dans le docker bien sûr).
 
 Avec cela, cela devrait être possible de faire bouger le robot avec le contrôleur en simulation mais aussi en vrai (cela marche bien sur le vrai robot).
