@@ -2,21 +2,29 @@
 quelques infos sur le docker.
 
 Pour le lancer :
+```
 ./run_docker.sh -it --name tiago registry.gitlab.inria.fr/locolearn/docker_talos/inria_wbc_pal:tiago -c terminator
+```
 
 (terminator pour ouvrir un terminal)
 
 Puis dans le docker:
+```
 cd catkin_ws
 catkin_make --only-pkg-with-deps tiago_controller
+```
 
 # lancer Gazebo avec Tiago dans terminator:
+```
 
 roslaunch tiago_gazebo tiago_gazebo.launch public_sim:=true robot:=steel
+```
 
 # Lancer notre controleur (dans un autre terminal mais dans le meme docker : Terminator permet de facilement ajouter des terminaux) :
+```
 
 roslaunch tiago_controller tiago_controller.launch
+```
 
 Normalement le robo devrait bouger un peu le bras dans Gazebo.
 
@@ -52,11 +60,14 @@ Le noeud publie les positions du “end-effector” (EE) et de la tête (avec un
 Pour accéder au docker de l’extérieur :
 
 - il faut d’abord trouver l’IP du docker (généralement 172.17.0.1 ou .2)
-  - dans le docker, installer ifconfig : apt-get install net-tools
-  - puis ifconfig -a et regarder le champ ‘inet’ de docker0
+  - dans le docker, installer ifconfig : 
+  ```
+  apt-get install net-tools
+  ```
+  - puis ``` ifconfig -a ``` et regarder le champ ‘inet’ de docker0
 - à l’extérieur du docker :
-  - export ROS_MASTER_URI=http://172.17.0.1:11311 (changer l’IP)
-  - export ROS_IP=172.17.0.1:11311
+  - ``` export ROS_MASTER_URI=http://172.17.0.1:11311 ```(changer l’IP)
+  - ``` export ROS_IP=172.17.0.1:11311 ```
     Normalement un rostopic list en dehors du docker devrait lister les topics (si tout tourne dans le docker bien sûr).
 
 Avec cela, cela devrait être possible de faire bouger le robot avec le contrôleur en simulation mais aussi en vrai (cela marche bien sur le vrai robot).
