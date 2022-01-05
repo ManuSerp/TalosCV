@@ -26,7 +26,27 @@ Now everythings is good to go
 
 #### Tiago controller
 to get the docker with the controller clone https://gitlab.inria.fr/locolearn/docker_talos.
-Now 
+Now run
+```
+./pal_docker.sh -it --name tiago registry.gitlab.inria.fr/locolearn/docker_talos/inria_wbc_pal:tiago -c terminator
+```
+in catkin ``` cd catkin```
+```
+catkin_make
+```
+then to install the controller
+go to src ```cd src```
+
+```
+git clone https://gitlab.inria.fr/locolearn/tiago_controller.git
+```
+go back to catkin ``` cd ..```
+```
+catkin_make --only-pkg-with-deps tiago_controller
+```
+
+Now everything is ready to launch programs
+
 
 
 ### Launching Program
