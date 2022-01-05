@@ -230,17 +230,17 @@ catkin_install_python(PROGRAMS scripts/tracking.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
-catkin_install_python(PROGRAMS scripts/test2.py
-  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-)
 
 catkin_install_python(PROGRAMS scripts/distance_printer.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
-catkin_install_python(PROGRAMS scripts/test3.py
+
+
+catkin_install_python(PROGRAMS scripts/tracking_cam_wservo.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
+
 
 
 
