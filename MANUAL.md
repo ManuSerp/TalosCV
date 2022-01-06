@@ -2,7 +2,10 @@
 
 ## Instruction to use TalosCV
 
+
 ### Installation
+#### Requirements
+// to fill up //
 
 #### Pysot
 First follow [Pysot](https://github.com/STVIR/pysot/blob/master/INSTALL.md) install instruction to configure the python environnement in order to run SiamNN
@@ -170,6 +173,8 @@ There are two modes: trajectory and tracking. Tracking can make the robot too fa
 
 ##### Examples
 - `rosservice call /tiago_controller/move  "{pose: {position: {x: 0.5, y: 0.5, z: 1.2}}, duration: 1., use_orientation: False, use_position: True, task_name: ee}" ` 
+
+
 
 
 
