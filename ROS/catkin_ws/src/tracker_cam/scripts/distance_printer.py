@@ -64,13 +64,13 @@ class image_converter:
     if self.first==True:
       cv2.imshow("Image window", depth_image)
       
-      
+      head_p=[data3.position.x,data3.position.y,data3.position.z]
       dst=depth_image[data1.data[1]][data1.data[0]]
       spz =spatialization(data1.data,dst)
       print("referentiel cam") #
       print(spz)
       print("referetneil du robot:")
-      spz = realCoord(spz,data3.position)
+      spz = realCoord(spz,head_p)
       print(spz)
       if self.previous == None:
         self.previous=spz
