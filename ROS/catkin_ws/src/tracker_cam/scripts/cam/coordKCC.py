@@ -14,3 +14,13 @@ def mapper(d,max=4):
 def spatialization(centre,depth,cam_angle_hz=57,cam_angle_vt=57,fen_size=(640,480)):
     angl=[-(centre[0]*2*cam_angle_hz/fen_size[0])+cam_angle_hz,-(centre[1]*2*cam_angle_vt/fen_size[1])+cam_angle_vt] 
     return [depth,tan(angl[0]*3.1418/180)*depth,tan(angl[1]*3.1418/180)*depth] #x,y,z dans gazebo
+
+
+
+def isMoving(avt,mtn):
+    rte=[abs(avt[0]-mtn[0]),abs(avt[1]-mtn[1]),abs(avt[2]-mtn[2])]
+    for x in rte:
+        if x>0.03:
+            return True
+
+    return False
