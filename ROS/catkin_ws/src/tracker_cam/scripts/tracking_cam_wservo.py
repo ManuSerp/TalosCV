@@ -9,9 +9,10 @@ from tracker_cam.msg import center_Array
 
 import sys
 import rospy
-import message_filters
 import cv2
 import sensor_msgs.point_cloud2 as pc2
+from geometry_msgs.msg import Pose
+
 from std_msgs.msg import String
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
@@ -26,65 +27,73 @@ def list_locater(x,y,L):
         if nd<d:
             min=pt
     return min
-    
-
-
-
-
 
 class image_converter:
 
   def __init__(self):
     print('ini')
-    self.first =False
+    self.first = False
+    self.depth_image = None
+    self.centerPT = None
+    self.go = False
 
     self.bridge = CvBridge()
-    self.center = message_filters.Subscriber("trcCenter",center_Array)
-    self.dist_sub=message_filters.Subscriber("/camera/depth/image",Image)
+    self.center = rospy.Subscriber("/trcCenter",Pose,self.maj_center)
+    self.dist_sub = rospy.Subscriber("/xtion/depth/image",Image,self.maj_depthimage)
 
     
-    self.ts = message_filters.ApproximateTimeSynchronizer([self.center, self.dist_sub], 10, 0.5, allow_headerless=True)
-    self.ts.registerCallback(self.callback)
+  
 
-  def callback(self,data1,data2):  
-    print('callback')
+
+  def maj_depthimage(self,data):
+
+    print('callback depth image')
     try:
         
-        depth_image = self.bridge.imgmsg_to_cv2(data2) #inspect the matrix
+        self.depth_image = self.bridge.imgmsg_to_cv2(data) #inspect the matrix
         #print(depth_image)
         self.first=True
 
     except CvBridgeError as e:
       print(e)
 
-  
+
+  def maj_center(self,data):
+    self.centerPT=[int(data.position.x),int(data.position.y)]
+
+  def master(self):  
+    print('callback master')
+
+    if self.centerPT != None and self.first:
     
 
-    
-    if self.first==True:
-      cv2.imshow("Image window", depth_image)
+      cv2.imshow("Image window", self.depth_image)
       
+      print(self.centerPT)
 
-      dst=depth_image[data1.data[1]][data1.data[0]]
+      dst=self.depth_image[self.centerPT[1]][self.centerPT[0]]
       print(dst)
 
+      
 
       
 
 
-    cv2.waitKey(3)
+      cv2.waitKey(3)
 
     
 def main(args):
-  rospy.init_node('image_converter', anonymous=True)
+  rospy.init_node('depth_printer_w', anonymous=True)
 
   ic = image_converter()
   print('debug')
-  try:
-    print('debug')
-    rospy.spin()
-  except KeyboardInterrupt:
-    print("Shutting down")
+  rate = rospy.Rate(50)
+  while not rospy.is_shutdown():
+
+    ic.master()
+    
+    rate.sleep()
+  
   cv2.destroyAllWindows()
 
 if __name__ == '__main__':
