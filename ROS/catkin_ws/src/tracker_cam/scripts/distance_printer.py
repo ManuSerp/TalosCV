@@ -39,8 +39,8 @@ class image_converter:
     self.previous=None
     self.bridge = CvBridge()
     print("subscribing")
-    self.center = message_filters.Subscriber("trcCenter",center_Array)
-    self.dist_sub=message_filters.Subscriber("/camera/depth/image",Image)       #/xtion/depth_registered/image_raw pr robot
+    self.center = message_filters.Subscriber("/trcCenter",center_Array)
+    self.dist_sub=message_filters.Subscriber("/xtion/depth/image",Image)       #/xtion/depth_registered/image_raw pr robot
 
     self.pose_head=message_filters.Subscriber("/tiago_controller/head_pose",Pose)
 
@@ -75,12 +75,12 @@ class image_converter:
       if self.previous == None:
         self.previous=spz
         print("move")
-        self.trc(spz,1,False,True,"ee")
+        self.trc(spz,1,False,True,"ee") #bizarre
 
       if isMoving(self.previous,spz):
 
         print("move")
-        self.trc(spz,1,False,True,"ee")
+        self.trc(spz,10,False,True,"ee")
         self.previous=spz
 
     cv2.waitKey(3)
@@ -100,7 +100,7 @@ class image_converter:
         print("Service call failed: %s"%e)
     
 def main(args):
-  rospy.init_node('image_converter', anonymous=True)
+  rospy.init_node('depth_printer', anonymous=True)
 
   ic = image_converter()
   print('debug')

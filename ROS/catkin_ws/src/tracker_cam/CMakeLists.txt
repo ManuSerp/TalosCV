@@ -241,6 +241,11 @@ catkin_install_python(PROGRAMS scripts/tracking_cam_wservo.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
+catkin_install_python(PROGRAMS scripts/depth_go_first.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
+
 
 
 

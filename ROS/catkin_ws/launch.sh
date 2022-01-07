@@ -95,6 +95,21 @@ then
     
     
 fi
+if [ $1 =  6 ]
+then
+    if [ $2 = 'cmp' ]
+    then
+        
+        catkin build tracker_cam
+        
+    fi
+    echo 'depth printer without robot  movements'
+    rosrun tracker_cam depth_go_first.py --config src/tracker_cam/experiments/siamrpn_alex_dwxcorr/config.yaml --snapshot src/tracker_cam/experiments/siamrpn_alex_dwxcorr/model.pth
+    
+    
+    
+fi
+
 
 
 

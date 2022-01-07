@@ -15,6 +15,9 @@ import rospy
 import time
 import cv2
 from std_msgs.msg import String
+
+from geometry_msgs.msg import Pose
+
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
 
@@ -74,8 +77,8 @@ class image_converter:
     self.run=0
     self.first_frame=True 
     self.bridge = CvBridge()
-    self.image_sub = rospy.Subscriber("/camera/rgb/image_raw",Image,self.callback) # /xtion/rgb/image_raw pr robot
-    self.pub = rospy.Publisher("trcCenter",center_Array,queue_size=10)
+    self.image_sub = rospy.Subscriber("/xtion/rgb/image_raw",Image,self.callback) # /xtion/rgb/image_raw pr robot
+    self.pub = rospy.Publisher("trcCenter",Pose,queue_size=10)
     self.cpt=0
     self.flt=4
 
@@ -101,7 +104,7 @@ class image_converter:
             if self.run >3:
 
               try:
-                print('first_frameeee')
+                print('first_frame')
                 init_rect = cv2.selectROI('xtion_feed_roi', frame, False, False)
                 cv2.destroyAllWindows()
                 self.first_frame = False
@@ -137,7 +140,15 @@ class image_converter:
                 #### affichage des angles
                 angle=angleCenter(bbox)
                 print(angle[2])
-                self.pub.publish(angle[2])
+
+                test=Pose()
+                test.position.x=angle[2][0]
+                test.position.y=angle[2][1]
+
+
+
+
+                self.pub.publish(test)
                 font = cv2.FONT_HERSHEY_SIMPLEX  
                 cv2.putText(frame, 'HZ:' +str(int(angle[0]))+'deg VT:'+str(int(angle[1]))+'deg', (10, 40),  font, 1,    (0, 255, 0),                  
                   2, 
