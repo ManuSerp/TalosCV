@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 from __future__ import print_function
-from cam.coordKCC import spatialization,isMoving
+from cam.coordKCC import spatialization,isMoving,realCoord
 
 import roslib
 roslib.load_manifest('tracker_cam')
@@ -36,18 +36,21 @@ def list_locater(x,y,L):
 class image_converter:
 
   def __init__(self):
-    print('ini')
+    print('initialization')
     self.first =False
     self.previous=None
     self.bridge = CvBridge()
+    print("subscribing")
     self.center = message_filters.Subscriber("trcCenter",center_Array)
-    self.dist_sub=message_filters.Subscriber("/camera/depth/image",Image)
+    self.dist_sub=message_filters.Subscriber("/camera/depth/image",Image)       #/xtion/depth_registered/image_raw pr robot
 
-    
-    self.ts = message_filters.ApproximateTimeSynchronizer([self.center, self.dist_sub], 10, 0.5, allow_headerless=True)
+    self.pose_head=message_filters.Subscriber("/tiago_controller/head_pose",Pose)
+
+    print("synchronizing")
+    self.ts = message_filters.ApproximateTimeSynchronizer([self.center, self.dist_sub,self.pose_head], 10, 0.5, allow_headerless=True)
     self.ts.registerCallback(self.callback)
 
-  def callback(self,data1,data2):  
+  def callback(self,data1,data2,data3):  
     print('callback')
     try:
         
