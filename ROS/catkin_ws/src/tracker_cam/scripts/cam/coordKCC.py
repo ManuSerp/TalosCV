@@ -24,3 +24,7 @@ def isMoving(avt,mtn):
             return True
 
     return False
+
+
+def realCoord(cam,head): #without head orientation for the moment
+    return [cam[0]+head[0],cam[1]+head[1],cam[2]+head[2]]
