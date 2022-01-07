@@ -71,6 +71,10 @@ class image_converter:
       
       dst=depth_image[data1.data[1]][data1.data[0]]
       spz =spatialization(data1.data,dst)
+      print("referentiel cam") #
+      print(spz)
+      print("referetneil du robot:")
+      spz = realCoord(spz,data3.position)
       print(spz)
       if self.previous == None:
         self.previous=spz
