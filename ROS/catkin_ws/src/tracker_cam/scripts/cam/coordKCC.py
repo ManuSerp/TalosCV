@@ -21,6 +21,6 @@ def isMoving(avt,mtn):
     rte=[abs(avt[0]-mtn[0]),abs(avt[1]-mtn[1]),abs(avt[2]-mtn[2])]
     for x in rte:
         if x>0.03:
-            return mtn
+            return True
 
-    return avt
+    return False

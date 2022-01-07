@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 from __future__ import print_function
-from cam.coordKCC import spatialization
+from cam.coordKCC import spatialization,isMoving
 
 import roslib
 roslib.load_manifest('tracker_cam')
@@ -38,7 +38,7 @@ class image_converter:
   def __init__(self):
     print('ini')
     self.first =False
-
+    self.previous=None
     self.bridge = CvBridge()
     self.center = message_filters.Subscriber("trcCenter",center_Array)
     self.dist_sub=message_filters.Subscriber("/camera/depth/image",Image)
@@ -69,8 +69,16 @@ class image_converter:
       dst=depth_image[data1.data[1]][data1.data[0]]
       spz =spatialization(data1.data,dst)
       print(spz)
-      print("move")
-      self.trc(spz,1,False,True,"ee")
+      if self.previous == None:
+        self.previous=spz
+        print("move")
+        self.trc(spz,1,False,True,"ee")
+
+      if isMoving(self.previous,spz):
+
+        print("move")
+        self.trc(spz,1,False,True,"ee")
+        self.previous=spz
 
 
       
