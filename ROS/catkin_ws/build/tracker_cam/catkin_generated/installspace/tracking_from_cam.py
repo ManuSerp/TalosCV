@@ -52,19 +52,23 @@ class image_converter:
 
   def __init__(self):
     # load config
+    print("load config")
     cfg.merge_from_file(args.config)
     cfg.CUDA = torch.cuda.is_available() and cfg.CUDA
     self.device = torch.device('cuda' if cfg.CUDA else 'cpu')
 
     # create model
+    print("create model")
     self.model = ModelBuilder()
 
     # load model
+    print("load model")
     self.model.load_state_dict(torch.load(args.snapshot,
         map_location=lambda storage, loc: storage.cpu()))
     self.model.eval().to(self.device)
 
     # build tracker
+    print("build tracker")
     self.tracker = build_tracker(self.model)
 
     self.run=0
