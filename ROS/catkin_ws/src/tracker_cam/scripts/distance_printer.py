@@ -31,8 +31,6 @@ def list_locater(x,y,L):
 
 
 
-
-
 class image_converter:
 
   def __init__(self):
@@ -61,8 +59,6 @@ class image_converter:
     except CvBridgeError as e:
       print(e)
 
-  
-    
 
     
     if self.first==True:
@@ -86,10 +82,6 @@ class image_converter:
         print("move")
         self.trc(spz,1,False,True,"ee")
         self.previous=spz
-
-
-      
-
 
     cv2.waitKey(3)
 
