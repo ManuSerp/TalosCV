@@ -10,8 +10,9 @@ then
     echo 'ROS TRACKING SCRIPT LAUNCHER'
     echo '1 - Tracking webcam'
     echo '2 - Xtion feed'
-    echo '3 - Tracking xtion'
+    echo '3 - Tracking xtion with servo'
     echo '4 - depth webcam'
+    echo '5 - Tracking xtion without servo'
     echo ' cmp for catkin # available as an option for the previous programs'
     echo ' to make depth works well, launch first depth printer and then tracking xtion'
     echo '--------------------------------------------------------------------------------'
@@ -80,6 +81,21 @@ then
     
     
 fi
+if [ $1 =  5 ]
+then
+    if [ $2 = 'cmp' ]
+    then
+        
+        catkin build tracker_cam
+        
+    fi
+    echo 'tracker xtion without robot  movements'
+    rosrun tracker_cam tracking_from_cam_wservo.py --config src/tracker_cam/experiments/siamrpn_alex_dwxcorr/config.yaml --snapshot src/tracker_cam/experiments/siamrpn_alex_dwxcorr/model.pth
+    
+    
+    
+fi
+
 
 
 
