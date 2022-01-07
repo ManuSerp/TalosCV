@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 from __future__ import print_function
-from cam.coordKCC import spatialization
+from cam.coordKCC import spatialization,isMoving,realCoord
 
 import roslib
 roslib.load_manifest('tracker_cam')
@@ -31,23 +31,24 @@ def list_locater(x,y,L):
 
 
 
-
-
 class image_converter:
 
   def __init__(self):
-    print('ini')
+    print('initialization')
     self.first =False
-
+    self.previous=None
     self.bridge = CvBridge()
+    print("subscribing")
     self.center = message_filters.Subscriber("trcCenter",center_Array)
-    self.dist_sub=message_filters.Subscriber("/camera/depth/image",Image)
+    self.dist_sub=message_filters.Subscriber("/camera/depth/image",Image)       #/xtion/depth_registered/image_raw pr robot
 
-    
-    self.ts = message_filters.ApproximateTimeSynchronizer([self.center, self.dist_sub], 10, 0.5, allow_headerless=True)
+    self.pose_head=message_filters.Subscriber("/tiago_controller/head_pose",Pose)
+
+    print("synchronizing")
+    self.ts = message_filters.ApproximateTimeSynchronizer([self.center, self.dist_sub,self.pose_head], 10, 0.5, allow_headerless=True)
     self.ts.registerCallback(self.callback)
 
-  def callback(self,data1,data2):  
+  def callback(self,data1,data2,data3):  
     print('callback')
     try:
         
@@ -58,23 +59,29 @@ class image_converter:
     except CvBridgeError as e:
       print(e)
 
-  
-    
 
     
     if self.first==True:
       cv2.imshow("Image window", depth_image)
       
-      
+      head_p=[data3.position.x,data3.position.y,data3.position.z]
       dst=depth_image[data1.data[1]][data1.data[0]]
       spz =spatialization(data1.data,dst)
+      print("referentiel cam") #
       print(spz)
-      print("move")
-      self.trc(spz,1,False,True,"ee")
+      print("referetneil du robot:")
+      spz = realCoord(spz,head_p)
+      print(spz)
+      if self.previous == None:
+        self.previous=spz
+        print("move")
+        self.trc(spz,1,False,True,"ee")
 
+      if isMoving(self.previous,spz):
 
-      
-
+        print("move")
+        self.trc(spz,1,False,True,"ee")
+        self.previous=spz
 
     cv2.waitKey(3)
 
