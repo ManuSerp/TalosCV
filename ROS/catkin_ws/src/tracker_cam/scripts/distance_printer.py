@@ -1,4 +1,17 @@
 #!/usr/bin/env python
+
+
+
+
+
+
+
+
+
+
+################################
+#OBSOLETE
+###################################
 from __future__ import print_function
 from cam.coordKCC import spatialization,isMoving,realCoord
 
