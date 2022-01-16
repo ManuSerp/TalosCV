@@ -107,7 +107,7 @@ class image_converter:
             self.reach=True
         
         else:
-          #passer en track mode
+          self.track_mode()
           head_p=[self.head.position.x,self.head.position.y,self.head.position.z]
           spz =spatialization(self.centerPT,dst)
           print("referentiel cam") #
@@ -133,7 +133,7 @@ class image_converter:
       return 1
     except rospy.ServiceException as e:
         print("Service call failed: %s"%e)  
-        
+
   def trc(self,pose,duration,orientation,position,task):
     rospy.wait_for_service('tiago_controller/move')
     try:
