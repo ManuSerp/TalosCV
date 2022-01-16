@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 from __future__ import print_function
+from ast import Is
 from cam.coordKCC import spatialization,isMoving,realCoord
 from tiago_controller.srv import move
 
@@ -42,13 +43,19 @@ class image_converter:
     self.center = rospy.Subscriber("/trcCenter",Pose,self.maj_center)
     self.dist_sub = rospy.Subscriber("/xtion/depth/image",Image,self.maj_depthimage)
     self.pose_head=rospy.Subscriber("/tiago_controller/head_pose",Pose,self.get_head)
+    self.pose_ee=rospy.Subscriber("/tiago_controller/ee_pose",Pose,self.get_ee)
+    self.pub = rospy.Publisher("/tiago_controller/ee_target",Pose,queue_size=10)
+
+
     #mode
     self.mode="traj"
     self.reach=False
     self.aim=None
+    self.ee_pose=None
 
     
-  
+  def get_ee(self,data):
+    self.ee_pose=[int(data.position.x),int(data.position.y),int(data.position.z)]
 
 
   def maj_depthimage(self,data):
@@ -71,7 +78,7 @@ class image_converter:
 
   def master(self):  
 
-    if self.centerPT != None and self.first and self.head != None:
+    if self.centerPT != None and self.first and self.head != None and self.ee_pose != None:
     
 
       cv2.imshow("Image window", self.depth_image)
@@ -95,22 +102,38 @@ class image_converter:
         self.trc(spz,1,False,True,"ee")
 
       if self.go:
-        if not self.reached:
-          #check we reached
+        if not self.reach:
+          if not isMoving(self.aim,self.ee_pose,0.01):
+            self.reach=True
         
         else:
-          #track
+          #passer en track mode
+          head_p=[self.head.position.x,self.head.position.y,self.head.position.z]
+          spz =spatialization(self.centerPT,dst)
+          print("referentiel cam") #
+          print(spz)
+          print("referentiel du robot:")
+          spz = realCoord(spz,head_p)
+          print(spz)
+          self.aim=spz
+          print("move tracking")
+          
+          self.pub.publish(spz)
         
         
 
 
-
-
+    cv2.waitKey(3)
+  def track_mode():
+    rospy.wait_for_service('tiago_controller/tracking_mode')
+    try:
+      mv = rospy.ServiceProxy('tiago_controller/tracking_mode')
       
-
-
-      cv2.waitKey(3)
-
+      mv()
+      return 1
+    except rospy.ServiceException as e:
+        print("Service call failed: %s"%e)  
+        
   def trc(self,pose,duration,orientation,position,task):
     rospy.wait_for_service('tiago_controller/move')
     try:
