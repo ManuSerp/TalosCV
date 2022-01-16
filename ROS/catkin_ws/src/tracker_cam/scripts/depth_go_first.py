@@ -8,8 +8,6 @@ from tiago_controller.srv import move
 
 import roslib
 roslib.load_manifest('tracker_cam')
-from tracker_cam.msg import center_Array
-
 import sys
 import rospy
 import cv2
@@ -39,12 +37,15 @@ class image_converter:
     self.depth_image = None
     self.centerPT = None
     self.head=None
-    self.go =False
-
+    self.go=False
     self.bridge = CvBridge()
     self.center = rospy.Subscriber("/trcCenter",Pose,self.maj_center)
     self.dist_sub = rospy.Subscriber("/xtion/depth/image",Image,self.maj_depthimage)
     self.pose_head=rospy.Subscriber("/tiago_controller/head_pose",Pose,self.get_head)
+    #mode
+    self.mode="traj"
+    self.reach=False
+    self.aim=None
 
     
   
@@ -64,8 +65,10 @@ class image_converter:
 
   def maj_center(self,data):
     self.centerPT=[int(data.position.x),int(data.position.y)]
+
   def get_head(self,data):
     self.head=data
+
   def master(self):  
 
     if self.centerPT != None and self.first and self.head != None:
@@ -87,9 +90,17 @@ class image_converter:
         print("referetneil du robot:")
         spz = realCoord(spz,head_p)
         print(spz)
-      
-        print("move")
-        self.trc(spz,10,False,True,"ee")
+        self.aim=spz
+        print("move to track pos")
+        self.trc(spz,1,False,True,"ee")
+
+      if self.go:
+        if not self.reached:
+          #check we reached
+        
+        else:
+          #track
+        
         
 
 

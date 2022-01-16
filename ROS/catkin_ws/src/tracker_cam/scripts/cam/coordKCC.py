@@ -17,10 +17,10 @@ def spatialization(centre,depth,cam_angle_hz=57,cam_angle_vt=57,fen_size=(640,48
 
 
 
-def isMoving(avt,mtn):
+def isMoving(avt,mtn,floor=0.03):
     rte=[abs(avt[0]-mtn[0]),abs(avt[1]-mtn[1]),abs(avt[2]-mtn[2])]
     for x in rte:
-        if x>0.03:
+        if x>floor:
             return True
 
     return False
