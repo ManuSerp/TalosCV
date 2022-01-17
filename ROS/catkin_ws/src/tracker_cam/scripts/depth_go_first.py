@@ -92,9 +92,10 @@ class image_converter:
         self.go = True
         head_p=[self.head.position.x,self.head.position.y,self.head.position.z]
         spz =spatialization(self.centerPT,dst)
+        print("TRAJECTORY INIT")
         print("referentiel cam") #
         print(spz)
-        print("referetneil du robot:")
+        print("referentiel du robot:")
         spz = realCoord(spz,head_p)
         print(spz)
         self.aim=spz
@@ -105,6 +106,7 @@ class image_converter:
         if not self.reach:
           if not isMoving(self.aim,self.ee_pose,0.01):
             self.reach=True
+            print("TRACK MODE ARMED")
         
         else:
           self.track_mode()
