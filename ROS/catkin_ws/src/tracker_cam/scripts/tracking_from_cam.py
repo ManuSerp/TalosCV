@@ -1,6 +1,12 @@
 #!/usr/bin/env python
 
 from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
+
+from __future__ import print_function
+
 from cam.coordKCC import angleCenter
 from pysot.tracker.tracker_builder import build_tracker
 from pysot.models.model_builder import ModelBuilder
@@ -20,11 +26,7 @@ import time
 import rospy
 import sys
 from tracker_cam.msg import center_Array
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
 
-from __future__ import print_function
 import roslib
 roslib.load_manifest('tracker_cam')
 
@@ -67,7 +69,7 @@ class image_converter:
         self.bridge = CvBridge()
         # /xtion/rgb/image_raw pr robot camera pr gazebo
         self.image_sub = rospy.Subscriber(
-            "/camera/rgb/image_raw", Image, self.callback)
+            "/xtion/rgb/image_raw", Image, self.callback)
         self.pub = rospy.Publisher("trcCenter", Pose, queue_size=10)
         self.cpt = 0
         self.flt = 4

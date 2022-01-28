@@ -91,8 +91,7 @@ then
         
     fi
     echo 'depth printer without robot  movements'
-    rosrun tracker_cam tracking_cam_wservo.py --config src/tracker_cam/experiments/siamrpn_alex_dwxcorr/config.yaml --snapshot src/tracker_cam/experiments/siamrpn_alex_dwxcorr/model.pth
-    
+    rosrun tracker_cam distance_printer_wservo.py
     
     
 fi
@@ -106,6 +105,20 @@ then
     fi
     echo 'robot tracker'
     rosrun tracker_cam depth_go_first.py
+    
+    
+    
+fi
+if [ $1 =  7 ]
+then
+    if [ $2 = 'cmp' ]
+    then
+        
+        catkin build tracker_cam
+        
+    fi
+    echo 'robot tracker'
+    rosrun tracker_cam depth_test.py
     
     
     

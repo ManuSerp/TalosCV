@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 from __future__ import print_function
+import math
 from cv_bridge import CvBridge, CvBridgeError
 from sensor_msgs.msg import Image
-from std_msgs.msg import Empty
+from std_srvs.srv import Empty
 from geometry_msgs.msg import Pose
-import sensor_msgs.point_cloud2 as pc2
 import cv2
 import rospy
 import sys
+import time
 from ast import Is
 from cam.coordKCC import spatialization, isMoving, realCoord
 from tiago_controller.srv import move
@@ -43,7 +44,7 @@ class image_converter:
         self.bridge = CvBridge()
         self.center = rospy.Subscriber("/trcCenter", Pose, self.maj_center)
         self.dist_sub = rospy.Subscriber(
-            "/camera/depth/image", Image, self.maj_depthimage)
+            "/xtion/depth/image", Image, self.maj_depthimage)
         self.pose_head = rospy.Subscriber(
             "/tiago_controller/head_pose", Pose, self.get_head)
         self.pose_ee = rospy.Subscriber(
@@ -85,11 +86,15 @@ class image_converter:
             cv2.imshow("Image window", self.depth_image)
 
             dst = self.depth_image[self.centerPT[1]][self.centerPT[0]]
+            if math.isnan(dst):
+                print("NAN ERROR")
+                exit()
 
             if not self.go:
                 self.go = True
                 head_p = [self.head.position.x,
                           self.head.position.y, self.head.position.z]
+
                 spz = spatialization(self.centerPT, dst)
                 print("TRAJECTORY INIT")
                 print("referentiel cam")
@@ -99,20 +104,17 @@ class image_converter:
                 print(spz)
                 self.aim = spz
                 print("move to track pos")
-                self.trc(spz, 7, False, True, "ee")
+                self.trc(spz, 5, False, True, "ee")
+                time.sleep(5)
 
             if self.go:
                 if not self.reach:
-                    if not isMoving(self.aim, self.ee_pose, 0.025):
-                        self.reach = True
-                        print("TRACK MODE ARMED")
-                    else:
-                        print('--')
-                        print(self.aim)
-                        print(self.ee_pose)
-
-                else:
+                    self.reach = True
                     self.track_mode()
+                    print("TRACK MODE ARMED")
+
+                elif self.mode == 'track':
+
                     head_p = [self.head.position.x,
                               self.head.position.y, self.head.position.z]
                     spz = spatialization(self.centerPT, dst)
@@ -124,9 +126,15 @@ class image_converter:
                     self.aim = spz
                     print("move tracking")
 
-                    self.pub.publish(spz)
+                    trk = Pose()
+                    trk.position.x = spz[0]
+                    trk.position.y = spz[1]
+                    trk.position.z = spz[2]
+                    trk.orientation = self.head.orientation
 
-        cv2.waitKey(3)
+                    self.pub.publish(trk)
+
+            cv2.waitKey(3)
 
     def track_mode(self):
         rospy.wait_for_service('tiago_controller/tracking_mode')
@@ -134,6 +142,8 @@ class image_converter:
             mv = rospy.ServiceProxy('tiago_controller/tracking_mode', Empty)
 
             mv()
+            self.mode = 'track'
+
             return 1
         except rospy.ServiceException as e:
             print("Service call failed: %s" % e)
@@ -154,9 +164,11 @@ class image_converter:
 
 
 def main(args):
+
     rospy.init_node('depth_printer_w', anonymous=True)
 
     ic = image_converter()
+
     print('debug')
     rate = rospy.Rate(50)
     while not rospy.is_shutdown():

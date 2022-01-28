@@ -103,16 +103,17 @@ class image_converter:
 
             if self.go:
                 if not self.reach:
-                    if not isMoving(self.aim, self.ee_pose, 0.025):
+                    if not isMoving(self.aim, self.ee_pose, 0.02):
                         self.reach = True
+                        self.track_mode()
                         print("TRACK MODE ARMED")
                     else:
                         print('--')
                         print(self.aim)
                         print(self.ee_pose)
 
-                else:
-                    self.track_mode()
+                elif self.mode == 'track':
+
                     head_p = [self.head.position.x,
                               self.head.position.y, self.head.position.z]
                     spz = spatialization(self.centerPT, dst)
@@ -126,7 +127,7 @@ class image_converter:
 
                     self.pub.publish(spz)
 
-        cv2.waitKey(3)
+            cv2.waitKey(3)
 
     def track_mode(self):
         rospy.wait_for_service('tiago_controller/tracking_mode')
@@ -134,6 +135,8 @@ class image_converter:
             mv = rospy.ServiceProxy('tiago_controller/tracking_mode', Empty)
 
             mv()
+            self.mode = 'track'
+
             return 1
         except rospy.ServiceException as e:
             print("Service call failed: %s" % e)
