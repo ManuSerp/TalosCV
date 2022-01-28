@@ -1,1 +1,0 @@
-/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/.private/tiago_controller/lib/python3/dist-packages/tiago_controller/__init__.py

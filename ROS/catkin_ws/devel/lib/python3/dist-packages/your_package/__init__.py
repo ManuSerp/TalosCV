@@ -1,1 +1,0 @@
-/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/.private/tracker_cam/lib/python3/dist-packages/your_package/__init__.py

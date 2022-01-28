@@ -1,8 +1,0 @@
-prefix=/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/.private/tiago_controller
-
-Name: tiago_controller
-Description: Description of tiago_controller
-Version: 0.1.0
-Cflags: -I/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/.private/tiago_controller/include
-Libs: -L${prefix}/lib 
-Requires: roscpp std_msgs std_srvs hardware_interface pluginlib controller_interface message_runtime geometry_msgs

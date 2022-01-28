@@ -1,8 +1,0 @@
-prefix=/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/.private/rbx1_apps
-
-Name: rbx1_apps
-Description: Description of rbx1_apps
-Version: 0.4.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

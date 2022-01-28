@@ -1,7 +1,0 @@
-set(tracker_cam_SETUP_PY_SETUP_MODULE "setuptools")
-set(tracker_cam_SETUP_PY_VERSION "0.0.0")
-set(tracker_cam_SETUP_PY_SCRIPTS "")
-set(tracker_cam_SETUP_PY_PACKAGES "pysot;cam")
-set(tracker_cam_SETUP_PY_PACKAGE_DIRS "scripts/pysot;scripts/cam")
-set(tracker_cam_SETUP_PY_MODULES "")
-set(tracker_cam_SETUP_PY_MODULE_DIRS "")

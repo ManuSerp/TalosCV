@@ -1,1 +1,0 @@
-/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/.private/tiago_controller/share/common-lisp/ros/tiago_controller/srv/_package.lisp

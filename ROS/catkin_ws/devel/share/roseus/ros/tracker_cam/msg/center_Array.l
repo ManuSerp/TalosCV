@@ -1,1 +1,0 @@
-/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/.private/tracker_cam/share/roseus/ros/tracker_cam/msg/center_Array.l
