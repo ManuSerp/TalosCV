@@ -175,7 +175,7 @@ There are two modes: trajectory and tracking. Tracking can make the robot too fa
 - `rosservice call /tiago_controller/move  "{pose: {position: {x: 0.5, y: 0.5, z: 1.2}}, duration: 1., use_orientation: False, use_position: True, task_name: ee}" ` 
 
 
-
+docker run -i -t continuumio/anaconda3 /bin/bash
 
 
 
