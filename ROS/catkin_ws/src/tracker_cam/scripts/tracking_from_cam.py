@@ -77,7 +77,7 @@ class image_converter:
     self.run=0
     self.first_frame=True 
     self.bridge = CvBridge()
-    self.image_sub = rospy.Subscriber("/xtion/rgb/image_raw",Image,self.callback) # /xtion/rgb/image_raw pr robot
+    self.image_sub = rospy.Subscriber("/camera/rgb/image_raw",Image,self.callback) # /xtion/rgb/image_raw pr robot camera pr gazebo
     self.pub = rospy.Publisher("trcCenter",Pose,queue_size=10)
     self.cpt=0
     self.flt=4

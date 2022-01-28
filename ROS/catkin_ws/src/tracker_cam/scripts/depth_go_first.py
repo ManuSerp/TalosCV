@@ -15,7 +15,7 @@ import cv2
 import sensor_msgs.point_cloud2 as pc2
 from geometry_msgs.msg import Pose
 
-from std_msgs.msg import String
+from std_msgs.msg import Empty
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
 def dist_pt(x,y,pt):
@@ -41,7 +41,7 @@ class image_converter:
     self.go=False
     self.bridge = CvBridge()
     self.center = rospy.Subscriber("/trcCenter",Pose,self.maj_center)
-    self.dist_sub = rospy.Subscriber("/xtion/depth/image",Image,self.maj_depthimage)
+    self.dist_sub = rospy.Subscriber("/camera/depth/image",Image,self.maj_depthimage)
     self.pose_head=rospy.Subscriber("/tiago_controller/head_pose",Pose,self.get_head)
     self.pose_ee=rospy.Subscriber("/tiago_controller/ee_pose",Pose,self.get_ee)
     self.pub = rospy.Publisher("/tiago_controller/ee_target",Pose,queue_size=10)
@@ -55,7 +55,7 @@ class image_converter:
 
     
   def get_ee(self,data):
-    self.ee_pose=[int(data.position.x),int(data.position.y),int(data.position.z)]
+    self.ee_pose=[data.position.x,data.position.y,data.position.z]
 
 
   def maj_depthimage(self,data):
@@ -95,18 +95,22 @@ class image_converter:
         print("TRAJECTORY INIT")
         print("referentiel cam") #
         print(spz)
-        print("referentiel du robot:")
+        print("referentiel robot:")
         spz = realCoord(spz,head_p)
         print(spz)
         self.aim=spz
         print("move to track pos")
-        self.trc(spz,1,False,True,"ee")
+        self.trc(spz,5,False,True,"ee")
 
       if self.go:
         if not self.reach:
-          if not isMoving(self.aim,self.ee_pose,0.01):
+          if not isMoving(self.aim,self.ee_pose,0.025):
             self.reach=True
             print("TRACK MODE ARMED")
+          #else:
+            #print('--')
+            #print(self.aim)
+            #print(self.ee_pose)
         
         else:
           self.track_mode()
@@ -126,10 +130,11 @@ class image_converter:
 
 
     cv2.waitKey(3)
-  def track_mode():
+
+  def track_mode(self):
     rospy.wait_for_service('tiago_controller/tracking_mode')
     try:
-      mv = rospy.ServiceProxy('tiago_controller/tracking_mode')
+      mv = rospy.ServiceProxy('tiago_controller/tracking_mode',Empty)
       
       mv()
       return 1
