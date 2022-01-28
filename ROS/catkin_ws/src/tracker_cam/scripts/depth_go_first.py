@@ -107,10 +107,10 @@ class image_converter:
           if not isMoving(self.aim,self.ee_pose,0.025):
             self.reach=True
             print("TRACK MODE ARMED")
-          #else:
-            #print('--')
-            #print(self.aim)
-            #print(self.ee_pose)
+          else:
+            print('--')
+            print(self.aim)
+            print(self.ee_pose)
         
         else:
           self.track_mode()

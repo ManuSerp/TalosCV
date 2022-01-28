@@ -39,7 +39,7 @@ class image_converter:
 
     self.bridge = CvBridge()
     self.center = rospy.Subscriber("/trcCenter",Pose,self.maj_center)
-    self.dist_sub = rospy.Subscriber("/xtion/depth/image",Image,self.maj_depthimage)
+    self.dist_sub = rospy.Subscriber("/camera/depth/image",Image,self.maj_depthimage)
 
     
   
@@ -73,7 +73,7 @@ class image_converter:
 
       dst=self.depth_image[self.centerPT[1]][self.centerPT[0]]
       print(dst)
-
+      print(len(self.depth_image))
       
 
       
