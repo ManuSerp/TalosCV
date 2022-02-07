@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 from __future__ import print_function
+import roslib
+import argparse
 import math
 from cv_bridge import CvBridge, CvBridgeError
 from sensor_msgs.msg import Image
@@ -14,7 +16,11 @@ from cam.coordKCC import spatialization, isMoving, realCoord
 from tiago_controller.srv import move
 
 
-import roslib
+parser = argparse.ArgumentParser(description='depth master node')
+parser.add_argument('--setup', default="docker", type=str,
+                    help='docker if you use a dcoker with openni2 driver else robot')
+args = parser.parse_args()
+
 roslib.load_manifest('tracker_cam')
 
 
@@ -35,16 +41,21 @@ def list_locater(x, y, L):
 class image_converter:
 
     def __init__(self):
-        print('ini')
+        print('initialisation')
         self.first = False
         self.depth_image = None
         self.centerPT = None
         self.head = None
         self.go = False
+        if args.setup == "docker":
+            self.setup = "camera"
+        elif args.setup == "robot":
+            self.setup = "xtion"
+
         self.bridge = CvBridge()
         self.center = rospy.Subscriber("/trcCenter", Pose, self.maj_center)
         self.dist_sub = rospy.Subscriber(
-            "/xtion/depth/image", Image, self.maj_depthimage)
+            "/"+self.setup+"/depth/image", Image, self.maj_depthimage)
         self.pose_head = rospy.Subscriber(
             "/tiago_controller/head_pose", Pose, self.get_head)
         self.pose_ee = rospy.Subscriber(
@@ -165,7 +176,7 @@ class image_converter:
 
 def main(args):
 
-    rospy.init_node('depth_printer_w', anonymous=True)
+    rospy.init_node('depth_master', anonymous=True)
 
     ic = image_converter()
 
