@@ -68,6 +68,7 @@ class image_converter:
         self.reach = False
         self.aim = None
         self.ee_pose = None
+        self.traj_mode()
 
     def get_ee(self, data):
         self.ee_pose = [data.position.x, data.position.y, data.position.z]
@@ -99,9 +100,9 @@ class image_converter:
             dst = self.depth_image[self.centerPT[1]][self.centerPT[0]]
             if math.isnan(dst):
                 print("NAN ERROR")
-                exit()
 
-            if not self.go:
+            if not self.go and not math.isnan(dst):
+
                 self.go = True
                 head_p = [self.head.position.x,
                           self.head.position.y, self.head.position.z]
@@ -118,7 +119,7 @@ class image_converter:
                 self.trc(spz, 5, False, True, "ee")
                 time.sleep(5)
 
-            if self.go:
+            if self.go and not math.isnan(dst):
                 if not self.reach:
                     self.reach = True
                     self.track_mode()
@@ -154,6 +155,18 @@ class image_converter:
 
             mv()
             self.mode = 'track'
+
+            return 1
+        except rospy.ServiceException as e:
+            print("Service call failed: %s" % e)
+
+    def traj_mode(self):
+        rospy.wait_for_service('tiago_controller/traj_mode')
+        try:
+            mv = rospy.ServiceProxy('tiago_controller/traj_mode', Empty)
+
+            mv()
+            self.mode = 'traj'
 
             return 1
         except rospy.ServiceException as e:
