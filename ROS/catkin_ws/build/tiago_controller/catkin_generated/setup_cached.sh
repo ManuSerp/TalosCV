@@ -8,6 +8,8 @@
 
 # modified environment variables
 export CMAKE_PREFIX_PATH="/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/.private/tiago_controller:$CMAKE_PREFIX_PATH"
+export LD_LIBRARY_PATH="/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/.private/tiago_controller/lib:$LD_LIBRARY_PATH"
 export PWD='/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/build/tiago_controller'
+export PYTHONPATH="/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/.private/tiago_controller/lib/python3/dist-packages:$PYTHONPATH"
 export ROSLISP_PACKAGE_DIRECTORIES="/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/.private/tiago_controller/share/common-lisp:$ROSLISP_PACKAGE_DIRECTORIES"
 export ROS_PACKAGE_PATH="/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/src/tiago_controller:$ROS_PACKAGE_PATH"

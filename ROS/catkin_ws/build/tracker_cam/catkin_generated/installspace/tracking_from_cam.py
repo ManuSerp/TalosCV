@@ -1,6 +1,12 @@
 #!/usr/bin/env python3
 
 from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
+
+from __future__ import print_function
+
 from cam.coordKCC import angleCenter
 from pysot.tracker.tracker_builder import build_tracker
 from pysot.models.model_builder import ModelBuilder
@@ -20,22 +26,20 @@ import time
 import rospy
 import sys
 from tracker_cam.msg import center_Array
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
 
-from __future__ import print_function
 import roslib
 roslib.load_manifest('tracker_cam')
 
 
 torch.set_num_threads(1)
 
-parser = argparse.ArgumentParser(description='tracking demo')
+parser = argparse.ArgumentParser(description='tracking node')
 parser.add_argument('--config', type=str, help='config file')
 parser.add_argument('--snapshot', type=str, help='model name')
 parser.add_argument('--video_name', default='', type=str,
                     help='videos or image files')
+parser.add_argument('--setup', default="docker", type=str,
+                    help='docker if you use a dcoker with openni2 driver else robot')
 args = parser.parse_args()
 
 
@@ -61,13 +65,18 @@ class image_converter:
         # build tracker
         print("build tracker")
         self.tracker = build_tracker(self.model)
+        # ROS config
+        if args.setup == "docker":
+            self.setup = "camera"
+        elif args.setup == "robot":
+            self.setup = "xtion"
 
         self.run = 0
         self.first_frame = True
         self.bridge = CvBridge()
         # /xtion/rgb/image_raw pr robot camera pr gazebo
         self.image_sub = rospy.Subscriber(
-            "/camera/rgb/image_raw", Image, self.callback)
+            "/"+self.setup+"/rgb/image_raw", Image, self.callback)
         self.pub = rospy.Publisher("trcCenter", Pose, queue_size=10)
         self.cpt = 0
         self.flt = 4
@@ -145,7 +154,7 @@ class image_converter:
 
 def main(args):
     ic = image_converter()
-    rospy.init_node('image_converter', anonymous=True)
+    rospy.init_node('image_tracker', anonymous=True)
     try:
         rospy.spin()
     except KeyboardInterrupt:

@@ -21,6 +21,8 @@ class image_converter:
         print('ini')
         self.depth_image = None
         self.bridge = CvBridge()
+        self.received = False
+        self.var = True
         self.dist_sub = rospy.Subscriber(
             "/camera/depth/image", Image, self.maj_depthimage)
 
@@ -31,22 +33,24 @@ class image_converter:
             self.depth_image = self.bridge.imgmsg_to_cv2(
                 data)  # inspect the matrix
             # print(depth_image)
-            self.first = True
+            self.received = True
 
         except CvBridgeError as e:
             print(e)
 
     def master(self):
 
-        if self.depth_image != None:
+        if self.received == True and self.var:
 
             cv2.imshow("Image window", self.depth_image)
+            print(self.depth_image)
+            self.var = False
 
             cv2.waitKey(3)
 
 
 def main(args):
-    rospy.init_node('depth_printer_w', anonymous=True)
+    rospy.init_node('depth_printer_ws', anonymous=True)
 
     ic = image_converter()
     print('debug')
