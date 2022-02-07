@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 from __future__ import print_function
 from cv_bridge import CvBridge, CvBridgeError
-from sensor_msgs.msg import Image
+from sensor_msgs.msg import Image, PointCloud2
 
 import cv2
 import rospy
 import sys
+import sensor_msgs.point_cloud2 as pc2
 from ast import Is
 
 from tiago_controller.srv import move
@@ -13,6 +14,21 @@ from tiago_controller.srv import move
 
 import roslib
 roslib.load_manifest('tracker_cam')
+
+
+def toGrid(l):
+    res = [[0 for z in range(640)] for i in range(480)]
+    x, y = 0, 0
+    for p in l:
+
+        res[y][x] = p
+        if x < 639:
+            x = x+1
+        else:
+            x = 0
+            y = y+1
+
+    return res
 
 
 class image_converter:
@@ -24,15 +40,21 @@ class image_converter:
         self.received = False
         self.var = True
         self.dist_sub = rospy.Subscriber(
-            "/camera/depth/image", Image, self.maj_depthimage)
+            "/xtion/depth_registered/points", PointCloud2, self.maj_depthimage)
 
     def maj_depthimage(self, data):
 
         try:
 
-            self.depth_image = self.bridge.imgmsg_to_cv2(
-                data)  # inspect the matrix
-            # print(depth_image)
+            arr = pc2.read_points(
+                data, skip_nans=False, field_names=("x", "y", "z"))  # inspect the matrix (y,z,x) dans mon referentiel parcours de gauche a droite je pense
+
+            l = []
+            for p in arr:
+                l.append(p)
+
+            res = toGrid(l)
+            self.depth_image = res
             self.received = True
 
         except CvBridgeError as e:
@@ -42,11 +64,7 @@ class image_converter:
 
         if self.received == True and self.var:
 
-            cv2.imshow("Image window", self.depth_image)
-            print(self.depth_image)
-            self.var = False
-
-            cv2.waitKey(3)
+            print(self.depth_image[0][0])
 
 
 def main(args):

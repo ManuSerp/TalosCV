@@ -18,7 +18,7 @@ from tiago_controller.srv import move
 
 parser = argparse.ArgumentParser(description='depth master node')
 parser.add_argument('--setup', default="docker", type=str,
-                    help='docker if you use a dcoker with openni2 driver else robot')
+                    help='docker if you use a docker with openni2 driver else robot')
 args = parser.parse_args()
 
 roslib.load_manifest('tracker_cam')
