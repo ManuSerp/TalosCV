@@ -1,4 +1,19 @@
 Not searching for unused variables given on the command line.
+[36m--[0m The C compiler identification is GNU 9.3.0
+[36m--[0m The CXX compiler identification is GNU 9.3.0
+[36m--[0m Check for working C compiler: /usr/bin/cc
+[36m--[0m Check for working C compiler: /usr/bin/cc -- works
+[36m--[0m Detecting C compiler ABI info
+[36m--[0m Detecting C compiler ABI info - done
+[36m--[0m Detecting C compile features
+[36m--[0m Detecting C compile features - done
+[36m--[0m Check for working CXX compiler: /usr/bin/c++
+[36m--[0m Check for working CXX compiler: /usr/bin/c++ -- works
+[36m--[0m Detecting CXX compiler ABI info
+[36m--[0m Detecting CXX compiler ABI info - done
+[36m--[0m Detecting CXX compile features
+[36m--[0m Detecting CXX compile features - done
+tiago_controller: building only the messages
 [36m--[0m Using CATKIN_DEVEL_PREFIX: /home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/.private/tiago_controller
 [36m--[0m Using CMAKE_PREFIX_PATH: /home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel;/opt/ros/noetic
 [36m--[0m This workspace overlays: /home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel;/opt/ros/noetic
@@ -21,11 +36,5 @@ Not searching for unused variables given on the command line.
 [36m--[0m Using these message generators: gencpp;geneus;genlisp;gennodejs;genpy
 [36m--[0m tiago_controller: 0 messages, 1 services
 [36m--[0m Configuring done
-[31m[1mCMake Error[0m at /home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/src/tiago_controller/CMakeLists.txt:44 (add_library):
-  Target "tiago_joint_controller" links to target "inria_wbc::inria_wbc" but
-  the target was not found.  Perhaps a find_package() call is missing for an
-  IMPORTED target, or an ALIAS target is missing?
-
-
 [36m--[0m Generating done
-CMake Generate step failed.  Build files cannot be regenerated correctly.
+[36m--[0m Build files have been written to: /home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/build/tiago_controller

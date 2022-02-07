@@ -32,6 +32,14 @@ Not searching for unused variables given on the command line.
 [36m--[0m Using Python nosetests: /usr/bin/nosetests3
 [36m--[0m catkin 0.8.10
 [36m--[0m BUILD_SHARED_LIBS is on
+[36m--[0m Using these message generators: gencpp;geneus;genlisp;gennodejs;genpy
+[36m--[0m tracker_cam: 1 messages, 0 services
+[36m--[0m Installing devel-space wrapper /home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/src/tracker_cam/scripts/cvBridgeDemo.py to /home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/.private/tracker_cam/lib/tracker_cam
+[36m--[0m Installing devel-space wrapper /home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/src/tracker_cam/scripts/tracking_from_cam.py to /home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/.private/tracker_cam/lib/tracker_cam
+[36m--[0m Installing devel-space wrapper /home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/src/tracker_cam/scripts/tracking.py to /home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/.private/tracker_cam/lib/tracker_cam
+[36m--[0m Installing devel-space wrapper /home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/src/tracker_cam/scripts/distance_printer.py to /home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/.private/tracker_cam/lib/tracker_cam
+[36m--[0m Installing devel-space wrapper /home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/src/tracker_cam/scripts/distance_printer_wservo.py to /home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/.private/tracker_cam/lib/tracker_cam
+[36m--[0m Installing devel-space wrapper /home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/src/tracker_cam/scripts/depth_go_first.py to /home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/.private/tracker_cam/lib/tracker_cam
 [36m--[0m Configuring done
 [36m--[0m Generating done
 [36m--[0m Build files have been written to: /home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/build/tracker_cam

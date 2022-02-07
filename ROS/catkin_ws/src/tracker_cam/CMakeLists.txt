@@ -217,10 +217,6 @@ catkin_install_python(PROGRAMS scripts/cvBridgeDemo.py
 )
 
 
-catkin_install_python(PROGRAMS scripts/test.py
-  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-)
-
 catkin_install_python(PROGRAMS scripts/tracking_from_cam.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
@@ -237,9 +233,25 @@ catkin_install_python(PROGRAMS scripts/distance_printer.py
 
 
 
-catkin_install_python(PROGRAMS scripts/tracking_cam_wservo.py
+catkin_install_python(PROGRAMS scripts/distance_printer_wservo.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
+
+catkin_install_python(PROGRAMS scripts/depth_go_first.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
+catkin_install_python(PROGRAMS scripts/depth_test.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
+
+
+
+
+
+
+
 
 
 
