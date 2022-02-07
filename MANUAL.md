@@ -53,6 +53,10 @@ source devel/setup.bash
 
 Now everything is ready to launch programs
 
+#####
+If using the robot in ethernet you have to update the etc
+and for the ip need to use the network of the robot, usualy the the robot is in the ****.****.1
+
 
 
 
@@ -175,7 +179,6 @@ There are two modes: trajectory and tracking. Tracking can make the robot too fa
 - `rosservice call /tiago_controller/move  "{pose: {position: {x: 0.5, y: 0.5, z: 1.2}}, duration: 1., use_orientation: False, use_position: True, task_name: ee}" ` 
 
 
-docker run -i -t continuumio/anaconda3 /bin/bash
 
 
 
