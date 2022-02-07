@@ -53,11 +53,6 @@ source devel/setup.bash
 
 Now everything is ready to launch programs
 
-#####
-If using the robot in ethernet you have to update the etc
-and for the ip need to use the network of the robot, usualy the the robot is in the ****.****.1
-
-
 
 
 ### Launching Program
@@ -104,6 +99,12 @@ setup the terminal to interact with the docker:
 - à l’extérieur du docker (changer l'ip si necessaire):
   - ``` export ROS_MASTER_URI=http://172.17.0.1:11311 ``` 
   - ``` export ROS_IP=172.17.0.1 ```
+
+
+##### Robot
+If using the robot in ethernet you have to update the etc/hosts
+and for the ip need to use the network of the robot, usualy the the robot is in the ****.****.1
+
  Normalement un rostopic list en dehors du docker devrait lister les topics (si tout tourne dans le docker bien sûr).
 Now launch the xtion driver
 ```
