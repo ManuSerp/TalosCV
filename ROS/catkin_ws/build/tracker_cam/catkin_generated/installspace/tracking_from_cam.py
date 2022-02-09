@@ -71,6 +71,8 @@ class image_converter:
         elif args.setup == "robot":
             self.setup = "xtion"
 
+        print("setup: "+self.setup)
+
         self.run = 0
         self.first_frame = True
         self.bridge = CvBridge()

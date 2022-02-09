@@ -26,5 +26,6 @@ tracker_cam
 /home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/.private/tracker_cam/lib/tracker_cam/tracking.py /home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/lib/tracker_cam/tracking.py
 /home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/.private/tracker_cam/lib/tracker_cam/tracking_from_cam.py /home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/lib/tracker_cam/tracking_from_cam.py
 /home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/.private/tracker_cam/lib/tracker_cam/depth_go_first.py /home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/lib/tracker_cam/depth_go_first.py
+/home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/.private/tracker_cam/lib/tracker_cam/datben.py /home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/lib/tracker_cam/datben.py
 /home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/.private/tracker_cam/lib/tracker_cam/distance_printer_wservo.py /home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/lib/tracker_cam/distance_printer_wservo.py
 /home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/.private/tracker_cam/lib/tracker_cam/depth_test.py /home/manu/Documents/Projet/RECH/Tracking/TalosCV/ROS/catkin_ws/devel/lib/tracker_cam/depth_test.py
