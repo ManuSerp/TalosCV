@@ -41,7 +41,7 @@ def list_locater(x, y, L):
 class image_converter:
 
     def __init__(self):
-        print('initialisation')
+        print('initialisation...')
         self.first = False
         self.depth_image = None
         self.centerPT = None
@@ -191,9 +191,11 @@ def main(args):
 
     rospy.init_node('depth_master', anonymous=True)
 
+    print("version: "+args.setup)
+
     ic = image_converter()
 
-    print('debug')
+    print('looping...')
     rate = rospy.Rate(50)
     while not rospy.is_shutdown():
 

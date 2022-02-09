@@ -13,7 +13,7 @@ then
     echo '4 - A RETIRER'
     echo '5 - depth webcam without servo'
     echo '6 - tracking for the robot, use robot or docker as paramater'
-    echo '7 - depth from pcl'
+    echo '7 - depth from pcl, use robot or docker as paramater'
     echo ' cmp for catkin # available as an option for the previous programs'
     echo ' to make depth works well, launch first depth printer and then tracking xtion'
     echo '--------------------------------------------------------------------------------'
@@ -96,14 +96,14 @@ then
 fi
 if [ $1 =  7 ]
 then
-    if [ $2 = 'cmp' ]
+    if [ $3 = 'cmp' ]
     then
         
         catkin build tracker_cam
         
     fi
-    echo 'robot tracker'
-    rosrun tracker_cam depth_pcl.py
+    echo 'pcl depth'
+    rosrun tracker_cam depth_pcl.py --setup $2
     
     
     

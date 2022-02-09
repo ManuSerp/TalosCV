@@ -97,7 +97,6 @@ class image_converter:
 
 def main(args):
     rospy.init_node('depth_printer_ws', anonymous=True)
-    print("version: "+args.setup)
 
     ic = image_converter()
     print('emitting cooordinate from pcl... ')

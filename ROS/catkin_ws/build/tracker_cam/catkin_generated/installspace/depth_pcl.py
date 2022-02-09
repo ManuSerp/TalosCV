@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 from __future__ import print_function
 from cv_bridge import CvBridge, CvBridgeError
 from sensor_msgs.msg import Image, PointCloud2
@@ -97,7 +97,6 @@ class image_converter:
 
 def main(args):
     rospy.init_node('depth_printer_ws', anonymous=True)
-    print("version: "+args.setup)
 
     ic = image_converter()
     print('emitting cooordinate from pcl... ')

@@ -155,6 +155,7 @@ class image_converter:
 
 
 def main(args):
+    print("version: "+args.setup)
     ic = image_converter()
     rospy.init_node('image_tracker', anonymous=True)
     try:
