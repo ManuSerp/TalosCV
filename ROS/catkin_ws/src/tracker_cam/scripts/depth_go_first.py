@@ -45,6 +45,7 @@ class image_converter:
         self.first = False
         self.depth_image = None
         self.centerPT = None
+        self.pcl = None
         self.head = None
         self.go = False
         if args.setup == "docker":
@@ -60,6 +61,8 @@ class image_converter:
             "/tiago_controller/head_pose", Pose, self.get_head)
         self.pose_ee = rospy.Subscriber(
             "/tiago_controller/ee_pose", Pose, self.get_ee)
+        self.pcl = rospy.Subscriber(
+            "/clouded", Pose, self.get_pcl)
         self.pub = rospy.Publisher(
             "/tiago_controller/ee_target", Pose, queue_size=10)
 
@@ -69,6 +72,9 @@ class image_converter:
         self.aim = None
         self.ee_pose = None
         self.traj_mode()
+
+    def get_pcl(self, data):
+        self.pcl = [data.position.x, data.position.y, data.position.z]
 
     def get_ee(self, data):
         self.ee_pose = [data.position.x, data.position.y, data.position.z]
@@ -111,6 +117,8 @@ class image_converter:
                 print("TRAJECTORY INIT")
                 print("referentiel cam")
                 print(spz)
+                print("pcl:")
+                print(self.pcl)
                 print("referentiel robot:")
                 spz = realCoord(spz, head_p)
                 print(spz)
