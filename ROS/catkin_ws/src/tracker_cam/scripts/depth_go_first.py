@@ -61,7 +61,7 @@ class image_converter:
             "/tiago_controller/head_pose", Pose, self.get_head)
         self.pose_ee = rospy.Subscriber(
             "/tiago_controller/ee_pose", Pose, self.get_ee)
-        self.pcl = rospy.Subscriber(
+        self.pcl_sub = rospy.Subscriber(
             "/clouded", Pose, self.get_pcl)
         self.pub = rospy.Publisher(
             "/tiago_controller/ee_target", Pose, queue_size=10)
@@ -99,7 +99,7 @@ class image_converter:
 
     def master(self):
 
-        if self.centerPT != None and self.first and self.head != None and self.ee_pose != None:
+        if self.centerPT != None and self.first and self.head != None and self.ee_pose != None and self.pcl != None:
 
             cv2.imshow("Image window", self.depth_image)
 
@@ -113,14 +113,12 @@ class image_converter:
                 head_p = [self.head.position.x,
                           self.head.position.y, self.head.position.z]
 
-                spz = spatialization(self.centerPT, dst)
+                #spz = spatialization(self.centerPT, dst)
                 print("TRAJECTORY INIT")
                 print("referentiel cam")
-                print(spz)
-                print("pcl:")
                 print(self.pcl)
                 print("referentiel robot:")
-                spz = realCoord(spz, head_p)
+                spz = realCoord(self.pcl, head_p)
                 print(spz)
                 self.aim = spz
                 print("move to track pos")
@@ -137,11 +135,11 @@ class image_converter:
 
                     head_p = [self.head.position.x,
                               self.head.position.y, self.head.position.z]
-                    spz = spatialization(self.centerPT, dst)
+                    #spz = spatialization(self.centerPT, dst)
                     print("referentiel cam")
-                    print(spz)
+                    print(self.pcl)
                     print("referentiel du robot:")
-                    spz = realCoord(spz, head_p)
+                    spz = realCoord(self.pcl, head_p)
                     print(spz)
                     self.aim = spz
                     print("move tracking")
@@ -195,7 +193,7 @@ class image_converter:
             print("Service call failed: %s" % e)
 
 
-def main(args):
+def main():
 
     rospy.init_node('depth_master', anonymous=True)
 
@@ -215,4 +213,4 @@ def main(args):
 
 
 if __name__ == '__main__':
-    main(sys.argv)
+    main()

@@ -90,12 +90,12 @@ class image_converter:
             if not math.isnan(pcl[0]):
                 toTrans = Pose()
                 toTrans.position.x = pcl[2]
-                toTrans.position.y = pcl[0]
+                toTrans.position.y = -pcl[0]
                 toTrans.position.z = -pcl[1]
                 self.pub.publish(toTrans)
 
 
-def main(args):
+def main():
     rospy.init_node('depth_printer_ws', anonymous=True)
     print("version: "+args.setup)
 
@@ -112,4 +112,4 @@ def main(args):
 
 
 if __name__ == '__main__':
-    main(sys.argv)
+    main()
