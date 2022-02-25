@@ -110,21 +110,23 @@ class image_converter:
 
             cv2.imshow("Image window", self.depth_image)
 
-            dst = self.depth_image[self.centerPT[1]][self.centerPT[0]]
-            if math.isnan(dst):
+            #dst = self.depth_image[self.centerPT[1]][self.centerPT[0]]
+            head_p = [self.head.position.x,
+                      self.head.position.y, self.head.position.z]
+            #spz = spatialization(self.centerPT, dst)
+
+            spz = realCoord(self.pcl, head_p)
+
+            if math.isnan(spz[0]):
                 print("NAN ERROR")
 
-            if not self.go and not math.isnan(dst):
+            if not self.go and not math.isnan(spz[0]):
 
                 self.go = True
-                head_p = [self.head.position.x,
-                          self.head.position.y, self.head.position.z]
 
-                #spz = spatialization(self.centerPT, dst)
                 print("TRAJECTORY INIT")
 
                 print("referentiel robot:")
-                spz = realCoord(self.pcl, head_p)
                 print(spz)
                 if self.margin != 0:
                     print("pos + safety margin:")
@@ -136,7 +138,7 @@ class image_converter:
                 self.trc(spz, 5, False, True, "ee")
                 time.sleep(5)
 
-            if self.go and not math.isnan(dst):
+            if self.go and not math.isnan(spz[0]):
                 if not self.reach:
                     self.reach = True
                     self.track_mode()
@@ -144,12 +146,7 @@ class image_converter:
 
                 elif self.mode == 'track':
 
-                    head_p = [self.head.position.x,
-                              self.head.position.y, self.head.position.z]
-                    #spz = spatialization(self.centerPT, dst)
-
                     print("referentiel du robot:")
-                    spz = realCoord(self.pcl, head_p)
                     print(spz)
 
                     if self.margin != 0:
