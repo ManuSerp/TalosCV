@@ -179,6 +179,8 @@ class image_converter:
                     else:
                         if self.safety:
                             print("TOO FAR NOT TRACKED!!!!!!!!!")
+                            print(self.get_ee)
+                            print(spz)
 
                         self.safety = False
 
