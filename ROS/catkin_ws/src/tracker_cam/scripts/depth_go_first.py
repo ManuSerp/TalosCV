@@ -154,7 +154,6 @@ class image_converter:
                         spz[0] = spz[0]-self.margin
                         print(spz)
 
-                    self.aim = spz
                     print("move tracking")
 
                     trk = Pose()
@@ -166,6 +165,7 @@ class image_converter:
                     if not isMoving(self.aim, spz, 0.02):
 
                         self.pub.publish(trk)
+                        self.aim = spz
 
                     else:
                         print("TOO FAR NOT TRACKED!!!!!!!!!")
