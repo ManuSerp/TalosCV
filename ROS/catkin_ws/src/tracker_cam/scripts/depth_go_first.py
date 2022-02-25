@@ -163,7 +163,12 @@ class image_converter:
                     trk.position.z = spz[2]
                     trk.orientation = self.head.orientation
 
-                    self.pub.publish(trk)
+                    if not isMoving(self.aim, spz, 0.02):
+
+                        self.pub.publish(trk)
+
+                    else:
+                        print("TOO FAR NOT TRACKED!!!!!!!!!")
 
             cv2.waitKey(3)
 

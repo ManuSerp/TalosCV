@@ -89,7 +89,7 @@ then
         
     fi
     echo 'robot tracker'
-    rosrun tracker_cam depth_go_first.py --setup $2
+    rosrun tracker_cam depth_go_first.py --setup $2 --margin 0.05
     
     
     
