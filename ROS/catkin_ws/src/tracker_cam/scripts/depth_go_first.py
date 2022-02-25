@@ -173,9 +173,9 @@ class image_converter:
                     trk.position.x = spz[0]
                     trk.position.y = spz[1]
                     trk.position.z = spz[2]
-                    trk.orientation = self.head.orientation
+                    trk.orientation = self.orientation
 
-                    if not isMoving(self.aim, spz, 0.02) and self.ee_ori == self.orientation:
+                    if not isMoving(self.aim, spz, 0.02):
 
                         self.pub.publish(trk)
                         self.aim = spz
@@ -184,7 +184,7 @@ class image_converter:
                     else:
                         if self.safety:
                             print("TOO FAR NOT TRACKED!!!!!!!!!")
-                            print(self.get_ee)
+                            print(self.ee_pose)
                             print(spz)
 
                         self.safety = False
