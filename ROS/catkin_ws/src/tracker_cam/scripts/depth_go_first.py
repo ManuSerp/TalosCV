@@ -81,6 +81,8 @@ class image_converter:
         self.reach = False
         self.aim = None
         self.ee_pose = None
+        self.ee_ori = None
+        self.orientation = None
         self.traj_mode()
 
     def get_pcl(self, data):
@@ -88,6 +90,7 @@ class image_converter:
 
     def get_ee(self, data):
         self.ee_pose = [data.position.x, data.position.y, data.position.z]
+        self.ee_ori = data.orientation
 
     def maj_depthimage(self, data):
 
@@ -126,6 +129,8 @@ class image_converter:
             if not self.go and not math.isnan(spz[0]):
 
                 self.go = True
+
+                self.orientation = self.ee_ori
 
                 print("TRAJECTORY INIT")
 
@@ -170,7 +175,7 @@ class image_converter:
                     trk.position.z = spz[2]
                     trk.orientation = self.head.orientation
 
-                    if not isMoving(self.aim, spz, 0.02):
+                    if not isMoving(self.aim, spz, 0.02) and self.ee_ori == self.orientation:
 
                         self.pub.publish(trk)
                         self.aim = spz
