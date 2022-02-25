@@ -61,6 +61,8 @@ class image_converter:
         self.margin = args.margin
         self.safety = True
 
+        print("safety margin: "+str(self.margin))
+
         self.bridge = CvBridge()
         self.center = rospy.Subscriber("/trcCenter", Pose, self.maj_center)
         self.dist_sub = rospy.Subscriber(
