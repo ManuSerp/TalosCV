@@ -114,7 +114,7 @@ class image_converter:
 
         if self.centerPT != None and self.first and self.head != None and self.ee_pose != None and self.pcl != None:
 
-            cv2.imshow("Image window", self.depth_image)
+            #cv2.imshow("Image window", self.depth_image)
 
             #dst = self.depth_image[self.centerPT[1]][self.centerPT[0]]
             head_p = [self.head.position.x,
@@ -175,7 +175,7 @@ class image_converter:
                     trk.position.z = spz[2]
                     trk.orientation = self.orientation
 
-                    if not isMoving(self.aim, spz, 0.02):
+                    if not isMoving(self.aim, spz, 0.05):
 
                         self.pub.publish(trk)
                         self.aim = spz
