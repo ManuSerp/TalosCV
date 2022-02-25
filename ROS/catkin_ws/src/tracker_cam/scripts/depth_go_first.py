@@ -151,13 +151,13 @@ class image_converter:
             if self.go and not math.isnan(spz[0]):
                 if not self.reach:
                     self.reach = True
-                    self.track_mode()
+                    # self.track_mode()
                     print("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\")
-                    print("TRACK MODE ARMED")
+                    print("TRAJ MODE ARMED")
                     print(self.ee_pose)
                     print("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\")
 
-                elif self.mode == 'track':
+                elif self.mode == 'traj':
                     if self.safety:
                         print("referentiel du robot:")
                         print(spz)
@@ -168,6 +168,7 @@ class image_converter:
                         if self.safety:
                             print("pos + safety margin:")
                             print(spz)
+
                     if self.safety:
                         print("move tracking")
 
@@ -177,19 +178,8 @@ class image_converter:
                     trk.position.z = spz[2]
                     trk.orientation = self.orientation
 
-                    if not isMoving(self.aim, spz, 0.05):
-
-                        self.pub.publish(trk)
-                        self.aim = spz
-                        self.safety = True
-
-                    else:
-                        if self.safety:
-                            print("TOO FAR NOT TRACKED!!!!!!!!!")
-                            print(self.ee_pose)
-                            print(spz)
-
-                        self.safety = False
+                    self.aim = spz
+                    self.trc(spz, 0.25, False, True, "ee")
 
             cv2.waitKey(3)
 
@@ -241,7 +231,7 @@ def main():
     ic = image_converter()
 
     print('looping...')
-    rate = rospy.Rate(5)
+    rate = rospy.Rate(4)
     while not rospy.is_shutdown():
 
         ic.master()
