@@ -59,6 +59,7 @@ class image_converter:
             self.setup = "xtion"
 
         self.margin = args.margin
+        self.safety = True
 
         self.bridge = CvBridge()
         self.center = rospy.Subscriber("/trcCenter", Pose, self.maj_center)
@@ -142,19 +143,24 @@ class image_converter:
                 if not self.reach:
                     self.reach = True
                     self.track_mode()
+                    print("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\")
                     print("TRACK MODE ARMED")
+                    print(self.ee_pose)
+                    print("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\")
 
                 elif self.mode == 'track':
-
-                    print("referentiel du robot:")
-                    print(spz)
-
-                    if self.margin != 0:
-                        print("pos + safety margin:")
-                        spz[0] = spz[0]-self.margin
+                    if self.safety:
+                        print("referentiel du robot:")
                         print(spz)
 
-                    print("move tracking")
+                    if self.margin != 0:
+
+                        spz[0] = spz[0]-self.margin
+                        if self.safety:
+                            print("pos + safety margin:")
+                            print(spz)
+                    if self.safety:
+                        print("move tracking")
 
                     trk = Pose()
                     trk.position.x = spz[0]
@@ -166,9 +172,13 @@ class image_converter:
 
                         self.pub.publish(trk)
                         self.aim = spz
+                        self.safety = True
 
                     else:
-                        print("TOO FAR NOT TRACKED!!!!!!!!!")
+                        if self.safety:
+                            print("TOO FAR NOT TRACKED!!!!!!!!!")
+
+                        self.safety = False
 
             cv2.waitKey(3)
 
