@@ -133,6 +133,8 @@ class image_converter:
                 self.orientation = self.ee_ori
 
                 print("TRAJECTORY INIT")
+                print(self.pcl)
+                print(head_p)
 
                 print("referentiel robot:")
                 print(spz)
@@ -239,7 +241,7 @@ def main():
     ic = image_converter()
 
     print('looping...')
-    rate = rospy.Rate(50)
+    rate = rospy.Rate(5)
     while not rospy.is_shutdown():
 
         ic.master()
