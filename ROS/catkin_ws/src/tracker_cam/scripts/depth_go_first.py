@@ -19,6 +19,11 @@ from tiago_controller.srv import move
 parser = argparse.ArgumentParser(description='depth master node')
 parser.add_argument('--setup', default="docker", type=str,
                     help='docker if you use a docker with openni2 driver else robot')
+
+parser.add_argument('--margin', default=0, type=float,
+                    help='safety margin to avoid collisions during tests')
+
+
 args = parser.parse_args()
 
 roslib.load_manifest('tracker_cam')
@@ -52,6 +57,8 @@ class image_converter:
             self.setup = "camera"
         elif args.setup == "robot":
             self.setup = "xtion"
+
+        self.margin = args.margin
 
         self.bridge = CvBridge()
         self.center = rospy.Subscriber("/trcCenter", Pose, self.maj_center)
@@ -115,11 +122,15 @@ class image_converter:
 
                 #spz = spatialization(self.centerPT, dst)
                 print("TRAJECTORY INIT")
-                print("referentiel cam")
-                print(self.pcl)
+
                 print("referentiel robot:")
                 spz = realCoord(self.pcl, head_p)
                 print(spz)
+                if self.margin != 0:
+                    print("pos + safety margin:")
+                    spz[0] = spz[0]-self.margin
+                    print(spz)
+
                 self.aim = spz
                 print("move to track pos")
                 self.trc(spz, 5, False, True, "ee")
@@ -136,11 +147,16 @@ class image_converter:
                     head_p = [self.head.position.x,
                               self.head.position.y, self.head.position.z]
                     #spz = spatialization(self.centerPT, dst)
-                    print("referentiel cam")
-                    print(self.pcl)
+
                     print("referentiel du robot:")
                     spz = realCoord(self.pcl, head_p)
                     print(spz)
+
+                    if self.margin != 0:
+                        print("pos + safety margin:")
+                        spz[0] = spz[0]-self.margin
+                        print(spz)
+
                     self.aim = spz
                     print("move tracking")
 
