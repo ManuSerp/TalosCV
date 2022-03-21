@@ -19,6 +19,11 @@ from tiago_controller.srv import move
 parser = argparse.ArgumentParser(description='depth master node')
 parser.add_argument('--setup', default="docker", type=str,
                     help='docker if you use a docker with openni2 driver else robot')
+
+parser.add_argument('--margin', default=0, type=float,
+                    help='safety margin to avoid collisions during tests')
+
+
 args = parser.parse_args()
 
 roslib.load_manifest('tracker_cam')
@@ -41,16 +46,22 @@ def list_locater(x, y, L):
 class image_converter:
 
     def __init__(self):
-        print('initialisation')
+        print('initialisation...')
         self.first = False
         self.depth_image = None
         self.centerPT = None
+        self.pcl = None
         self.head = None
         self.go = False
         if args.setup == "docker":
             self.setup = "camera"
         elif args.setup == "robot":
             self.setup = "xtion"
+
+        self.margin = args.margin
+        self.safety = True
+
+        print("safety margin: "+str(self.margin))
 
         self.bridge = CvBridge()
         self.center = rospy.Subscriber("/trcCenter", Pose, self.maj_center)
@@ -60,6 +71,8 @@ class image_converter:
             "/tiago_controller/head_pose", Pose, self.get_head)
         self.pose_ee = rospy.Subscriber(
             "/tiago_controller/ee_pose", Pose, self.get_ee)
+        self.pcl_sub = rospy.Subscriber(
+            "/clouded", Pose, self.get_pcl)
         self.pub = rospy.Publisher(
             "/tiago_controller/ee_target", Pose, queue_size=10)
 
@@ -68,10 +81,16 @@ class image_converter:
         self.reach = False
         self.aim = None
         self.ee_pose = None
+        self.ee_ori = None
+        self.orientation = None
         self.traj_mode()
+
+    def get_pcl(self, data):
+        self.pcl = [data.position.x, data.position.y, data.position.z]
 
     def get_ee(self, data):
         self.ee_pose = [data.position.x, data.position.y, data.position.z]
+        self.ee_ori = data.orientation
 
     def maj_depthimage(self, data):
 
@@ -93,58 +112,74 @@ class image_converter:
 
     def master(self):
 
-        if self.centerPT != None and self.first and self.head != None and self.ee_pose != None:
+        if self.centerPT != None and self.first and self.head != None and self.ee_pose != None and self.pcl != None:
 
-            cv2.imshow("Image window", self.depth_image)
+            #cv2.imshow("Image window", self.depth_image)
 
-            dst = self.depth_image[self.centerPT[1]][self.centerPT[0]]
-            if math.isnan(dst):
+            #dst = self.depth_image[self.centerPT[1]][self.centerPT[0]]
+            head_p = [self.head.position.x,
+                      self.head.position.y, self.head.position.z]
+            #spz = spatialization(self.centerPT, dst)
+
+            spz = realCoord(self.pcl, head_p)
+
+            if math.isnan(spz[0]):
                 print("NAN ERROR")
 
-            if not self.go and not math.isnan(dst):
+            if not self.go and not math.isnan(spz[0]):
 
                 self.go = True
-                head_p = [self.head.position.x,
-                          self.head.position.y, self.head.position.z]
 
-                spz = spatialization(self.centerPT, dst)
+                self.orientation = self.ee_ori
+
                 print("TRAJECTORY INIT")
-                print("referentiel cam")
-                print(spz)
+                print(self.pcl)
+                print(head_p)
+
                 print("referentiel robot:")
-                spz = realCoord(spz, head_p)
                 print(spz)
+                if self.margin != 0:
+                    print("pos + safety margin:")
+                    spz[0] = spz[0]-self.margin
+                    print(spz)
+
                 self.aim = spz
                 print("move to track pos")
                 self.trc(spz, 5, False, True, "ee")
                 time.sleep(5)
 
-            if self.go and not math.isnan(dst):
+            if self.go and not math.isnan(spz[0]):
                 if not self.reach:
                     self.reach = True
-                    self.track_mode()
-                    print("TRACK MODE ARMED")
+                    # self.track_mode()
+                    print("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\")
+                    print("TRAJ MODE ARMED")
+                    print(self.ee_pose)
+                    print("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\")
 
-                elif self.mode == 'track':
+                elif self.mode == 'traj':
+                    if self.safety:
+                        print("referentiel du robot:")
+                        print(spz)
 
-                    head_p = [self.head.position.x,
-                              self.head.position.y, self.head.position.z]
-                    spz = spatialization(self.centerPT, dst)
-                    print("referentiel cam")
-                    print(spz)
-                    print("referentiel du robot:")
-                    spz = realCoord(spz, head_p)
-                    print(spz)
-                    self.aim = spz
-                    print("move tracking")
+                    if self.margin != 0:
+
+                        spz[0] = spz[0]-self.margin
+                        if self.safety:
+                            print("pos + safety margin:")
+                            print(spz)
+
+                    if self.safety:
+                        print("move tracking")
 
                     trk = Pose()
                     trk.position.x = spz[0]
                     trk.position.y = spz[1]
                     trk.position.z = spz[2]
-                    trk.orientation = self.head.orientation
+                    trk.orientation = self.orientation
 
-                    self.pub.publish(trk)
+                    self.aim = spz
+                    self.trc(spz, 0.25, False, True, "ee")
 
             cv2.waitKey(3)
 
@@ -187,14 +222,16 @@ class image_converter:
             print("Service call failed: %s" % e)
 
 
-def main(args):
+def main():
 
     rospy.init_node('depth_master', anonymous=True)
 
+    print("version: "+args.setup)
+
     ic = image_converter()
 
-    print('debug')
-    rate = rospy.Rate(50)
+    print('looping...')
+    rate = rospy.Rate(4)
     while not rospy.is_shutdown():
 
         ic.master()
@@ -205,4 +242,4 @@ def main(args):
 
 
 if __name__ == '__main__':
-    main(sys.argv)
+    main()

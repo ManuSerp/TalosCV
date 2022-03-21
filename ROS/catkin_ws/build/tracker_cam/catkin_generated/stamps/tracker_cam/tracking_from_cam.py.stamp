@@ -158,11 +158,14 @@ def main(args):
     print("version: "+args.setup)
     ic = image_converter()
     rospy.init_node('image_tracker', anonymous=True)
-    try:
-        rospy.spin()
-    except KeyboardInterrupt:
-        print("Shutting down")
+
+    rate = rospy.Rate(4)
+    while not rospy.is_shutdown():
+
+        rate.sleep()
+
     cv2.destroyAllWindows()
+    print("shutting down...")
 
 
 if __name__ == '__main__':
