@@ -179,8 +179,29 @@ There are two modes: trajectory and tracking. Tracking can make the robot too fa
 ##### Examples
 - `rosservice call /tiago_controller/move  "{pose: {position: {x: 0.5, y: 0.5, z: 1.2}}, duration: 1., use_orientation: False, use_position: True, task_name: ee}" ` 
 
+#### Docker compilation
 
 
+go robot_dart
+```
+git pull
+waf configure --prefix /home/pal/install
+waf 
+waf install
+```
+go tsid
+```
+git pull
+cd build
+make
+```
+go inria_wbc
+```
+git pull
+cd build
+cmake .. -DCMAKE_PREFIX_PATH=/home/pal/install -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/home/pal/install
+make
+```
 
 
 
