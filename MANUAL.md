@@ -194,6 +194,7 @@ go tsid
 git pull
 cd build
 make
+make install
 ```
 go inria_wbc
 ```
@@ -201,6 +202,7 @@ git pull
 cd build
 cmake .. -DCMAKE_PREFIX_PATH=/home/pal/install -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/home/pal/install
 make
+make install
 ```
 
 
