@@ -1,0 +1,13 @@
+# virtual frames
+v_torso_1:
+  ref: "torso_lift_link"
+  pos: [0.0, 0.0, -0.2]
+v_torso_2:
+  ref: "torso_lift_link"
+  pos: [0.0, 0.0, -0.4]
+v_head:
+  ref: "head_2_link"
+  pos: [0.04, 0.05, 0.0]
+v_head_test:
+  ref: "head_2_link"
+  pos: [0.0,0.0,-0.5]
