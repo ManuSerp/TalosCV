@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -yq curl wget jq vim
 # Use the above args 
 ARG CONDA_VER
 ARG OS_TYPE
-# Install miniconda to /miniconda
+# Install anaconda to /anaconda
 RUN curl -LO "https://repo.anaconda.com/archive/Anaconda3-2021.11-Linux-x86_64.sh"
 RUN bash Anaconda3-2021.11-Linux-x86_64.sh -p /anaconda -b
 RUN rm Anaconda3-2021.11-Linux-x86_64.sh

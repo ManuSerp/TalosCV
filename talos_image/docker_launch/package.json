@@ -1,0 +1,14 @@
+{
+  "name": "docker_launch",
+  "version": "1.0.0",
+  "description": "",
+  "main": "parse.js",
+  "scripts": {
+    "test": "node parse.js"
+  },
+  "author": "ManuS",
+  "license": "ISC",
+  "dependencies": {
+    "fs": "^0.0.1-security"
+  }
+}
