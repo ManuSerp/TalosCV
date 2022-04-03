@@ -1,0 +1,77 @@
+ee:
+    type: se3
+    tracked: gripper_link
+    weight: 500.0
+    kp: 50.0
+    mask: 111111
+posture:
+    type: posture
+    weight: 1.00
+    kp: 10.0
+    ref: start
+bounds:
+    type: bounds
+    weight: 10000
+sc-gripper:
+    type: self-collision
+    tracked: gripper_link
+    radius: 0.1
+    avoided: 
+        base_link: 0.330
+        torso_lift_link: 0.25
+        v_torso_1: 0.2
+        v_torso_2: 0.2
+        v_head: 0.15
+    weight: 1000
+    kp: 50.0
+    kd: 500.0
+    m: 0.2
+    margin: 0.02
+sc-wrist:
+    type: self-collision
+    tracked: arm_tool_link
+    radius: 0.1
+    avoided: 
+        base_link: 0.330
+        torso_lift_link: 0.25
+        v_torso_1: 0.2
+        v_torso_2: 0.2
+        v_field1: 0.2
+        v_field2: 0.2
+        v_field3: 0.2
+        v_field4: 0.2
+    weight: 1000
+    kp: 50.0
+    kd: 500.0
+    m: 0.2
+    margin: 0.02
+sc-forearm:
+    type: self-collision
+    tracked: arm_5_link
+    radius: 0.1
+    avoided: 
+        base_link: 0.330
+        torso_lift_link: 0.25
+        v_torso_1: 0.2
+        v_torso_2: 0.2
+        v_head: 0.15
+    weight: 1000
+    kp: 50.0
+    kd: 500.0
+    m: 0.2
+    margin: 0.02
+sc-elbow:
+    type: self-collision
+    tracked: arm_4_link
+    radius: 0.1
+    avoided: 
+        base_link: 0.330
+        torso_lift_link: 0.25
+        v_torso_1: 0.2
+        v_torso_2: 0.2
+        v_head: 0.15
+    weight: 1000
+    kp: 50.0
+    kd: 500.0
+    m: 0.2
+    margin: 0.02
