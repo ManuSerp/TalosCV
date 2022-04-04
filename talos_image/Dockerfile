@@ -26,9 +26,6 @@ RUN conda install -c anaconda -y python=${PY_VER}
 RUN conda install -c anaconda -y \
     pandas=${PANDAS_VER}
 
-
-
-
 #git
 RUN cd
 RUN apt update
@@ -38,3 +35,4 @@ RUN cd pysot
 RUN bash install.sh /anaconda pysot
 #pysot
 RUN python setup.py build_ext --inplace
+#ROS
