@@ -25,3 +25,5 @@ ARG PANDAS_VER
 RUN conda install -c anaconda -y python=${PY_VER}
 RUN conda install -c anaconda -y \
     pandas=${PANDAS_VER}
+
+RUN  conda install -c pytorch pytorch torchvision -y
