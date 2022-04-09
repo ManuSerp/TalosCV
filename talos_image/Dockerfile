@@ -26,18 +26,21 @@ RUN conda install -c anaconda -y python=${PY_VER}
 RUN conda install -c anaconda -y \
     pandas=${PANDAS_VER}
 
-
-RUN  conda install -y numpy
-RUN conda install -y pytorch=0.4.1 torchvision cuda90 -c pytorch
-RUN pip install pyyaml yacs tqdm colorama matplotlib cython tensorboardXRUN  conda install -c conda-forge opencv -y
-RUN pip install tensorboardX
-RUN pip install pyyaml yacs tqdm colorama matplotlib cython
-
 #git
-RUN cd
 RUN apt update
-RUN apt install git
-RUN git clone git://github.com/STVIR/pysot.git
-RUN cd pysot
+RUN apt-get install -y git
 #pysot
-RUN python setup.py build_ext --inplace
+RUN git clone https://github.com/STVIR/pysot.git
+RUN conda update conda --all
+RUN conda install numpy -y
+RUN conda install pytorch torchvision cuda90 -c pytorch -y
+RUN pip install opencv-python
+RUN pip install pyyaml yacs tqdm colorama matplotlib cython tensorboardX 
+RUN apt install build-essential -y
+RUN cd pysot && python setup.py build_ext --inplace 
+# RUN sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+
+# RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+
+# run sudo apt update
+# run sudo apt install ros-noetic-desktop
