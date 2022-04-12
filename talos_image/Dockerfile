@@ -49,6 +49,8 @@ RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main"
 RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add -
 RUN apt-get update
 ENV TZ=Europe/Berlin
+ENV TERM=xterm
+
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get install ros-melodic-desktop-full -y
