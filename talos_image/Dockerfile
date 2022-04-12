@@ -38,9 +38,34 @@ RUN pip install opencv-python
 RUN pip install pyyaml yacs tqdm colorama matplotlib cython tensorboardX 
 RUN apt install build-essential -y
 RUN cd pysot && python setup.py build_ext --inplace 
-# RUN sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 
-# RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
 
-# run sudo apt update
-# run sudo apt install ros-noetic-desktop
+
+#ROS
+RUN apt-get update
+RUN apt-get install lsb-release -y
+RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+
+RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add -
+RUN apt-get update
+ENV TZ=Europe/Berlin
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get install ros-melodic-desktop-full -y
+
+RUN echo "source /opt/ros/melodic/setup.bash" >> home/.bashrc
+RUN /bin/bash -c "source home/.bashrc"
+
+RUN apt-get install python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential -y
+RUN apt-get install python-rosdep -y
+RUN rosdep init
+RUN rosdep update
+RUN apt-get install ros-melodic-catkin python-catkin-tools -y
+
+# TalosCV
+RUN git clone https://github.com/ManuSerp/TalosCV.git
+RUN cd TalosCV/ROS/catkin_ws/ && catkin clean
+RUN touch README.md && echo "do: catkin clean, change: cmake req version to 3.10 in CMAKElist, then: catkin build" >> README.md
+
+
+
