@@ -10,8 +10,7 @@ import cv2
 import torch
 import numpy as np
 from glob import glob
-import importlib
-
+import sys
 from pysot.core.config import cfg
 from pysot.models.model_builder import ModelBuilder
 from pysot.tracker.tracker_builder import build_tracker
@@ -126,6 +125,8 @@ def track():
                  # fin angles
                 e = time.time()
                 print(e-s)
+                print('\n'.join(sys.path))
+                print(sys.executable)
                 cv2.imshow(video_name, frame)
                 cv2.waitKey(40)
                 cptt = 0

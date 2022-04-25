@@ -4,6 +4,18 @@ ee:
   weight: 500.0
   kp: 50.0
   mask: 111111
+head1:
+  type: se3
+  tracked: head_1_link
+  weight: 500.0
+  kp: 50.0
+  mask: 111111
+head2:
+  type: se3
+  tracked: head_2_link
+  weight: 500.0
+  kp: 50.0
+  mask: 111111
 posture:
   type: posture
   weight: 1.00
@@ -67,10 +79,15 @@ sc-elbow:
     v_torso_1: 0.2
     v_torso_2: 0.2
     v_head: 0.15
-    v_field1: 0.05
-    v_field2: 0.07
-    v_field3: 0.1
-    v_field4: 0.5
+    v_field1: 0.1
+    v_field2: 0.12
+    v_field3: 0.14
+    v_field4: 0.16
+    v_field5: 0.18
+    v_field6: 0.2
+    v_field7: 0.22
+    v_field8: 0.24
+    v_field9: 0.26
   weight: 1000
   kp: 50.0
   kd: 500.0
