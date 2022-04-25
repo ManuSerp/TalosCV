@@ -103,7 +103,7 @@ setup the terminal to interact with the docker:
 
 ##### Robot
 If using the robot in ethernet you have to update the etc/hosts
-and for the ip need to use the network of the robot, usualy the the robot is in the ****.****.1
+and for the ip need to use the network of the robot, usualy the the robot is in the 10.68.0.1
 
  Normalement un rostopic list en dehors du docker devrait lister les topics (si tout tourne dans le docker bien sûr).
 Now launch the xtion driver
