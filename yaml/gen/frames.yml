@@ -1,0 +1,70 @@
+# virtual frames
+v_torso_1: 
+	ref: "torso_lift_link"
+	pos: [0.0, 0.0, -0.2]
+v_torso_2: 
+	ref: "torso_lift_link"
+	pos: [0.0, 0.0, -0.4]
+v_head: 
+	ref: "head_2_link"
+	pos: [0.04, 0.05, 0.0]
+v_field1: 
+	ref: "head_2_link"
+	pos: [0.2, 0.0, 0.0]
+v_field2: 
+	ref: "head_2_link"
+	pos: [0.25, 0.0, 0.0]
+v_field3: 
+	ref: "head_2_link"
+	pos: [0.30000000000000004, 0.0, 0.0]
+v_field4: 
+	ref: "head_2_link"
+	pos: [0.35000000000000003, 0.0, 0.0]
+v_field5: 
+	ref: "head_2_link"
+	pos: [0.4, 0.0, 0.0]
+v_field6: 
+	ref: "head_2_link"
+	pos: [0.45, 0.0, 0.0]
+v_field7: 
+	ref: "head_2_link"
+	pos: [0.5, 0.0, 0.0]
+v_field8: 
+	ref: "head_2_link"
+	pos: [0.55, 0.0, 0.0]
+v_field9: 
+	ref: "head_2_link"
+	pos: [0.6000000000000001, 0.0, 0.0]
+v_field10: 
+	ref: "head_2_link"
+	pos: [0.65, 0.0, 0.0]
+v_field11: 
+	ref: "head_2_link"
+	pos: [0.7, 0.0, 0.0]
+v_field12: 
+	ref: "head_2_link"
+	pos: [0.75, 0.0, 0.0]
+v_field13: 
+	ref: "head_2_link"
+	pos: [0.8, 0.0, 0.0]
+v_field14: 
+	ref: "head_2_link"
+	pos: [0.8500000000000001, 0.0, 0.0]
+v_field15: 
+	ref: "head_2_link"
+	pos: [0.9000000000000001, 0.0, 0.0]
+v_field16: 
+	ref: "head_2_link"
+	pos: [0.95, 0.0, 0.0]
+v_field17: 
+	ref: "head_2_link"
+	pos: [1.0, 0.0, 0.0]
+v_field18: 
+	ref: "head_2_link"
+	pos: [1.05, 0.0, 0.0]
+v_field19: 
+	ref: "head_2_link"
+	pos: [1.1, 0.0, 0.0]
+v_field20: 
+	ref: "head_2_link"
+	pos: [1.1500000000000001, 0.0, 0.0]
