@@ -1,0 +1,32 @@
+sc-elbow:
+	type: self-collision
+	tracked: arm_4_link
+	radius: 0.1
+	avoided:
+		base_link: 0.330
+		torso_lift_link: 0.25
+		v_torso_1: 0.2
+		v_torso_2: 0.2
+		v_head: 0.15
+		v_field1: 0.10
+		v_field2: 0.12
+		v_field3: 0.14
+		v_field4: 0.16
+		v_field5: 0.18
+		v_field6: 0.20
+		v_field7: 0.22
+		v_field8: 0.24
+		v_field9: 0.26
+		v_field10: 0.28
+		v_field11: 0.30
+		v_field12: 0.32
+		v_field13: 0.34
+		v_field14: 0.36
+		v_field15: 0.38
+		v_field16: 0.40
+		v_field17: 0.42
+	weight: 1000
+	kp: 50.0
+	kd: 500.0
+	m: 0.2
+	margin: 0.02
