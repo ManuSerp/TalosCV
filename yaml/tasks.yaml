@@ -95,4 +95,4 @@ sc-elbow:
   kp: 50.0
   kd: 1500.0
   m: 0.2
-  margin: 0.2
+  margin: 0.05
