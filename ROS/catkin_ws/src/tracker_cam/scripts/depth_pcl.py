@@ -24,7 +24,7 @@ parser.add_argument('--setup', default="docker", type=str,
 args = parser.parse_args()
 
 
-def toGrid(l):
+def toGrid(l):  # convert the list of pixels to a grid (640x480 is the size of the image with the Xtion)
     res = [[0 for z in range(640)] for i in range(480)]
     x, y = 0, 0
     for p in l:
@@ -55,16 +55,18 @@ class image_converter:
             self.setup = "xtion"
 
         self.dist_sub = rospy.Subscriber(
-            "/"+self.setup+"/depth_registered/points", PointCloud2, self.maj_depthimage)
+            "/"+self.setup+"/depth_registered/points", PointCloud2, self.maj_depthimage)  # subscribe to the topic of the depth image
 
+        # subscribe to the topic of the center of the target
         self.tr_sub = rospy.Subscriber("/trcCenter", Pose, self.maj_center)
+        # publish the spatial position of the target
         self.pub = rospy.Publisher("clouded", Pose, queue_size=10)
 
-    def maj_center(self, data):
+    def maj_center(self, data):  # update the aim of the target
 
         self.aim = [int(data.position.x), int(data.position.y)]
 
-    def maj_depthimage(self, data):
+    def maj_depthimage(self, data):  # update the depth image
 
         try:
 
@@ -82,7 +84,7 @@ class image_converter:
         except CvBridgeError as e:
             print(e)
 
-    def master(self):
+    def master(self):  # the main function of the node
 
         if self.received == True and self.var and self.aim != None:
 
