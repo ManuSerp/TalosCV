@@ -17,8 +17,8 @@ from tiago_controller.srv import move
 
 
 parser = argparse.ArgumentParser(description='depth master node')
-parser.add_argument('--setup', default="docker", type=str,
-                    help='docker if you use a docker with openni2 driver else robot')
+parser.add_argument('--setup', default="robot", type=str,
+                    help='docker if you use a docker for the controller with openni2 driver else robot')
 
 parser.add_argument('--margin', default=0, type=float,
                     help='safety margin to avoid collisions during tests')

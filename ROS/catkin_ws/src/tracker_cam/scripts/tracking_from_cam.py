@@ -139,7 +139,7 @@ class image_converter:
 
                 self.pub.publish(test)
                 font = cv2.FONT_HERSHEY_SIMPLEX
-                cv2.putText(frame, str(angle[2]), (bbox[0], bbox[1]),  font, 1,    (0, 255, 0),
+                cv2.putText(frame, str(angle[2]), (bbox[0], bbox[1]-10),  font, 1,    (0, 255, 0),
                             2,
                             cv2.LINE_4)
 
