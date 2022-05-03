@@ -12,7 +12,7 @@ import rospy
 import sys
 import time
 from ast import Is
-from cam.coordKCC import spatialization, isMoving, realCoord
+from cam.coordKCC import realCoord
 from tiago_controller.srv import move
 
 

@@ -7,11 +7,10 @@ from __future__ import unicode_literals
 
 from __future__ import print_function
 
-from cam.coordKCC import angleCenter
+from cam.coordKCC import angleCenter, log
 from pysot.tracker.tracker_builder import build_tracker
 from pysot.models.model_builder import ModelBuilder
 from pysot.core.config import cfg
-import importlib
 from glob import glob
 import numpy as np
 import torch
@@ -122,6 +121,7 @@ class image_converter:
                 mask = mask.astype(np.uint8)
                 mask = np.stack([mask, mask*255, mask]).transpose(1, 2, 0)
                 frame = cv2.addWeighted(frame, 0.77, mask, 0.23, -1)
+                log("event 01", "log.txt")
             else:
                 bbox = list(map(int, outputs['bbox']))
 
