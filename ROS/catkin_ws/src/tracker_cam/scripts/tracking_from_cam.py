@@ -16,7 +16,6 @@ from glob import glob
 import numpy as np
 import torch
 import argparse
-import os
 from cv_bridge import CvBridge, CvBridgeError
 from sensor_msgs.msg import Image
 from geometry_msgs.msg import Pose
@@ -24,8 +23,6 @@ from std_msgs.msg import String
 import cv2
 import time
 import rospy
-import sys
-from tracker_cam.msg import center_Array
 
 import roslib
 roslib.load_manifest('tracker_cam')
@@ -38,8 +35,8 @@ parser.add_argument('--config', type=str, help='config file')
 parser.add_argument('--snapshot', type=str, help='model name')
 parser.add_argument('--video_name', default='', type=str,
                     help='videos or image files')
-parser.add_argument('--setup', default="docker", type=str,
-                    help='docker if you use a dcoker with openni2 driver else robot')
+parser.add_argument('--setup', default="robot", type=str,
+                    help='docker if you use a docker for the controller with openni2 driver else robot')
 args = parser.parse_args()
 
 
@@ -68,7 +65,7 @@ class image_converter:
         # ROS config
         if args.setup == "docker":
             self.setup = "camera"
-        elif args.setup == "robot":
+        elif args.setup == "robot":  # /!\ ici on utilise la camera du robot, qui est une xtion par défaut
             self.setup = "xtion"
 
         print("setup: "+self.setup)
@@ -76,7 +73,6 @@ class image_converter:
         self.run = 0
         self.first_frame = True
         self.bridge = CvBridge()
-        # /xtion/rgb/image_raw pr robot camera pr gazebo
         self.image_sub = rospy.Subscriber(
             "/"+self.setup+"/rgb/image_raw", Image, self.callback)
         self.pub = rospy.Publisher("trcCenter", Pose, queue_size=10)
@@ -133,7 +129,7 @@ class image_converter:
                               (bbox[0]+bbox[2], bbox[1]+bbox[3]),
                               (0, 255, 0), 3)
 
-                # affichage des angles
+                # publication of tracked pixels
                 angle = angleCenter(bbox)
                 print(angle[2])
 
@@ -143,11 +139,11 @@ class image_converter:
 
                 self.pub.publish(test)
                 font = cv2.FONT_HERSHEY_SIMPLEX
-                cv2.putText(frame, 'HZ:' + str(int(angle[0]))+'deg VT:'+str(int(angle[1]))+'deg', (10, 40),  font, 1,    (0, 255, 0),
+                cv2.putText(frame, str(angle[2]), (bbox[0], bbox[1]),  font, 1,    (0, 255, 0),
                             2,
                             cv2.LINE_4)
 
-                # fin angles
+                # end of publication of tracked pixels
             e = time.time()
             print(e-s)
             cv2.imshow('xtion_feed', frame)
@@ -159,6 +155,7 @@ def main(args):
     ic = image_converter()
     rospy.init_node('image_tracker', anonymous=True)
 
+    # 4hz because computing one frame on my old pc with the NN takes about 0.25s max
     rate = rospy.Rate(4)
     while not rospy.is_shutdown():
 
