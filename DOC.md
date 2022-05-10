@@ -32,3 +32,7 @@ L'idée est donc de placer des sphères virtuelles dans le champs de vision pour
 #### Sur la tentative de prevenir du champ de vision:
 
 Malheuresement cela s'avère plus compliqué que prévu, après avoir défini un cone de vision pour le robot le bras ne se comporte pas du tout comme prévu. En effet malgré la mise en place de cone d'occlusion le bras à du mal a l'éviter et en particulier a faire des mouvements d'évitement de roration du coude, ceci provient en partie du fait que le robot ne voit pas le futur, c'est a dire que il ne peut savoir que meme si sur le moment partir vers le bas ne lui apporte rien dans les instants suivant ca lui fera gagner du gradient. Et donc il ne le fait pas.
+
+diff : tracking objet qquelconque
+positioner robot dans l,espace
+controlleur cartesiens
