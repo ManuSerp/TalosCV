@@ -2,7 +2,7 @@
 from __future__ import print_function
 from cv_bridge import CvBridge, CvBridgeError
 from sensor_msgs.msg import Image, PointCloud2
-
+from cam.coordKCC import realCoord, log, isMoving
 import cv2
 import rospy
 import sys
@@ -33,6 +33,7 @@ class pos_selector:
         self.bridge = CvBridge()
         self.received1 = False
         self.received2 = False
+        self.head
 
         if args.setup == "docker":
             self.setup = "camera"
@@ -43,7 +44,8 @@ class pos_selector:
         self.sub1 = rospy.Subscriber("/clouded1", Pose, self.maj1)
         # subscribe to the topic of second camera
         self.sub2 = rospy.Subscriber("/clouded2", Pose, self.maj2)
-
+        self.pose_head = rospy.Subscriber(
+            "/tiago_controller/head_pose", Pose, self.get_head)
         # publish the choosed spatial position of the target
         self.pub = rospy.Publisher("clouded_final", Pose, queue_size=10)
 
@@ -55,17 +57,26 @@ class pos_selector:
         self.cam2 = data
         self.received2 = True
 
+    def get_head(self, data):
+        self.head = data
+
     def master(self):  # the main function of the node
 
-        if self.received == True and self.var and self.aim != None:
+        if self.received1 and self.received2:
+            head_p = [self.head.position.x,
+                      self.head.position.y, self.head.position.z]
+            spz1 = realCoord(self.cam1, head_p)
 
-            pcl = self.depth_image[self.aim[1]][self.aim[0]]
-            if not math.isnan(pcl[0]):
-                toTrans = Pose()
-                toTrans.position.x = pcl[2]
-                toTrans.position.y = -pcl[0]
-                toTrans.position.z = -pcl[1]
-                self.pub.publish(toTrans)
+            # la vas falloit la transfo de la cam2
+
+            # A changer -40deg H 0.666m tiago:28 par 33
+            spz2 = realCoord(self.cam2, head_p)
+
+            if isMoving(spz1, spz2, 0.05):
+                # publish the choosed spatial position of the target
+                self.pub.publish(spz2)
+            else:
+                self.pub.publish(spz1)
 
 
 def main():
