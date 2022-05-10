@@ -7,12 +7,13 @@ from cv_bridge import CvBridge, CvBridgeError
 from sensor_msgs.msg import Image
 from std_srvs.srv import Empty
 from geometry_msgs.msg import Pose
+from datetime import datetime
 import cv2
 import rospy
 import sys
 import time
 from ast import Is
-from cam.coordKCC import realCoord
+from cam.coordKCC import realCoord, log
 from tiago_controller.srv import move
 
 
@@ -158,6 +159,11 @@ class image_converter:
                     print("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\")
 
                 elif self.mode == 'traj':
+                    if abs(spz[0]-self.aim[0]) > 0.07:
+                        log("distance var " +
+                            str(datetime.now.strftime("%H:%M:%S")), "log.txt")
+                        self.safety = False
+
                     if self.safety:
                         print("referentiel du robot:")
                         print(spz)
@@ -179,7 +185,10 @@ class image_converter:
                     trk.orientation = self.orientation
 
                     self.aim = spz
-                    self.trc(spz, 0.25, False, True, "ee")
+                    if self.safety:
+
+                        self.trc(spz, 0.25, False, True, "ee")
+                    self.safety = True
 
             cv2.waitKey(3)
 
