@@ -73,7 +73,7 @@ class image_converter:
         self.pose_ee = rospy.Subscriber(
             "/tiago_controller/ee_pose", Pose, self.get_ee)
         self.pcl_sub = rospy.Subscriber(
-            "/clouded", Pose, self.get_pcl)
+            "/clouded_final", Pose, self.get_pcl)
         self.pub = rospy.Publisher(
             "/tiago_controller/ee_target", Pose, queue_size=10)
 

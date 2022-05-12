@@ -19,7 +19,7 @@ import roslib
 roslib.load_manifest('tracker_cam')
 
 parser = argparse.ArgumentParser(description='pcl_node')
-parser.add_argument('--setup', default="docker", type=str,
+parser.add_argument('--setup', default="xtion", type=str,
                     help='docker if you use a docker with openni2 driver else robot')
 args = parser.parse_args()
 
@@ -48,19 +48,16 @@ class image_converter:
         self.received = False
         self.var = True
         self.aim = None
-
-        if args.setup == "docker":
-            self.setup = "camera"
-        elif args.setup == "robot":
-            self.setup = "xtion"
+        self.setup = args.setup
 
         self.dist_sub = rospy.Subscriber(
             "/"+self.setup+"/depth_registered/points", PointCloud2, self.maj_depthimage)  # subscribe to the topic of the depth image
 
         # subscribe to the topic of the center of the target
-        self.tr_sub = rospy.Subscriber("/trcCenter", Pose, self.maj_center)
+        self.tr_sub = rospy.Subscriber(
+            "/trcCenter_"+self.setup, Pose, self.maj_center)
         # publish the spatial position of the target
-        self.pub = rospy.Publisher("clouded", Pose, queue_size=10)
+        self.pub = rospy.Publisher("clouded_"+self.setup, Pose, queue_size=10)
 
     def maj_center(self, data):  # update the aim of the target
 

@@ -41,9 +41,9 @@ class pos_selector:
             self.setup = "xtion"
 
         # subscribe to the topic of first camera
-        self.sub1 = rospy.Subscriber("/clouded1", Pose, self.maj1)
+        self.sub1 = rospy.Subscriber("/clouded_xtion", Pose, self.maj1)
         # subscribe to the topic of second camera
-        self.sub2 = rospy.Subscriber("/clouded2", Pose, self.maj2)
+        self.sub2 = rospy.Subscriber("/clouded_camera", Pose, self.maj2)
         self.pose_head = rospy.Subscriber(
             "/tiago_controller/head_pose", Pose, self.get_head)
         # publish the choosed spatial position of the target
