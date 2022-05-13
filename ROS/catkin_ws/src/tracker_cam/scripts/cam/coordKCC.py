@@ -1,4 +1,4 @@
-from math import tan
+from math import tan, cos, sin
 
 
 def center(bbox):
@@ -38,3 +38,7 @@ def log(msg, file):
     with open(file, 'a') as f:
         f.write(msg+'\n')
         f.close()
+
+
+def transfoAng(pos, angle):
+    return [pos[0]*cos(angle)+pos[1]*sin(angle), -pos[0]*sin(angle)+pos[1]*cos(angle)]

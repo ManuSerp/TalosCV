@@ -2,7 +2,7 @@
 from __future__ import print_function
 from cv_bridge import CvBridge, CvBridgeError
 from sensor_msgs.msg import Image, PointCloud2
-from cam.coordKCC import realCoord, log, isMoving
+from cam.coordKCC import realCoord, log, isMoving, transfoAngle
 import cv2
 import rospy
 import sys
@@ -70,13 +70,19 @@ class pos_selector:
             # la vas falloit la transfo de la cam2
 
             # A changer -40deg H 0.666m tiago:28 par 33
-            spz2 = realCoord(self.cam2, head_p)
+            #spz2 = realCoord(self.cam2, head_p)
+            spz2 = transfoAngle(self.cam2, -40)
 
             if isMoving(spz1, spz2, 0.05):
                 # publish the choosed spatial position of the target
                 self.pub.publish(spz2)
             else:
                 self.pub.publish(spz1)
+
+            print("----------------------------------------------------")
+            print("debug:")
+            print(spz1)
+            print(spz2)
 
 
 def main():
