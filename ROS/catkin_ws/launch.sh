@@ -17,7 +17,7 @@ then
     echo ' cmp for catkin # available as an option for the previous programs'
     echo ' to make depth works well, launch first depth printer and then tracking xtion'
     echo '--------------------------------------------------------------------------------'
-    
+    echo '8 - doublecam'
     
 fi
 
@@ -104,6 +104,20 @@ then
     fi
     echo 'pcl depth'
     rosrun tracker_cam depth_pcl.py --setup $2
+    
+    
+    
+fi
+if [ $1 =  8 ]
+then
+    if [ $3 = 'cmp' ]
+    then
+        
+        catkin build tracker_cam
+        
+    fi
+    echo 'doublecam'
+    rosrun tracker_cam doublecam.py --setup $2
     
     
     
