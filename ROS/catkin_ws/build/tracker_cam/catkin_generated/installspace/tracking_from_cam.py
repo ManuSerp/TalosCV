@@ -151,7 +151,7 @@ class image_converter:
 def main(args):
     print("version: "+args.setup)
     ic = image_converter()
-    rospy.init_node('image_tracker', anonymous=True)
+    rospy.init_node('image_tracker_'+args.setup, anonymous=True)
 
     # 4hz because computing one frame on my old pc with the NN takes about 0.25s max
     rate = rospy.Rate(4)

@@ -92,10 +92,18 @@ class image_converter:
                 toTrans.position.y = -pcl[0]
                 toTrans.position.z = -pcl[1]
                 self.pub.publish(toTrans)
+                print(toTrans)
+            else:
+                print("no depth")
+                print(pcl)
+        else:
+            print("wait")
+            print(self.received)
+            print("/"+self.setup+"/depth_registered/points")
 
 
 def main():
-    rospy.init_node('depth_printer_ws', anonymous=True)
+    rospy.init_node('depth_printer_'+args.setup, anonymous=True)
     print("version: "+args.setup)
 
     ic = image_converter()
