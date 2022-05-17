@@ -5,7 +5,10 @@
 
 ### Installation
 #### Requirements
-// to fill up //
+Pysot
+Ros
+Opencv
+Pytorch
 
 #### Pysot
 First follow [Pysot](https://github.com/STVIR/pysot/blob/master/INSTALL.md) install instruction to configure the python environnement in order to run SiamNN
