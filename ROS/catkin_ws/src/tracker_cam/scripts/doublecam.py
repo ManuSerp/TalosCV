@@ -79,7 +79,8 @@ class pos_selector:
             #spz2 = realCoord(self.cam2, head_p)
             cam2 = [self.cam2.position.x,
                     self.cam2.position.y, self.cam2.position.z]
-            spz2 = transfoAng(cam2, 40*math.pi/180)
+            spz2 = transfoAng(cam2, 40*math.pi/180,
+                              [-0.1342, -0.025545015, 1.53678])
 
             print("----------------------------------------------------")
             print("debug:")

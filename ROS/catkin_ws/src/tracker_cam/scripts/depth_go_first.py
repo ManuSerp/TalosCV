@@ -18,7 +18,7 @@ from tiago_controller.srv import move
 
 
 parser = argparse.ArgumentParser(description='depth master node')
-parser.add_argument('--setup', default="robot", type=str,
+parser.add_argument('--setup', default="xtion", type=str,
                     help='docker if you use a docker for the controller with openni2 driver else robot')
 
 parser.add_argument('--margin', default=0, type=float,
@@ -54,18 +54,15 @@ class image_converter:
         self.pcl = None
         self.head = None
         self.go = False
-        if args.setup == "docker":
-            self.setup = "camera"
-        elif args.setup == "robot":
-            self.setup = "xtion"
-
+        self.setup = args.setup
         self.margin = args.margin
         self.safety = True
 
         print("safety margin: "+str(self.margin))
 
         self.bridge = CvBridge()
-        self.center = rospy.Subscriber("/trcCenter", Pose, self.maj_center)
+        self.center = rospy.Subscriber(
+            "/trcCenter_"+args.setup, Pose, self.maj_center)
         self.dist_sub = rospy.Subscriber(
             "/"+self.setup+"/depth/image", Image, self.maj_depthimage)
         self.pose_head = rospy.Subscriber(
