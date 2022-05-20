@@ -3,6 +3,7 @@ from __future__ import print_function
 from cv_bridge import CvBridge, CvBridgeError
 from sensor_msgs.msg import Image, PointCloud2
 from cam.coordKCC import log
+from image_geometry import projectPixelTo3dRay
 
 import cv2
 import rospy
