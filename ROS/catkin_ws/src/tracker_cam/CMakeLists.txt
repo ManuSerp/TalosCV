@@ -247,6 +247,9 @@ catkin_install_python(PROGRAMS scripts/depth_pcl.py
 catkin_install_python(PROGRAMS scripts/doublecam.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
+catkin_install_python(PROGRAMS scripts/rs_depth_pcl.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
 
 
 

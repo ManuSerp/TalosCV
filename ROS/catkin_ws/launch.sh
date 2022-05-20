@@ -122,6 +122,20 @@ then
     
     
 fi
+if [ $1 =  9 ]
+then
+    if [ $3 = 'cmp' ]
+    then
+        
+        catkin build tracker_cam
+        
+    fi
+    echo 'rs pcl depth'
+    rosrun tracker_cam rs_depth_pcl.py --setup $2
+    
+    
+    
+fi
 
 
 
