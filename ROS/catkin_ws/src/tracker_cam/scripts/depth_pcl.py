@@ -2,6 +2,7 @@
 from __future__ import print_function
 from cv_bridge import CvBridge, CvBridgeError
 from sensor_msgs.msg import Image, PointCloud2
+from cam.coordKCC import log
 
 import cv2
 import rospy
@@ -24,8 +25,10 @@ parser.add_argument('--setup', default="xtion", type=str,
 args = parser.parse_args()
 
 
-def toGrid(l):  # convert the list of pixels to a grid (640x480 is the size of the image with the Xtion)
-    res = [[0 for z in range(640)] for i in range(480)]
+def toGrid(l, p1=640, p2=480):  # convert the list of pixels to a grid (640x480 is the size of the image with the Xtion) realsense 1280,720
+    log(str(len(l)), "log_depth.txt")
+
+    res = [[0 for z in range(p1)] for i in range(p2)]
     x, y = 0, 0
     for p in l:
 
@@ -50,9 +53,13 @@ class image_converter:
         self.aim = None
         self.setup = args.setup
 
-        self.dist_sub = rospy.Subscriber(
-            "/"+self.setup+"/depth_registered/points", PointCloud2, self.maj_depthimage)  # subscribe to the topic of the depth image
+        if args.setup == "xtion":
 
+            self.dist_sub = rospy.Subscriber(
+                "/"+self.setup+"/depth_registered/points", PointCloud2, self.maj_depthimage)  # subscribe to the topic of the depth image
+        else:
+            self.dist_sub = rospy.Subscriber(
+                "/"+self.setup+"/depth/color/points", PointCloud2, self.maj_depthimage)
         # subscribe to the topic of the center of the target
         self.tr_sub = rospy.Subscriber(
             "/trcCenter_"+self.setup, Pose, self.maj_center)
@@ -73,9 +80,14 @@ class image_converter:
             l = []
             for p in arr:
                 l.append(p)
+            if args.setup == "camera":
+                res = toGrid(l, 1280, 720)
 
-            res = toGrid(l)
+            else:
+
+                res = toGrid(l)
             self.depth_image = res
+
             self.received = True
 
         except CvBridgeError as e:
