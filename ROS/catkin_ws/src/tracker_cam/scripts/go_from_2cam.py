@@ -153,6 +153,7 @@ class image_converter:
                     if self.safety:
 
                         self.trc(spz, 0.25, False, True, "ee")
+
                     self.safety = True
 
             cv2.waitKey(3)

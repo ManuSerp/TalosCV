@@ -104,14 +104,16 @@ class image_converter:
     def master(self):  # the main function of the node
 
         if self.received == True and self.var and self.aim != None:
-            # indice = locate_indice([0, 0], self.pixl)
-            # pcl = self.depth_image[indice]
-            # print(self.pixl[indice])
-            # print(self.aim)
-            # print(pcl)
+            x_transfo = (1280-self.aim[0])/860.6
+            y_transfo = (720-self.aim[1])/471.7
+            indice = locate_indice([x_transfo, y_transfo], self.pixl)
+            pcl = self.depth_image[indice]
+            print(self.pixl[indice])
+            print([x_transfo, y_transfo])
+            print(pcl)
 
             # vas de angle bas droite a haut gauche mid a 430.3 235.85 etallonage pixers a faire
-            print(self.rs_model.project3dToPixel([0.5, -0.2, 1]))
+            #print(self.rs_model.project3dToPixel([0.5, -0.2, 1]))
 
             # if not math.isnan(pcl[0]):
             #     toTrans = Pose()
