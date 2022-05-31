@@ -16,6 +16,7 @@ then
     echo ' to make depth works well, launch first depth printer and then tracking xtion'
     echo '--------------------------------------------------------------------------------'
     echo '8 - doublecam'
+    echo '10 - order robot 2 cam'
     
 fi
 
