@@ -10,8 +10,6 @@ then
     echo 'ROS TRACKING SCRIPT LAUNCHER'
     echo '1 - Tracking webcam'
     echo '3 - Tracking xtion, use robot or docker as paramater'
-    echo '4 - A RETIRER'
-    echo '5 - depth webcam without servo'
     echo '6 - tracking for the robot, use robot or docker as paramater'
     echo '7 - depth from pcl, use robot or docker as paramater'
     echo ' cmp for catkin # available as an option for the previous programs'
@@ -53,33 +51,7 @@ then
     
 fi
 
-if [ $1 =  4 ]
-then
-    if [ $2 = 'cmp' ]
-    then
-        
-        catkin build tracker_cam
-        
-    fi
-    echo 'launching distance_printer with servo'
-    rosrun tracker_cam distance_printer.py
-    
-    
-    
-fi
-if [ $1 =  5 ]
-then
-    if [ $2 = 'cmp' ]
-    then
-        
-        catkin build tracker_cam
-        
-    fi
-    echo 'depth printer without robot  movements'
-    rosrun tracker_cam distance_printer_wservo.py
-    
-    
-fi
+
 if [ $1 =  6 ]
 then
     if [ $3 = 'cmp' ]
@@ -132,6 +104,20 @@ then
     fi
     echo 'rs pcl depth'
     rosrun tracker_cam rs_depth_pcl.py --setup $2
+    
+    
+    
+fi
+if [ $1 =  10 ]
+then
+    if [ $3 = 'cmp' ]
+    then
+        
+        catkin build tracker_cam
+        
+    fi
+    echo 'rs pcl depth'
+    rosrun tracker_cam go_from_2cam.py --setup $2
     
     
     
