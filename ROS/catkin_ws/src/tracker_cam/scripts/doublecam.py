@@ -78,7 +78,7 @@ class pos_selector:
             cam2 = [self.cam2.position.x,
                     self.cam2.position.y, self.cam2.position.z]
             spz2 = transfoAng(cam2, 40*math.pi/180,
-                              [-0.1342, -0.025545015, 1.53678])
+                              [-0.132, -0.05, head_p[2]+0.55])
 
             print("----------------------------------------------------")
             print("debug:")
@@ -88,19 +88,19 @@ class pos_selector:
             if isMoving(spz1, spz2, 0.05):
                 # publish the choosed spatial position of the target
                 p_spz2 = Pose()
-                p_spz2.position.x = spz2[0]
+                p_spz2.position.x = spz2[0]-0.1
                 p_spz2.position.y = spz2[1]
-                p_spz2.position.z = spz2[2]
+                p_spz2.position.z = spz2[2]-0.05
                 print(2)
 
                 self.pub.publish(p_spz2)
             else:
                 p_spz1 = Pose()
-                p_spz1.position.x = spz1[0]
+                p_spz1.position.x = spz1[0]-0.1
                 p_spz1.position.y = spz1[1]
-                p_spz1.position.z = spz1[2]
+                p_spz1.position.z = spz1[2]-0.05
                 print(1)
-                self.pub.publish(spz1)
+                self.pub.publish(p_spz1)
 
         else:
             print("waiting for data...")

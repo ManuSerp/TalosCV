@@ -124,10 +124,6 @@ class image_converter:
                     print("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\")
 
                 elif self.mode == 'traj':
-                    if abs(spz[0]-self.aim[0]) > 0.07:
-                        log("distance var " +
-                            str(datetime.now.strftime("%H:%M:%S")), "log.txt")
-                        self.safety = False
 
                     if self.safety:
                         print("referentiel du robot:")

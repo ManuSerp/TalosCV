@@ -59,7 +59,7 @@ class image_converter:
                 "/"+self.setup+"/depth_registered/points", PointCloud2, self.maj_depthimage)  # subscribe to the topic of the depth image
         else:
             self.dist_sub = rospy.Subscriber(
-                "/"+self.setup+"/depth/color/points", PointCloud2, self.maj_depthimage)
+                "/"+self.setup+"/depth_registered/points", PointCloud2, self.maj_depthimage)
         # subscribe to the topic of the center of the target
         self.tr_sub = rospy.Subscriber(
             "/trcCenter_"+self.setup, Pose, self.maj_center)

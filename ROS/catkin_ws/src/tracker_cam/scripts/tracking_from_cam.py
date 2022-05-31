@@ -74,7 +74,7 @@ class image_converter:
                 "/"+self.setup+"/rgb/image_raw", Image, self.callback)
         else:
             self.image_sub = rospy.Subscriber(
-                "/"+self.setup+"/color/image_raw", Image, self.callback)
+                "/"+self.setup+"/rgb/image_raw", Image, self.callback)
         self.pub = rospy.Publisher(
             "trcCenter_"+self.setup, Pose, queue_size=10)
         self.cpt = 0
