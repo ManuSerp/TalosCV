@@ -244,6 +244,15 @@ catkin_install_python(PROGRAMS scripts/depth_go_first.py
 catkin_install_python(PROGRAMS scripts/depth_pcl.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
+catkin_install_python(PROGRAMS scripts/doublecam.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+catkin_install_python(PROGRAMS scripts/rs_depth_pcl.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+catkin_install_python(PROGRAMS scripts/go_from_2cam.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
 
 
 

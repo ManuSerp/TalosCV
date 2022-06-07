@@ -18,7 +18,7 @@ from tiago_controller.srv import move
 
 
 parser = argparse.ArgumentParser(description='depth master node')
-parser.add_argument('--setup', default="robot", type=str,
+parser.add_argument('--setup', default="xtion", type=str,
                     help='docker if you use a docker for the controller with openni2 driver else robot')
 
 parser.add_argument('--margin', default=0, type=float,
@@ -54,26 +54,17 @@ class image_converter:
         self.pcl = None
         self.head = None
         self.go = False
-        if args.setup == "docker":
-            self.setup = "camera"
-        elif args.setup == "robot":
-            self.setup = "xtion"
-
+        self.setup = args.setup
         self.margin = args.margin
         self.safety = True
 
         print("safety margin: "+str(self.margin))
 
-        self.bridge = CvBridge()
-        self.center = rospy.Subscriber("/trcCenter", Pose, self.maj_center)
-        self.dist_sub = rospy.Subscriber(
-            "/"+self.setup+"/depth/image", Image, self.maj_depthimage)
-        self.pose_head = rospy.Subscriber(
-            "/tiago_controller/head_pose", Pose, self.get_head)
+        #self.bridge = CvBridge()
         self.pose_ee = rospy.Subscriber(
             "/tiago_controller/ee_pose", Pose, self.get_ee)
         self.pcl_sub = rospy.Subscriber(
-            "/clouded_final", Pose, self.get_pcl)
+            "/clouded_"+args.setup, Pose, self.get_pcl)
         self.pub = rospy.Publisher(
             "/tiago_controller/ee_target", Pose, queue_size=10)
 
@@ -93,36 +84,11 @@ class image_converter:
         self.ee_pose = [data.position.x, data.position.y, data.position.z]
         self.ee_ori = data.orientation
 
-    def maj_depthimage(self, data):
-
-        try:
-
-            self.depth_image = self.bridge.imgmsg_to_cv2(
-                data)  # inspect the matrix
-            # print(depth_image)
-            self.first = True
-
-        except CvBridgeError as e:
-            print(e)
-
-    def maj_center(self, data):
-        self.centerPT = [int(data.position.x), int(data.position.y)]
-
-    def get_head(self, data):
-        self.head = data
-
     def master(self):
 
-        if self.centerPT != None and self.first and self.head != None and self.ee_pose != None and self.pcl != None:
+        if self.ee_pose != None and self.pcl != None:
 
-            #cv2.imshow("Image window", self.depth_image)
-
-            #dst = self.depth_image[self.centerPT[1]][self.centerPT[0]]
-            head_p = [self.head.position.x,
-                      self.head.position.y, self.head.position.z]
-            #spz = spatialization(self.centerPT, dst)
-
-            spz = realCoord(self.pcl, head_p)
+            spz = self.pcl
 
             if math.isnan(spz[0]):
                 print("NAN ERROR")
@@ -135,7 +101,6 @@ class image_converter:
 
                 print("TRAJECTORY INIT")
                 print(self.pcl)
-                print(head_p)
 
                 print("referentiel robot:")
                 print(spz)
@@ -163,6 +128,7 @@ class image_converter:
                         log("distance var " +
                             str(datetime.now.strftime("%H:%M:%S")), "log.txt")
                         self.safety = False
+                        print("safety, too far")
 
                     if self.safety:
                         print("referentiel du robot:")
@@ -188,6 +154,7 @@ class image_converter:
                     if self.safety:
 
                         self.trc(spz, 0.25, False, True, "ee")
+
                     self.safety = True
 
             cv2.waitKey(3)

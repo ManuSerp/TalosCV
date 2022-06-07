@@ -18,7 +18,7 @@ from tiago_controller.srv import move
 
 
 parser = argparse.ArgumentParser(description='depth master node')
-parser.add_argument('--setup', default="robot", type=str,
+parser.add_argument('--setup', default="xtion", type=str,
                     help='docker if you use a docker for the controller with openni2 driver else robot')
 
 parser.add_argument('--margin', default=0, type=float,
@@ -54,18 +54,15 @@ class image_converter:
         self.pcl = None
         self.head = None
         self.go = False
-        if args.setup == "docker":
-            self.setup = "camera"
-        elif args.setup == "robot":
-            self.setup = "xtion"
-
+        self.setup = args.setup
         self.margin = args.margin
         self.safety = True
 
         print("safety margin: "+str(self.margin))
 
         self.bridge = CvBridge()
-        self.center = rospy.Subscriber("/trcCenter", Pose, self.maj_center)
+        self.center = rospy.Subscriber(
+            "/trcCenter_"+args.setup, Pose, self.maj_center)
         self.dist_sub = rospy.Subscriber(
             "/"+self.setup+"/depth/image", Image, self.maj_depthimage)
         self.pose_head = rospy.Subscriber(
@@ -73,7 +70,7 @@ class image_converter:
         self.pose_ee = rospy.Subscriber(
             "/tiago_controller/ee_pose", Pose, self.get_ee)
         self.pcl_sub = rospy.Subscriber(
-            "/clouded", Pose, self.get_pcl)
+            "/clouded_xtion", Pose, self.get_pcl)
         self.pub = rospy.Publisher(
             "/tiago_controller/ee_target", Pose, queue_size=10)
 
@@ -146,10 +143,13 @@ class image_converter:
 
                 self.aim = spz
                 print("move to track pos")
-                self.trc(spz, 5, False, True, "ee")
+                #self.trc(spz, 5, False, True, "ee")
                 time.sleep(5)
-
-            if self.go and not math.isnan(spz[0]):
+            print("DATA")
+            print(spz)
+            print(head_p)
+            print(self.ee_pose)
+            if self.go and not math.isnan(spz[0]) and False:
                 if not self.reach:
                     self.reach = True
                     # self.track_mode()

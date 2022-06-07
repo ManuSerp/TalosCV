@@ -34,7 +34,7 @@ parser.add_argument('--config', type=str, help='config file')
 parser.add_argument('--snapshot', type=str, help='model name')
 parser.add_argument('--video_name', default='', type=str,
                     help='videos or image files')
-parser.add_argument('--setup', default="robot", type=str,
+parser.add_argument('--setup', default="xtion", type=str,
                     help='docker if you use a docker for the controller with openni2 driver else robot')
 args = parser.parse_args()
 
@@ -62,19 +62,21 @@ class image_converter:
         print("build tracker")
         self.tracker = build_tracker(self.model)
         # ROS config
-        if args.setup == "docker":
-            self.setup = "camera"
-        elif args.setup == "robot":  # /!\ ici on utilise la camera du robot, qui est une xtion par défaut
-            self.setup = "xtion"
+        self.setup = args.setup
 
         print("setup: "+self.setup)
 
         self.run = 0
         self.first_frame = True
         self.bridge = CvBridge()
-        self.image_sub = rospy.Subscriber(
-            "/"+self.setup+"/rgb/image_raw", Image, self.callback)
-        self.pub = rospy.Publisher("trcCenter", Pose, queue_size=10)
+        if self.setup == "xtion":
+            self.image_sub = rospy.Subscriber(
+                "/"+self.setup+"/rgb/image_raw", Image, self.callback)
+        else:
+            self.image_sub = rospy.Subscriber(
+                "/"+self.setup+"/rgb/image_raw", Image, self.callback)
+        self.pub = rospy.Publisher(
+            "trcCenter_"+self.setup, Pose, queue_size=10)
         self.cpt = 0
         self.flt = 4
 
@@ -153,7 +155,7 @@ class image_converter:
 def main(args):
     print("version: "+args.setup)
     ic = image_converter()
-    rospy.init_node('image_tracker', anonymous=True)
+    rospy.init_node('image_tracker_'+args.setup, anonymous=True)
 
     # 4hz because computing one frame on my old pc with the NN takes about 0.25s max
     rate = rospy.Rate(4)

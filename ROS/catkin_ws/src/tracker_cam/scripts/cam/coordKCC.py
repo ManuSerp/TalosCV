@@ -1,4 +1,4 @@
-from math import tan
+from math import tan, cos, sin
 
 
 def center(bbox):
@@ -31,10 +31,14 @@ def isMoving(avt, mtn, floor=0.03):
 
 
 def realCoord(cam, head):  # without head orientation for the moment
-    return [cam[0]+head[0], cam[1]+head[1], cam[2]+head[2]]
+    return [cam[0]+head[0]+0.095, cam[1]+head[1], cam[2]+head[2]]
 
 
 def log(msg, file):
     with open(file, 'a') as f:
         f.write(msg+'\n')
         f.close()
+
+
+def transfoAng(pos, angle, const=[0, 0, 0]):
+    return realCoord([pos[0]*cos(angle)+pos[2]*sin(angle), pos[1], -pos[0]*sin(angle)+pos[2]*cos(angle)], const)

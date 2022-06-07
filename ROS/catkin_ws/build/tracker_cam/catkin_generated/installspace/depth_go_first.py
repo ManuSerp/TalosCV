@@ -7,18 +7,19 @@ from cv_bridge import CvBridge, CvBridgeError
 from sensor_msgs.msg import Image
 from std_srvs.srv import Empty
 from geometry_msgs.msg import Pose
+from datetime import datetime
 import cv2
 import rospy
 import sys
 import time
 from ast import Is
-from cam.coordKCC import spatialization, isMoving, realCoord
+from cam.coordKCC import realCoord, log
 from tiago_controller.srv import move
 
 
 parser = argparse.ArgumentParser(description='depth master node')
-parser.add_argument('--setup', default="docker", type=str,
-                    help='docker if you use a docker with openni2 driver else robot')
+parser.add_argument('--setup', default="robot", type=str,
+                    help='docker if you use a docker for the controller with openni2 driver else robot')
 
 parser.add_argument('--margin', default=0, type=float,
                     help='safety margin to avoid collisions during tests')
@@ -72,7 +73,7 @@ class image_converter:
         self.pose_ee = rospy.Subscriber(
             "/tiago_controller/ee_pose", Pose, self.get_ee)
         self.pcl_sub = rospy.Subscriber(
-            "/clouded", Pose, self.get_pcl)
+            "/clouded_final", Pose, self.get_pcl)
         self.pub = rospy.Publisher(
             "/tiago_controller/ee_target", Pose, queue_size=10)
 
@@ -158,6 +159,11 @@ class image_converter:
                     print("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\")
 
                 elif self.mode == 'traj':
+                    if abs(spz[0]-self.aim[0]) > 0.07:
+                        log("distance var " +
+                            str(datetime.now.strftime("%H:%M:%S")), "log.txt")
+                        self.safety = False
+
                     if self.safety:
                         print("referentiel du robot:")
                         print(spz)
@@ -179,7 +185,10 @@ class image_converter:
                     trk.orientation = self.orientation
 
                     self.aim = spz
-                    self.trc(spz, 0.25, False, True, "ee")
+                    if self.safety:
+
+                        self.trc(spz, 0.25, False, True, "ee")
+                    self.safety = True
 
             cv2.waitKey(3)
 
