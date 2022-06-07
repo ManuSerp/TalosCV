@@ -8,15 +8,17 @@ if [ $1 = 'man' ]
 then
     
     echo 'ROS TRACKING SCRIPT LAUNCHER'
-    echo '1 - Tracking webcam'
-    echo '3 - Tracking xtion, use robot or docker as paramater'
-    echo '6 - tracking for the robot, use robot or docker as paramater'
-    echo '7 - depth from pcl, use robot or docker as paramater'
+    echo '1 - Tracking from webcam'
+    echo '3 - Launch the tracker for a specified camera, use the name of the camera as paramater, such as xtion or camera'
+    echo '6 - command for the robot, this node order the robot to move, use xtion in case of one camera as paramater, else use final'
+    echo '7 - depth from pcl, convert tracked pixels to spatial position, use the name of the camera as paramater, such as xtion or camera'
+    echo '8 - doublecam, this node choice betwen two cameras and send them to the controler, use final as parameter'
+    echo '10 - order robot 2 cam, in case of two cameras, use final as parameter'
     echo ' cmp for catkin # available as an option for the previous programs'
     echo ' to make depth works well, launch first depth printer and then tracking xtion'
+    echo 'exemple: ./launch.sh 3 xtion'
     echo '--------------------------------------------------------------------------------'
-    echo '8 - doublecam'
-    echo '10 - order robot 2 cam'
+    
     
 fi
 

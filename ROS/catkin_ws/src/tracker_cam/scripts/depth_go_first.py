@@ -70,7 +70,7 @@ class image_converter:
         self.pose_ee = rospy.Subscriber(
             "/tiago_controller/ee_pose", Pose, self.get_ee)
         self.pcl_sub = rospy.Subscriber(
-            "/clouded_final", Pose, self.get_pcl)
+            "/clouded_xtion", Pose, self.get_pcl)
         self.pub = rospy.Publisher(
             "/tiago_controller/ee_target", Pose, queue_size=10)
 
@@ -143,10 +143,13 @@ class image_converter:
 
                 self.aim = spz
                 print("move to track pos")
-                self.trc(spz, 5, False, True, "ee")
+                #self.trc(spz, 5, False, True, "ee")
                 time.sleep(5)
-
-            if self.go and not math.isnan(spz[0]):
+            print("DATA")
+            print(spz)
+            print(head_p)
+            print(self.ee_pose)
+            if self.go and not math.isnan(spz[0]) and False:
                 if not self.reach:
                     self.reach = True
                     # self.track_mode()

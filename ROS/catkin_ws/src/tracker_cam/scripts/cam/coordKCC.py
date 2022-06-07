@@ -31,7 +31,7 @@ def isMoving(avt, mtn, floor=0.03):
 
 
 def realCoord(cam, head):  # without head orientation for the moment
-    return [cam[0]+head[0], cam[1]+head[1], cam[2]+head[2]]
+    return [cam[0]+head[0]+0.095, cam[1]+head[1], cam[2]+head[2]]
 
 
 def log(msg, file):
