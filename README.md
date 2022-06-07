@@ -8,6 +8,7 @@ I aim to track objects and interact with the objects through the robots.
 ---
 
 The manual for the project is available [here](MANUAL.md)
+\\
 The rapport that explain the project is available [here](rapport.pdf)
 
 ---
